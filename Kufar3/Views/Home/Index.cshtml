@@ -12,11 +12,11 @@
             @{
                 string path = declaration.Images.FirstOrDefault()?.Name;
                 //string url = "/Home/Declaration/?declarationId=" + declaration.Id;
-                string url1 = Url.Action("Declaration", "Home", new{declarationId = declaration.Id});
+                string url = Url.Action("Declaration", "Home", new{declarationId = declaration.Id});
             }
 
             <div id="img">
-                <a href="@url1"><img src="@path" alt="No img"/></a>
+                <a href="@url"><img src="@path" alt="No img"/></a>
             </div>
             <div id="desc">
                 <h3>
