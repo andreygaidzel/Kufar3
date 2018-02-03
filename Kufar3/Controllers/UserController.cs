@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Kufar3.Controllers
 {
+    // TODO: АТРИБУТ АВТОРИЗАЦИИ
     public class UserController : Controller
     {
         // GET: User
