@@ -21,9 +21,6 @@ namespace Kufar3.Controllers
 
             List<Category> categories = _context.Categories.ToList();
             ViewBag.categories = categories;
-            //List<Region> regions = _context.Regions.ToList();
-            //ViewBag.regions = regions;
-
         }
 
         [HttpGet]
@@ -41,18 +38,15 @@ namespace Kufar3.Controllers
             ViewBag.cities = cities;
 
             return View();
-
         }
 
         public ActionResult GetItems(int id)
         {
-            //var temp = _context.SubCategories.Where(c => c.CategoryId == id).ToList();
             return PartialView(_context.SubCategories.Where(c => c.CategoryId == id).ToList());
         }
 
         public ActionResult GetCities(int id)
         {
-            //var temp = _context.Cities.Where(c => c.RegionId == id).ToList();
             return PartialView(_context.Cities.Where(c => c.RegionId == id).ToList());
         }
 
@@ -62,8 +56,7 @@ namespace Kufar3.Controllers
             string userId = HttpContext.User.Identity.GetUserId();
             int intId = Convert.ToInt32(userId);
 
-            // TODO: Нижний регистр
-            Declaration NewDeclaration = new Declaration
+            Declaration newDeclaration = new Declaration
             {
                 Name = declaration.Name,
                 Description = declaration.Description,
@@ -72,23 +65,20 @@ namespace Kufar3.Controllers
                 UserId = intId,
                 CreateTime = DateTime.Now,
                 CityId = declaration.CityId,
-        };
-            _context.Declarations.Add(NewDeclaration);
+            };
+            _context.Declarations.Add(newDeclaration);
             _context.SaveChanges();
 
-            // TODO: какой нахуй for?
-            // TODO: отступы
-            // TODO: string.IsNullOrEmpty()
-            for (int i = 0; i < declaration.Images.Count; i++)
+            foreach (string img in declaration.Images)
             {
-            if (declaration.Images[i] != null && declaration.Images[i] != "")
-            {
-                _context.Images.Add(new Image
+                if (!string.IsNullOrEmpty(img))
                 {
-                    Name = declaration.Images[i],
-                    DeclarationId = NewDeclaration.Id,
-                });
-            }
+                    _context.Images.Add(new Image
+                    {
+                        Name = img,
+                        DeclarationId = newDeclaration.Id,
+                    });
+                }
             }
             _context.SaveChanges();
 
