@@ -1,4 +1,7 @@
-﻿@using Microsoft.AspNet.Identity
+﻿
+//TODO: че это?
+@using Microsoft.AspNet.Identity
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +19,8 @@
     <div class="logo">
         @{
             var ident = HttpContext.Current.User.Identity;
-
+            
+            // TODO: ???
             string user = "Вход";
             string url1 = "Login";
             string url2 = "Account";
@@ -32,9 +36,7 @@
             url2 = "Declaration";
             @Html.ActionLink(user, "MyDeclorations", "User")
         }
-         
         
-
         @if (ident.IsAuthenticated)
         {
             @Html.ActionLink("Выход", "Logout", "Account")
