@@ -30,7 +30,6 @@ namespace Kufar3.Controllers
         [HttpGet]
         public ActionResult Index(int? idCategory, int? idSubCategory)
         {
-            // TODO: вместо "" использовать string.Empty
             string title = string.Empty;
             IQueryable<Declaration> query = _context.Declarations.Where(x => x.Moderation == true);
            
