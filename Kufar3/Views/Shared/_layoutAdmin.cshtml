@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>KufarAdmin</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link href="~/Content/SiteAdmin.css" rel="stylesheet" />
+   
+    <link href="~/Content/SiteDeclaration.css" rel="stylesheet"/>
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+        <b>@Html.ActionLink("KUFAR", "Index", "Home", null, new { @class = "kuf" }) </b>
+        <div id="topBlok">
+            Hello Admin, @HttpContext.Current.User.Identity.Name
+        </div>
+    </div>
+    <div id="content">
+        <div id="menu">
+            <ul>
+                <li>@Html.ActionLink("Главная", "Index", "Admin")</li>
+                <li>@Html.ActionLink("Юзики", "Users", "Admin")</li>
+                <li>@Html.ActionLink("Обьявления", "DeclarationList", "Moderator")</li>
+            </ul>
+        </div>
+
+        <div id="maincontent">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+<script src="~/MyScripts/UploadImages2.js"></script>
+</body>
+</html>

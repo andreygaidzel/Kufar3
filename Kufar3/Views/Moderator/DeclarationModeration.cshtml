@@ -1,0 +1,166 @@
+﻿@using Kufar3.Models
+@model Kufar3.Models.Declaration
+@{
+    ViewBag.Title = "DeclarationModeration";
+    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+
+    Declaration declaration = ViewBag.declaration;
+    
+    var categries = ViewBag.cats;
+    var subCategories = ViewBag.subCat;
+    var regions = ViewBag.regions;
+    var cities = ViewBag.cities;
+     
+}
+
+<h2>@declaration.Name</h2>
+
+<div id="allImg">
+
+    @*@for (int j = 0; j < 6; j++)
+    {
+        string iimg = "img" + j;
+        <div class="image" id=@iimg>
+            <button>X</button>
+            @if (@j < declaration.Images.Count)
+            {
+                <img src=@declaration.Images[j].Name>
+            }
+            else
+            {
+                <img/>
+            }
+        </div>
+    }
+</div>*@
+    <div class="image" id="img0">
+        <button>X</button>
+        <img />
+    </div>
+    <div class="image" id="img1">
+        <button>X</button>
+        <img/>
+    </div>
+    <div class="image" id="img2">
+        <button>X</button>
+        <img/>
+    </div>
+    <div class="image" id="img3">
+        <button>X</button>
+        <img/>
+    </div>
+    <div class="image" id="img4">
+        <button>X</button>
+        <img/>
+    </div>
+    <div class="image" id="img5">
+        <button>X</button>
+        <img/>
+    </div>
+</div>
+@*<button id="image-1">Button</button>*@
+
+<input hidden class="file-input-hidden" type="file" id="files" name="files" multiple/>
+
+
+@using (Html.BeginForm("DeclarationUpdate", "Moderator", FormMethod.Post))
+{
+
+    @Html.HiddenFor(x => x.Images[0].Name, new { id = "formId0" })
+    @Html.HiddenFor(x => x.Images[1].Name, new { id = "formId1" })
+    @Html.HiddenFor(x => x.Images[2].Name, new { id = "formId2" })
+    @Html.HiddenFor(x => x.Images[3].Name, new { id = "formId3" })
+    @Html.HiddenFor(x => x.Images[4].Name, new { id = "formId4" })
+    @Html.HiddenFor(x => x.Images[5].Name, new { id = "formId5" })
+
+    @Html.HiddenFor(x => x.Id)
+
+    <table>
+        <tr>
+            <td>
+                <p>Раздел:</p>
+            </td>
+            <td>@Html.DropDownList("Category", categries as SelectList, new {id = "Category"})</td>
+        </tr>
+        <tr>
+            <td>
+                <p>Подраздел:</p>
+            </td>
+            <td>@Html.DropDownListFor(x => x.SubCategoryId, subCategories as SelectList, new {id = "SubCategoryId" })</td>
+        </tr>
+        <tr>
+            <td>
+                <p>Область:</p>
+            </td>
+            <td>@Html.DropDownList("Region", regions as SelectList, new {id = "Region"})</td>
+        </tr>
+        <tr>
+            <td>
+                <p>Город:</p>
+            </td>
+            <td>@Html.DropDownListFor(x => x.CityId, cities as SelectList, new {id = "CityId" })</td>
+        </tr>
+        <tr>
+            <td>
+                <p>Название:</p>
+            </td>
+            <td>@Html.TextBoxFor(x => x.Name)</td>
+        </tr>
+        <tr>
+            <td>
+                <p>Описание:</p>
+            </td>
+            <td>@Html.TextAreaFor(x => x.Description, new {style = "height: 80px; width: 350px; font-size:12px;"})</td>
+        </tr>
+        <tr>
+        <tr>
+            <td>
+                <input type="submit" value="Отправить"/>
+            </td>
+        </tr>
+    </table>
+}
+
+@*</div>*@
+
+
+<script type="text/javascript">
+
+    $(function()
+    {
+        $('#Category').change(function()
+        {
+            // получаем выбранный id
+            var id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetItems")/' + id,
+                success: function(data)
+                {
+                    console.log("vernulll", data);
+                    // заменяем содержимое присланным частичным представлением
+                    $('#SubCategoryId').replaceWith(data);
+                }
+            });
+        });
+    });
+
+    $(function()
+    {
+        $('#Region').change(function()
+        {
+            // получаем выбранный id
+            var id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetCities")/' + id,
+                success: function(data)
+                {
+                    console.log("vernulllCity", data);
+                    // заменяем содержимое присланным частичным представлением
+                    $('#CityId').replaceWith(data);
+                }
+            });
+        });
+    });
+</script>

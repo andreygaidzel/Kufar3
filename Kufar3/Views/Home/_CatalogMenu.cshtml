@@ -1,0 +1,69 @@
+﻿@using Kufar3.Models
+@{
+    List<Category> categories = ViewBag.categories;
+    int? idCategory = ViewBag.idCategory;
+    int? idSubCategory = ViewBag.idSubCategory;
+
+}
+
+<ul class="main-menu">
+    @foreach (Category category in categories)
+    {
+        string isShow="";
+        // TODO: ИСПРАВИТЬ!
+        if (idCategory != null)
+        {
+            isShow = category.Id == idCategory ? "show" : "";
+        }
+        else
+        {
+            isShow = category.SubCategories.Any(x => x.Id == idSubCategory) ? "show" : "";
+        }
+        
+        <li class="li1 bub @isShow">
+            @Html.ActionLink(@category.Name, "Index", "Home", new { idCategory = category.Id }, new{@class="rita"})
+            <ul class="sub-menu">
+               
+                @foreach (SubCategory sub in category.SubCategories)
+                {
+                    <li class="li2">
+                        @Html.ActionLink(@sub.Name, "Index", "Home", new {idSubCategory = sub.Id}, null)
+                    </li>
+                }
+            </ul>
+        </li>
+        
+    }
+</ul>
+
+<script type="text/javascript">
+
+    $(function()
+    {
+        $('.rita').click(function()
+        {
+            var lists = $(this).closest('.li1');
+            console.log("lists");
+           
+            if ($(lists).hasClass('show'))
+            {
+                $(this).attr('href', '/home/declarations');
+            }
+        });
+    });
+
+    $(function()
+    {
+        $('.li1').click(function()
+        {
+           /* if ($(this).hasClass('show'))
+            {
+                console.log("bub");
+                $(this).removeClass('bub');
+            }*/
+            $('.li1').removeClass('show');
+            $(this).addClass('show');
+        });
+    });
+
+</script>

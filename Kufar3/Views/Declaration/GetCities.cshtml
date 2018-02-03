@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Kufar3.Models.City>
+
+<select id="CityId" name="CityId">
+    @foreach (var item in Model)
+    {
+        <option value="@item.Id">@item.Name</option>
+    }
+</select>

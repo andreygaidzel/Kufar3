@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
+    <link href="~/Content/scroll.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+    <link href="~/Content/SiteDeclaration.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="header">
+    <div class="logo">
+        @{
+            var ident = HttpContext.Current.User.Identity;
+           
+            string user = "Вход";
+            string url1 = "Login";
+            string url2 = "Account";
+        }
+        <h2>@Html.ActionLink("KUFAR", "Index", "Home", null, new {@class = "kuf"}) </h2>
+    </div>
+
+    <div class="user">
+        @if (ident.IsAuthenticated)
+        {
+            user = ident.Name;
+            url1 = "AddDeclaration";
+            url2 = "Declaration";
+        }
+
+        @Html.ActionLink(user, "MyDeclorations", "User")
+
+        @if (ident.IsAuthenticated)
+        {
+            @Html.ActionLink("Выход", "Logout", "Account")
+        }
+    </div>
+    <div class="plus">
+        @Html.ActionLink("+", url1, url2)
+    </div>
+</div>
+
+<div class="container">
+    <div class="menu">
+        @Html.Partial("~/Views/Home/_CatalogMenu.cshtml")
+    </div>
+    <div class="content">
+        <div class="content-holder">
+
+            @RenderBody()
+        </div>
+    </div>
+</div>
+<script src="~/MyScripts/UploadImages.js"></script>
+</body>
+</html>

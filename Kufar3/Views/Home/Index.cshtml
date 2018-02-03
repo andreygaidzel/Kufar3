@@ -1,0 +1,30 @@
+﻿@using Kufar3.Models
+
+@{
+    List<Declaration> declarations = ViewBag.declarations;
+    string title = ViewBag.title;
+}
+
+<h2>@title</h2><ul>
+@foreach (Declaration declaration in declarations)
+{
+    <li class="declarations">           
+        @{
+            string path = declaration.Images.FirstOrDefault()?.Name;
+            string url = "/Home/Declaration/?declarationId=" + @declaration.Id;
+        }
+                    
+        <div id="img">
+            <a href="@url"><img src="@path" alt="No img"/></a>
+        </div>
+        <div id="desc">
+            <h3>
+                <p id="nameD">
+                    @declaration.Name
+                </p>
+            </h3>
+        </div>
+        <div id="text">@declaration.Description</div>     
+    </li>
+}
+</ul>

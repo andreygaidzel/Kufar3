@@ -1,0 +1,73 @@
+﻿@using Kufar3.Models
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+}
+
+@{
+    List<User> Users = ViewBag.Users;
+    List<Role> Roles = ViewBag.Roles;
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+<div class="container">
+
+    <h2>Users</h2>
+    <div class="tab">
+        <table class="table">
+            <tr>
+                <td width="50">
+                    Id
+                </td>
+                <td width="230">
+                    Email
+                </td>
+                <td width="100">
+                    Role
+                </td>
+                <td width="100">
+                    Option
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    @foreach (User user in Users)
+    {
+        <div class="tab">
+            <table class="table">
+                <tr>
+                    <td width="50">
+                        @user.Id
+                    </td>
+                    <td width="230">
+                        @user.Email
+                    </td>
+                    <td width="100">
+                        
+                        @{
+                            string roleName = Roles.First(x => x.Id == user.RoleId).Name;
+                            @Html.ActionLink(roleName, "UsersChangeRole", "Admin", new { userId = user.Id }, null)
+                        }
+                    </td>
+                    <td width="100">
+                        @Html.ActionLink("Remove", "UserRemove", "Admin", new { userId = user.Id }, null)
+                        @Html.ActionLink("Change", "UserChange", "Admin", new { userId = user.Id }, null)
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    }
+
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,36 @@
+﻿@model Kufar3.ModelsView.LoginModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+<h2>Вход на сайт</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.ValidationSummary()
+
+        <p>
+            <label>Email</label><br />
+            @Html.EditorFor(x => x.Email)
+        </p>
+        <p>
+            <label>Пароль</label><br />
+            @Html.EditorFor(x => x.Password)
+        </p>
+        <p><button type="submit">Войти</button></p>
+    </div>
+}
+
+@Html.ActionLink("Регистрация", "Register")
+</body>
+</html>

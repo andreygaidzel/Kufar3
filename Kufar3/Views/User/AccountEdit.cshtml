@@ -1,0 +1,38 @@
+﻿@model Kufar3.Models.User
+
+@{
+    ViewBag.Title = "AccountEdit";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div class="container">
+    <h2>Персональные данные</h2>
+    @using (Html.BeginForm("AccountEdit", "User", FormMethod.Post))
+    {
+        <div>
+            @Html.ValidationSummary(false)
+            @Html.HiddenFor(x => x.Id)
+
+            <p>
+                <label>Электронный адрес</label><br />
+                @Html.EditorFor(x => x.Email)
+            </p>
+            <p>
+                <label>Имя</label><br />
+                @Html.EditorFor(model => model.Name)
+            </p>
+            <p>
+                <label>Номер телефона</label><br />
+                @Html.EditorFor(model => model.MobileNumber)
+            </p>
+            <p>
+                <label>Пароль</label><br />
+                @Html.EditorFor(x => x.Password)
+            </p>
+            <p>
+                <button type="submit">Изменить</button>
+            </p>
+        </div>
+    }
+</div>
+

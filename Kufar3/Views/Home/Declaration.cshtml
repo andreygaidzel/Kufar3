@@ -1,0 +1,67 @@
+﻿@using Kufar3.Models
+
+@{
+    ViewBag.Title = "Declaration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Declaration declaration = ViewBag.declaration;
+}
+
+<h2>@declaration.Name</h2>
+<div class="allEl">
+    <div class="foto">
+        <button id="left-button"><</button>
+        <button id="right-button">></button>
+        <img src="@declaration.Images.First().Name" alt="No img"/>
+    </div>
+</div>
+
+
+<div class="all-foto">
+    @foreach (var image in declaration.Images)
+    {
+        string path = image.Name;
+        <img src="@path" alt="No img" />
+     }
+</div>
+@declaration.Description
+
+<script type="text/javascript">
+    $(function()
+    {
+        var i = 0;
+        var array = $('.all-foto img');
+
+        $('#right-button').click(function()
+        {
+            if (i < array.length - 1)
+                i++;
+            if (i < array.length)
+            {
+                button();
+            }
+        });
+
+        $('#left-button').click(function()
+        {
+            if (i > 0)
+                i--;
+            if (i >= 0)
+            {
+                button();
+            }
+        });
+
+        $('.all-foto img').click(function () {
+            i = $('.all-foto img').index(this);
+            button();
+        });
+
+        function button()
+        {
+            var elem = $(array[i]).attr('src');
+            $('.foto img').attr('src', elem);
+            $(`.all-foto img`).removeClass('img-light');
+            $(`.all-foto img:eq(${i})`).addClass('img-light');
+        };
+    });
+</script>

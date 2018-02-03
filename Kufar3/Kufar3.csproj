@@ -1,0 +1,405 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AC9BC1A1-B7B6-4C9D-AC9E-95BF7AB07A37}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Kufar3</RootNamespace>
+    <AssemblyName>Kufar3</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\scroll.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\SiteAdmin.css" />
+    <Content Include="Content\SiteDeclaration.css" />
+    <Content Include="Content\SiteModerator.css" />
+    <Content Include="Content\User.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\731.gif" />
+    <Content Include="Images\IMG012c1a0738ec438e981fc91b0b6a2bd9-Num1.jpg" />
+    <Content Include="Images\IMG022c7e28ede64761a470c9b5641c3f71-Num3.jpg" />
+    <Content Include="Images\IMG0350d26c046241c3bc9c75f0bee08e4d-Num3.jpg" />
+    <Content Include="Images\IMG068d9dc152a64801a9be5ed00dcd66fc-Num2.jpg" />
+    <Content Include="Images\IMG085154c8ebbc4ccf979c686f8ed9ebae-Num1.jpg" />
+    <Content Include="Images\IMG0a6a6ebe48454e458b22cc8fb0d2b2ad-Num1.jpg" />
+    <Content Include="Images\IMG0b57d9191fa642aa9f3b5a5a19e7a55e-Num1.jpg" />
+    <Content Include="Images\IMG0bc23e8a3d474c86bf73d553c8024d47-Num5.jpg" />
+    <Content Include="Images\IMG0c8c41fca474485dbb675aa491fdc610-Num3.jpg" />
+    <Content Include="Images\IMG0c9dee76b29945cea0acad7c995ba603-Num1.jpg" />
+    <Content Include="Images\IMG0ca8ab661457450fb4e23c8d4eacfaca-Num3.jpg" />
+    <Content Include="Images\IMG0d6d6386cecb460a91a0c4b5296022ab-Num1.jpg" />
+    <Content Include="Images\IMG0e76f3a130ec4be186722cdaa4ad4aa9-Num1.jpg" />
+    <Content Include="Images\IMG0e881e406bb742cca5830a18d8e61c6e-Num2.jpg" />
+    <Content Include="Images\IMG0ecffdd8627b4563861f76be5d78703a-Num1.jpg" />
+    <Content Include="Images\IMG0f3edb9b7a03489592f7c58d6534cda4-Num1.jpg" />
+    <Content Include="Images\IMG11b856623d4c4103a7181e3026f8a330-Num1.jpg" />
+    <Content Include="Images\IMG122b21d1d0614d1b918fc422ab16702e-Num1.jpg" />
+    <Content Include="Images\IMG1623a8e205804edb9db972e318569c90-Num2.jpg" />
+    <Content Include="Images\IMG1804a90a00dd49a3b1a04b736d16740f-Num1.jpg" />
+    <Content Include="Images\IMG1abb4da45e9f48169263374961139964-Num1.jpg" />
+    <Content Include="Images\IMG1c377a9018fd41fb953fdcf054a75e1f-Num2.jpg" />
+    <Content Include="Images\IMG1c477d216c024d2cbdc92ff8b6f8f0b3-Num1.jpg" />
+    <Content Include="Images\IMG1cdc18d1400049e48563f3ff03841580-Num3.jpg" />
+    <Content Include="Images\IMG1e0d01cb0e7d4de9b7ade0027a77756c-Num1.jpg" />
+    <Content Include="Images\IMG1e7f28712bba4e8fb4b65178273c291c-Num4.jpg" />
+    <Content Include="Images\IMG212f21c0d19f44f49a40196648c73906-Num2.jpg" />
+    <Content Include="Images\IMG22b9d41588244520a89f50ad215cedef-Num3.jpg" />
+    <Content Include="Images\IMG305eb3965c524cc8a0f326db0afb1888-Num1.jpg" />
+    <Content Include="Images\IMG30e9c55ff987440e96b60f271539fe6a-Num3.jpg" />
+    <Content Include="Images\IMG32026ffee77b4510b44074c3e5270c7f-Num4.jpg" />
+    <Content Include="Images\IMG324181b157a94600ae933db2ac72c1e9-Num1.jpg" />
+    <Content Include="Images\IMG33a3becab4524dbb9e4be3871537d912-Num1.jpg" />
+    <Content Include="Images\IMG3604ae5424f748e9a537843179783148-Num5.jpg" />
+    <Content Include="Images\IMG377aab1964d645d1b4070a57f878940f-Num2.jpg" />
+    <Content Include="Images\IMG3991af789ebb46e9af7b06b80158ada8-Num3.jpg" />
+    <Content Include="Images\IMG39eb5e251504459e8797ba5ee702b300-Num1.jpg" />
+    <Content Include="Images\IMG3cb0e937d1bf4b03a6396477bc195524-Num3.jpg" />
+    <Content Include="Images\IMG3e46034b6ac44c01b60e505e3f030056-Num3.jpg" />
+    <Content Include="Images\IMG403930be63854d54a9eef62841592177-Num1.jpg" />
+    <Content Include="Images\IMG42df9ae2c979484e84acd336c3340aae-Num2.jpg" />
+    <Content Include="Images\IMG42fd45b5a047456ea51c7b73ac013eae-Num4.jpg" />
+    <Content Include="Images\IMG43ce3e73957b4ef19e7389dd3ad596f8-Num1.jpg" />
+    <Content Include="Images\IMG45bbcfe82a7145d780b98b44578e9e77-Num5.jpg" />
+    <Content Include="Images\IMG471611e943dd4cdf9262f0dc707b9f3c-Num3.jpg" />
+    <Content Include="Images\IMG4b65e7adf6d846b991fff5999a315887-Num1.jpg" />
+    <Content Include="Images\IMG4ceaf6ab1d704c12932bb322bacd465e-Num3.jpg" />
+    <Content Include="Images\IMG4e0e4e8e7e554464b811c398dff76e16-Num2.jpg" />
+    <Content Include="Images\IMG52bcc535b7594b649face7c033234643-Num1.jpg" />
+    <Content Include="Images\IMG52f4f0ae56d64074ae9cb09c69e424b0-Num2.jpg" />
+    <Content Include="Images\IMG5322e450cd9a4aa78641d172bd64c891-Num1.jpg" />
+    <Content Include="Images\IMG54ae6418b0a240cb931646e8bbddbd73-Num2.jpg" />
+    <Content Include="Images\IMG5741da074b3d4b7cafe136843bcd9b3e-Num3.jpg" />
+    <Content Include="Images\IMG58e4f91c85f34b2eb30281e48331c4ba-Num1.jpg" />
+    <Content Include="Images\IMG5a5f5c73578d48b0b1ee98560e5dcbd0-Num4.jpg" />
+    <Content Include="Images\IMG5bfd76217e2f40519e38daf610f13388-Num3.jpg" />
+    <Content Include="Images\IMG5d8eb9eb1ad242f795a491c2e236b813-Num4.jpg" />
+    <Content Include="Images\IMG5e91a37149b747ac9b959d86ecf90c1f-Num1.jpg" />
+    <Content Include="Images\IMG5fff854da7f5431299efd39c2fb3e555-Num2.jpg" />
+    <Content Include="Images\IMG61dce8c86a184c0eb11e2c5138e532ab-Num1.jpg" />
+    <Content Include="Images\IMG645f1e402ef54ef39bb74de4c7fee000-Num1.jpg" />
+    <Content Include="Images\IMG64753821507b4732b4dbb827939170fd-Num2.jpg" />
+    <Content Include="Images\IMG68299e8ff6b341c4bcda380d776e8f96-Num3.jpg" />
+    <Content Include="Images\IMG6982a6e3004e4e458f913ab62750f03d-Num3.jpg" />
+    <Content Include="Images\IMG69c630f16ed74df2a67aefaeab8520c3-Num3.jpg" />
+    <Content Include="Images\IMG6adf6525f0164a1f843c022c791d6d2a-Num1.jpg" />
+    <Content Include="Images\IMG6b94c379c3254b30a5955982434643f6-Num4.jpg" />
+    <Content Include="Images\IMG6c933c0234fb46c28a0f328acfde3e72-Num3.jpg" />
+    <Content Include="Images\IMG6cfcaf1b84144f4b8bc8448f4058ce3f-Num2.jpg" />
+    <Content Include="Images\IMG6cffbe96029f4be5bfc1fd9b49996d0f-Num5.jpg" />
+    <Content Include="Images\IMG713f088fa4574a2f897b9b8d1153e3a8-Num1.jpg" />
+    <Content Include="Images\IMG7161c40213d546faaa084c6d0b08530d-Num3.jpg" />
+    <Content Include="Images\IMG7556111f29b849439f6ec2496bdf5760-Num1.jpg" />
+    <Content Include="Images\IMG75e5cd54bc7d4f69ba88e03586fcb61d-Num1.jpg" />
+    <Content Include="Images\IMG7644ed75164c49e5a2ba50a45c458897-Num3.jpg" />
+    <Content Include="Images\IMG77bf313add67430db0cdacd975728276-Num3.jpg" />
+    <Content Include="Images\IMG7d1b7e582f51458ea9dd8d2930f0599b-Num1.jpg" />
+    <Content Include="Images\IMG7dab011d8e6e4c7f8875efe8764b3654-Num2.jpg" />
+    <Content Include="Images\IMG7e1846bccd6c46efbfb1ae40b7abf04c-Num3.jpg" />
+    <Content Include="Images\IMG80ce1f6ff912472d96fab2d13cb06b1f-Num1.jpg" />
+    <Content Include="Images\IMG8140a334594c4baca6815e81b4127233-Num2.jpg" />
+    <Content Include="Images\IMG82b2e52e7b4340c6a0097a5684e0c8b6-Num4.jpg" />
+    <Content Include="Images\IMG83dcd451316143d2ad4168d8220ef9d4-Num2.jpg" />
+    <Content Include="Images\IMG8a136119c7d84c0482afe019e9a9f914-Num1.jpg" />
+    <Content Include="Images\IMG8cea6ce99e5142d887cbe746bc488c11-Num3.jpg" />
+    <Content Include="Images\IMG8d5b162555514d08a399a658a5157c55-Num3.jpg" />
+    <Content Include="Images\IMG8fa9bf7601e24eea9b3d1ef235721d8e-Num3.jpg" />
+    <Content Include="Images\IMG90cc277aa7974468b30c409639c28c03-Num1.jpg" />
+    <Content Include="Images\IMG91f2abfd4ae74f0e9b64d6be5c8e4b89-Num2.jpg" />
+    <Content Include="Images\IMG91fc784dc0b343e388cfb0fb494959f7-Num1.jpg" />
+    <Content Include="Images\IMG9303958d94b04258870b49f450e7a9c5-Num3.jpg" />
+    <Content Include="Images\IMG96b2cfd3438d467d8a4198a961d35a39-Num3.jpg" />
+    <Content Include="Images\IMG9b819903b05c400c9ba086db981f62df-Num4.jpg" />
+    <Content Include="Images\IMG9bef27ebde484568b38c9581dc9025eb-Num1.jpg" />
+    <Content Include="Images\IMG9d2025cc1c9247e59427db5ad23224b1-Num1.jpg" />
+    <Content Include="Images\IMG9f5886f44ddd4cc19d76d015902729b3-Num4.jpg" />
+    <Content Include="Images\IMGa1a3e4997e424cbf84e7378ae3a3bdbc-Num1.jpg" />
+    <Content Include="Images\IMGa25075e0bbb04ae78473d02a2a62949a-Num2.jpg" />
+    <Content Include="Images\IMGa310c450f84048849218f907014eff4d-Num1.jpg" />
+    <Content Include="Images\IMGa3ee2933e108440bba8364399c3d318f-Num3.jpg" />
+    <Content Include="Images\IMGa538fde09fc746108ef7e1c84aba185f-Num2.jpg" />
+    <Content Include="Images\IMGa749e463e6b04b478fe0445d7d0fd8cf-Num1.jpg" />
+    <Content Include="Images\IMGa976e796efbb48fea29661a581511711-Num3.jpg" />
+    <Content Include="Images\IMGab42275156c749af9e2415cbd0ceba08-Num1.jpg" />
+    <Content Include="Images\IMGb06a0cb94bb94a38baf0962ab43fa8dd-Num1.jpg" />
+    <Content Include="Images\IMGb09684ffe24a44dfb6606444675c5da5-Num1.jpg" />
+    <Content Include="Images\IMGb13cb565cd3348f3a1f3235913e5b5c4-Num1.jpg" />
+    <Content Include="Images\IMGb567cbc5c68c445e830d23f2905cdb3a-Num1.jpg" />
+    <Content Include="Images\IMGb5b6fb64ea6e446291fc8d7192a592b1-Num1.jpg" />
+    <Content Include="Images\IMGb5f1bd0338204ac5a0d243eb26042959-Num4.jpg" />
+    <Content Include="Images\IMGb63a060cf7ed4e458913dcfaf5896eac-Num5.jpg" />
+    <Content Include="Images\IMGb882fcd5cf2144e98c95cc671fc23cd0-Num1.jpg" />
+    <Content Include="Images\IMGb8a6d885299d432fbdf50c93a3ad775d-Num1.jpg" />
+    <Content Include="Images\IMGba834ad9011a46d6b4b5d4395db2c918-Num3.jpg" />
+    <Content Include="Images\IMGbafa1fc5f0bd41ccaba0cbda6f9c37ff-Num1.jpg" />
+    <Content Include="Images\IMGbdb6fee4101648b3a6b2cb7c2d9f5419-Num3.jpg" />
+    <Content Include="Images\IMGbdf4219bf37b4ea38ed0b1e5b4627d10-Num1.jpg" />
+    <Content Include="Images\IMGbecff8b116f34c4595c0b17a2894c01d-Num1.jpg" />
+    <Content Include="Images\IMGbfae4d8d689f4c6a9475b5dfb145430a-Num4.jpg" />
+    <Content Include="Images\IMGbfb5fc6c167040df8dba218a690b564f-Num1.jpg" />
+    <Content Include="Images\IMGbfc04a1afb6e499e9ba98c2657a28971-Num2.jpg" />
+    <Content Include="Images\IMGc02d1e832ca743429c4cfe28d8836c8d-Num2.jpg" />
+    <Content Include="Images\IMGc05658863ac640b894757585c2257959-Num1.jpg" />
+    <Content Include="Images\IMGc394fb19afdf45f5a08e1c74bd8295f0-Num3.jpg" />
+    <Content Include="Images\IMGcbd0c9d425fe48a2b0749d6cf8376a53-Num1.jpg" />
+    <Content Include="Images\IMGcbf8898f96e94857a5754a720aaa8004-Num1.jpg" />
+    <Content Include="Images\IMGcf4200de13cd40b18b0de9edd7556f20-Num1.jpg" />
+    <Content Include="Images\IMGd38c1889414a48b8831b630fe53e4f87-Num2.jpg" />
+    <Content Include="Images\IMGd4434f1adf8e4b4486f8ceaa34c8f74c-Num6.jpg" />
+    <Content Include="Images\IMGd5608d8abe2f4bf89207d9545b94b438-Num1.jpg" />
+    <Content Include="Images\IMGd7b07e6deacf43e9af32d7456980ce7e-Num4.jpg" />
+    <Content Include="Images\IMGd80a602986c0498896db4903fd9667e0-Num1.jpg" />
+    <Content Include="Images\IMGd8374c796ed7455790ed176b60c69519-Num4.jpg" />
+    <Content Include="Images\IMGd859974fe54942798d8390cdbfeaead1-Num2.jpg" />
+    <Content Include="Images\IMGd8c0e08b540c45afb3e9d46331a7b276-Num2.jpg" />
+    <Content Include="Images\IMGd902e3f1112143fbb2698426d0f3b6b2-Num3.jpg" />
+    <Content Include="Images\IMGdab35bc04d5b48b0a25ca59b03f2ca79-Num1.jpg" />
+    <Content Include="Images\IMGdd00e8f5fbd24171b00b94bca7fd6974-Num2.jpg" />
+    <Content Include="Images\IMGddee2fd54ad24c4db15150894131f58d-Num3.jpg" />
+    <Content Include="Images\IMGdfec162122894b70996c24d315acd025-Num1.jpg" />
+    <Content Include="Images\IMGe021fa26d0284f7187c4550618225d22-Num1.jpg" />
+    <Content Include="Images\IMGe17d98db86c34ce5ba83c0c73bf74088-Num1.jpg" />
+    <Content Include="Images\IMGe71e3a59cbf047b1a166945fe5286176-Num3.jpg" />
+    <Content Include="Images\IMGe7bf746408c54214b7186f3d9b89c9ea-Num6.jpg" />
+    <Content Include="Images\IMGe8dae4f9b24144e7ad0bcce883c38f95-Num1.jpg" />
+    <Content Include="Images\IMGec54f15675784931b1dec154861034f3-Num1.jpg" />
+    <Content Include="Images\IMGefa321e9fd234130896f6edc15d81e40-Num1.jpg" />
+    <Content Include="Images\IMGf0ac03dc29a74d4da9dd4d0261423498-Num3.jpg" />
+    <Content Include="Images\IMGf31c85401dfe4da5b0eff87a630d0d49-Num2.jpg" />
+    <Content Include="Images\IMGf35cd4db818f449d8607988b13906650-Num3.jpg" />
+    <Content Include="Images\IMGf4ab0c2da57b4e60b52bc1980cc71c85-Num4.jpg" />
+    <Content Include="Images\IMGf55f9e2a6a6343bfa148bb9bd11e714e-Num5.jpg" />
+    <Content Include="Images\IMGfa5a7ba286ad479e8a3dde303449f009-Num5.jpg" />
+    <Content Include="Images\IMGfc1305b9ce0b4f4c901b7ddb66030059-Num2.jpg" />
+    <Content Include="Images\IMGfc951d26da1047559a1ee35002a680a7-Num1.jpg" />
+    <Content Include="Images\IMGfcbffcede24d410cae61213467ad3580-Num1.jpg" />
+    <Content Include="Images\IMGfcecec00c9294f0db8ede8844bd06f93-Num1.jpg" />
+    <Content Include="Images\IMGfd8da91660a049c29781779304ea902c-Num2.jpg" />
+    <Content Include="Images\IMGfe7a7c506698447ab38780068ec5fa65-Num4.jpg" />
+    <Content Include="Images\IMGff364057dc6c48adbeb585d50966d156-Num2.jpg" />
+    <Content Include="Images\IMGff7ceedff48d48759991bcef110eea9e-Num1.jpg" />
+    <Content Include="Images\IMGffedde86257443f4bb25225a9c95e0d9-Num1.jpg" />
+    <Content Include="Images\invis.png" />
+    <Content Include="Images\miss.jpg" />
+    <Content Include="Images\null.jpg" />
+    <Content Include="MyScripts\JQueryTest.js" />
+    <Content Include="MyScripts\StrTest1.js" />
+    <Content Include="MyScripts\UploadImages.js" />
+    <Content Include="MyScripts\UploadImages2.js" />
+    <Content Include="MyScripts\UserImg.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.2.1.js" />
+    <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Web.config" />
+    <Content Include="Views\Shared\_layoutAdmin.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Admin\Users.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\DeclarationController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ModeratorController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ModelsView\DeclarationModel.cs" />
+    <Compile Include="ModelsView\LoginModel.cs" />
+    <Compile Include="ModelsView\RegisterModel.cs" />
+    <Compile Include="Models\KufarContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="packages.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Admin\UserChange.cshtml" />
+    <Content Include="Views\Home\_CatalogMenu.cshtml" />
+    <Content Include="Views\Declaration\AddDeclaration.cshtml" />
+    <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.2.1.min.map" />
+    <Content Include="Views\Declaration\GetItems.cshtml" />
+    <Content Include="Views\Home\Declaration.cshtml" />
+    <Content Include="Views\Moderator\DeclarationList.cshtml" />
+    <Content Include="Views\Moderator\DeclarationModeration.cshtml" />
+    <Content Include="Views\Moderator\GetItems.cshtml" />
+    <Content Include="Views\Shared\_LayoutUser.cshtml" />
+    <Content Include="Views\User\MyDeclorations.cshtml" />
+    <Content Include="Views\Declaration\GetCities.cshtml" />
+    <Content Include="Views\Moderator\GetCities.cshtml" />
+    <Content Include="Views\User\UserDeclaration.cshtml" />
+    <Content Include="Views\User\AccountEdit.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49864</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:5000/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

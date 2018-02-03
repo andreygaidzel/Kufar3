@@ -1,0 +1,42 @@
+﻿#allImg {
+    float: left;
+    width: 457px;
+    min-width: 457px;
+}
+
+.image {
+    position: relative;
+    /*border: 1px solid black;*/
+    height: 140px;
+    width: 140px;
+    /*background: #dedede;*/
+    cursor: pointer;
+    float: left;
+    margin: 5px;
+    background-image: url(/Images/null.jpg);
+}
+
+.image img {
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    border: 1px solid black;        
+}
+
+.image button {
+    position: absolute;
+    right: 0px;
+    z-index: 99;
+    display: none;        
+}
+
+.spiner {
+    background-image: url(/Images/731.gif);
+    background-position: center center; /* Положение фона */
+    background-repeat: no-repeat;
+}
+
+.kuf {
+    color: azure;
+    text-decoration: none;
+}
