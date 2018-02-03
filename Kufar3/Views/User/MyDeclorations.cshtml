@@ -13,9 +13,11 @@
     @foreach (Declaration declaration in declarations)
     {
         <li class="declarations">
-         
             @{
                 string path = declaration.Images.FirstOrDefault()?.Name;
+                
+                // TODO: Использовать Html хелпер
+
                 string url = "/Home/Declaration/?declarationId=" + @declaration.Id;
                 string editUrl = "/User/UserDeclaration/?declarationId=" + @declaration.Id;
                 string removeUrl = "/User/DeleteImage/?declarationId=" + @declaration.Id;
@@ -23,7 +25,7 @@
             <div id="menu-desc">
                 <a href="@editUrl">Редактировать</a> 
                 <a href="@removeUrl">Удалить</a> 
-</div>        
+            </div>        
             <div id="img">
                 <a href="@url"><img src="@path" alt="No img"/></a>
             </div>
@@ -35,7 +37,6 @@
                 </h3>
             </div>
             <div id="text">@declaration.Description</div>
-             
         </li>
     }
 </ul>

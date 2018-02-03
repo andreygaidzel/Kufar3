@@ -11,6 +11,8 @@
     <li class="declarations">           
         @{
             string path = declaration.Images.FirstOrDefault()?.Name;
+
+            // TODO: Использовать Html хелпер
             string url = "/Home/Declaration/?declarationId=" + @declaration.Id;
         }
                     

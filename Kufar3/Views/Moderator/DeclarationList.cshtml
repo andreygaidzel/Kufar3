@@ -13,11 +13,11 @@
 <h2>@title</h2><ul>
     @foreach (Declaration declaration in declarations)
     {
-        <li class="declarations">
-         
-                     
+        <li class="declarations">  
             @{
                 string path = declaration.Images.FirstOrDefault()?.Name;
+
+                // TODO: Использовать Html хелпер
                 string url = "/Moderator/DeclarationModeration/?declarationId=" + @declaration.Id;
             }
                     
@@ -32,7 +32,6 @@
                 </h3>
             </div>
             <div id="text">@declaration.Description</div>
-             
         </li>
     }
 </ul>

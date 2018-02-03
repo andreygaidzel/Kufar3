@@ -7,11 +7,14 @@
 }
 
 <h2>@declaration.Name</h2>
+
+// TODO: allEl ????
+
 <div class="allEl">
     <div class="foto">
         <button id="left-button"><</button>
         <button id="right-button">></button>
-        <img src="@declaration.Images.First().Name" alt="No img"/>
+        <img src="@declaration.Images.First().Name" alt="No img" />
     </div>
 </div>
 
@@ -21,32 +24,27 @@
     {
         string path = image.Name;
         <img src="@path" alt="No img" />
-     }
+    }
 </div>
 @declaration.Description
 
 <script type="text/javascript">
-    $(function()
-    {
+    $(function () {
         var i = 0;
         var array = $('.all-foto img');
 
-        $('#right-button').click(function()
-        {
+        $('#right-button').click(function () {
             if (i < array.length - 1)
                 i++;
-            if (i < array.length)
-            {
+            if (i < array.length) {
                 button();
             }
         });
 
-        $('#left-button').click(function()
-        {
+        $('#left-button').click(function () {
             if (i > 0)
                 i--;
-            if (i >= 0)
-            {
+            if (i >= 0) {
                 button();
             }
         });
@@ -56,8 +54,7 @@
             button();
         });
 
-        function button()
-        {
+        function button() {
             var elem = $(array[i]).attr('src');
             $('.foto img').attr('src', elem);
             $(`.all-foto img`).removeClass('img-light');
