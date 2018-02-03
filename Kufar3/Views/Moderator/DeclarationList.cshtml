@@ -17,7 +17,6 @@
             @{
                 string path = declaration.Images.FirstOrDefault()?.Name;
                 string url = Url.Action("DeclarationModeration", "Moderator", new { declarationId = declaration.Id });
-                //string url = "/Moderator/DeclarationModeration/?declarationId=" + @declaration.Id;
             }
                     
             <div id="img">
