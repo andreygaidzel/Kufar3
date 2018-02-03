@@ -14,9 +14,6 @@ namespace Kufar3.Controllers
     {    
         private KufarContext _context;
 
-        //TODO: накой это тут?
-        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
-
         public ModeratorController()
         {
             _context = new KufarContext();
@@ -43,25 +40,20 @@ namespace Kufar3.Controllers
         [HttpGet]
         public ActionResult DeclarationModeration(int? declarationId)
         {
-            // TODO: 2 раза извлекается одно и тоже
-            // TODO: FirstOrDefault ???
-            Declaration declaration = _context.Declarations.FirstOrDefault(x => x.Id == declarationId);
+            Declaration declaration = _context.Declarations.First(x => x.Id == declarationId);
             ViewBag.declaration = declaration;
-            // TODO: FirstOrDefault ???
-            Declaration model = _context.Declarations.FirstOrDefault(u => u.Id == declarationId);
 
-            // TODO: регистр
-            int ColIm0 = 6 - model.Images.Count;
-            for (int i = 0; i < ColIm0; i++)
+            int colIm0 = 6 - declaration.Images.Count;
+            for (int i = 0; i < colIm0; i++)
             {
-                model.Images.Add(new Image
+                declaration.Images.Add(new Image
                 {
                     Name = "/Images/null.jpg",
-                    DeclarationId = model.Id,
+                    DeclarationId = declaration.Id,
                 });
             }
 
-            int selectedIndex = model.SubCategory.CategoryId;
+            int selectedIndex = declaration.SubCategory.CategoryId;
 
             SelectList categories = new SelectList(_context.Categories, "Id", "Name", selectedIndex);
             SelectList subCat = new SelectList(_context.SubCategories.Where(c => c.CategoryId == selectedIndex), "Id", "Name");
@@ -69,7 +61,7 @@ namespace Kufar3.Controllers
             ViewBag.cats = categories;
             ViewBag.subCat = subCat;
 
-            selectedIndex = model.City.RegionId;
+            selectedIndex = declaration.City.RegionId;
 
             SelectList regions = new SelectList(_context.Regions, "Id", "Name", selectedIndex);
             SelectList cities = new SelectList(_context.Cities.Where(c => c.RegionId == selectedIndex), "Id", "Name");
@@ -77,7 +69,7 @@ namespace Kufar3.Controllers
             ViewBag.regions = regions;
             ViewBag.cities = cities;
 
-            return View(model);
+            return View(declaration);
         }
 
         [HttpPost]
@@ -93,20 +85,6 @@ namespace Kufar3.Controllers
           
             _context.SaveChanges();
 
-            // TODO: шо это?
-            //for (int i = 0; i < declaration.Images.Count; i++)
-            //{
-            //    if (declaration.Images[i] != null && declaration.Images[i] != "")
-            //    {
-            //        _context.Images.Add(new Image
-            //        {
-            //            Name = declaration.Images[i],
-            //            DeclarationId = newDeclaration.Id,
-            //        });
-            //    }
-            //}
-            //_context.SaveChanges();
-
             return RedirectToAction("DeclarationList");
         }
 
@@ -116,8 +94,7 @@ namespace Kufar3.Controllers
             var templatePath = test + url;
             System.IO.File.Delete(templatePath);
 
-            // TODO: FirstOrDefault?
-            Image delImg = _context.Images.FirstOrDefault(x => x.Name == url);
+            Image delImg = _context.Images.First(x => x.Name == url);
             _context.Images.Remove(delImg);
             _context.SaveChanges();
 

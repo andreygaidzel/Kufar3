@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Kufar3.Controllers
 {
-    // TODO: АТРИБУТ АВТОРИЗАЦИИ
+    [Authorize(Roles = "user")]
     public class UserController : Controller
     {
         // GET: User
@@ -33,38 +33,33 @@ namespace Kufar3.Controllers
         [HttpGet]
         public ActionResult UserDeclaration(int? declarationId)
         {
-            // TODO: 2 раза извлекается одно и тоже
-            // TODO: FirstOrDefault ???
-            Declaration declaration = _context.Declarations.FirstOrDefault(x => x.Id == declarationId);
+            Declaration declaration = _context.Declarations.First(x => x.Id == declarationId);
             ViewBag.declaration = declaration;
-            // TODO: FirstOrDefault ???
-            Declaration model = _context.Declarations.FirstOrDefault(u => u.Id == declarationId);
 
-            // TODO: регистр
-            int ColIm0 = 6 - model.Images.Count;
-            for (int i = 0; i < ColIm0; i++)
+            int colIm0 = 6 - declaration.Images.Count;
+            for (int i = 0; i < colIm0; i++)
             {
-                model.Images.Add(new Image
+                declaration.Images.Add(new Image
                 {
                     Name = "/Images/null.jpg",
-                    DeclarationId = model.Id,
+                    DeclarationId = declaration.Id,
                 });
             }
 
-            int selectedIndex = model.SubCategory.CategoryId;
+            int selectedIndex = declaration.SubCategory.CategoryId;
 
             SelectList categories = new SelectList(_context.Categories, "Id", "Name", selectedIndex);
             SelectList subCat = new SelectList(_context.SubCategories.Where(c => c.CategoryId == selectedIndex), "Id", "Name");
             ViewBag.cats = categories;
             ViewBag.subCat = subCat;
 
-            selectedIndex = model.City.RegionId;
+            selectedIndex = declaration.City.RegionId;
             SelectList regions = new SelectList(_context.Regions, "Id", "Name", selectedIndex);
             SelectList cities = new SelectList(_context.Cities.Where(c => c.RegionId == selectedIndex), "Id", "Name");
             ViewBag.regions = regions;
             ViewBag.cities = cities;
 
-            return View(model);
+            return View(declaration);
         }
 
         [HttpPost]
@@ -85,8 +80,7 @@ namespace Kufar3.Controllers
 
         public ActionResult DeleteImage(int? declarationId)
         {
-            // TODO: FirstOrDefault ???
-            Declaration declaration = _context.Declarations.FirstOrDefault(x => x.Id == declarationId);
+            Declaration declaration = _context.Declarations.First(x => x.Id == declarationId);
             _context.Declarations.Remove(declaration);
             _context.SaveChanges();
 
@@ -96,13 +90,8 @@ namespace Kufar3.Controllers
 
         public ActionResult AccountEdit()
         {
-            // TODO: всегда используй int.Parse() - делает тоже самое, но выкинет ошибку если строка имеет не верный формат
-            int userId = Convert.ToInt32(HttpContext.User.Identity.GetUserId());
-
-            // TODO: Include ???
-            User model = _context.Users
-                .Include(u => u.Role)
-                .First(u => u.Id == userId);
+            int userId = int.Parse(HttpContext.User.Identity.GetUserId());
+            User model = _context.Users.First(u => u.Id == userId);
 
             return View(model);
         }

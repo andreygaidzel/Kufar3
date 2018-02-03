@@ -33,10 +33,7 @@ namespace Authorize.Controllers
         {
             if (ModelState.IsValid)
             {
-                // TODO: Include ???
-                User user = _context.Users
-                    .Include(u => u.Role)
-                    .FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
+                User user = _context.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
 
                 if (user == null)
                 {

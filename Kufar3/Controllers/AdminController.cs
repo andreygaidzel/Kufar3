@@ -42,11 +42,7 @@ namespace Kufar3.Controllers
 
         public ActionResult UsersChangeRole(int userId)
         {
-            // TODO: Include ???
-            //User user = _context.Users.First(x => x.Id == userId);
-            User user = _context.Users
-                .Include(u => u.Role)
-                .First(u => u.Id == userId);
+            User user = _context.Users.First(u => u.Id == userId);
 
             if (user.Role.Name == "admin")
             {
@@ -78,10 +74,8 @@ namespace Kufar3.Controllers
 
         public ActionResult UserChange(int userId)
         {
-            // TODO: Include ???
-            User model = _context.Users
-                .Include(u => u.Role)
-                .First(u => u.Id == userId);
+
+            User model = _context.Users.First(u => u.Id == userId);
 
             return View(model);
         }

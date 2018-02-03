@@ -12,8 +12,6 @@
 </head>
 <body>
 
-// TODO: ПЕРЕХОД НА СТРАНИЦУ АУТЕНТИФИКАЦИИ ПАШЕТ ЧЕРЕЗ ЖОПУ
-
 <div class="header">
     <div class="logo">
         @{
@@ -32,9 +30,8 @@
             user = ident.Name;
             url1 = "AddDeclaration";
             url2 = "Declaration";
+            @Html.ActionLink(user, "MyDeclorations", "User")
         }
-
-        @Html.ActionLink(user, "MyDeclorations", "User")
 
         @if (ident.IsAuthenticated)
         {
