@@ -32,9 +32,14 @@ namespace Kufar3.Controllers
         [HttpGet]
         public ActionResult UserDeclaration(int? declarationId)
         {
+            // TODO: 2 раза извлекается одно и тоже
+            // TODO: FirstOrDefault ???
             Declaration declaration = _context.Declarations.FirstOrDefault(x => x.Id == declarationId);
             ViewBag.declaration = declaration;
+            // TODO: FirstOrDefault ???
             Declaration model = _context.Declarations.FirstOrDefault(u => u.Id == declarationId);
+
+            // TODO: регистр
             int ColIm0 = 6 - model.Images.Count;
             for (int i = 0; i < ColIm0; i++)
             {
@@ -48,14 +53,14 @@ namespace Kufar3.Controllers
             int selectedIndex = model.SubCategory.CategoryId;
 
             SelectList categories = new SelectList(_context.Categories, "Id", "Name", selectedIndex);
-            ViewBag.cats = categories;
             SelectList subCat = new SelectList(_context.SubCategories.Where(c => c.CategoryId == selectedIndex), "Id", "Name");
+            ViewBag.cats = categories;
             ViewBag.subCat = subCat;
 
             selectedIndex = model.City.RegionId;
             SelectList regions = new SelectList(_context.Regions, "Id", "Name", selectedIndex);
-            ViewBag.regions = regions;
             SelectList cities = new SelectList(_context.Cities.Where(c => c.RegionId == selectedIndex), "Id", "Name");
+            ViewBag.regions = regions;
             ViewBag.cities = cities;
 
             return View(model);
@@ -64,7 +69,6 @@ namespace Kufar3.Controllers
         [HttpPost]
         public ActionResult DeclarationUpdate(Declaration declaration)
         {
-
             Declaration newDeclaration = _context.Declarations.First(x => x.Id == declaration.Id);
 
             newDeclaration.Name = declaration.Name;
@@ -74,11 +78,13 @@ namespace Kufar3.Controllers
             newDeclaration.CityId = declaration.CityId;
 
             _context.SaveChanges();
+
             return RedirectToAction("MyDeclorations");
         }
 
         public ActionResult DeleteImage(int? declarationId)
         {
+            // TODO: FirstOrDefault ???
             Declaration declaration = _context.Declarations.FirstOrDefault(x => x.Id == declarationId);
             _context.Declarations.Remove(declaration);
             _context.SaveChanges();
@@ -89,7 +95,10 @@ namespace Kufar3.Controllers
 
         public ActionResult AccountEdit()
         {
+            // TODO: всегда используй int.Parse() - делает тоже самое, но выкинет ошибку если строка имеет не верный формат
             int userId = Convert.ToInt32(HttpContext.User.Identity.GetUserId());
+
+            // TODO: Include ???
             User model = _context.Users
                 .Include(u => u.Role)
                 .First(u => u.Id == userId);

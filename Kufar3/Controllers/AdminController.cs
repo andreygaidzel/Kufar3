@@ -42,6 +42,7 @@ namespace Kufar3.Controllers
 
         public ActionResult UsersChangeRole(int userId)
         {
+            // TODO: Include ???
             //User user = _context.Users.First(x => x.Id == userId);
             User user = _context.Users
                 .Include(u => u.Role)
@@ -77,6 +78,7 @@ namespace Kufar3.Controllers
 
         public ActionResult UserChange(int userId)
         {
+            // TODO: Include ???
             User model = _context.Users
                 .Include(u => u.Role)
                 .First(u => u.Id == userId);
