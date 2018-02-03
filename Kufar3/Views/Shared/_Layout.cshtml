@@ -32,10 +32,16 @@
             url2 = "Declaration";
             @Html.ActionLink(user, "MyDeclorations", "User")
         }
+         
+        
 
         @if (ident.IsAuthenticated)
         {
             @Html.ActionLink("Выход", "Logout", "Account")
+        }
+        else
+        {
+            @Html.ActionLink("Вход", "Login", "Account")
         }
     </div>
     <div class="plus">

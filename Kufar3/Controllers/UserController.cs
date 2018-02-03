@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Kufar3.Controllers
 {
-    [Authorize(Roles = "user")]
+    [Authorize]
     public class UserController : Controller
     {
         // GET: User
