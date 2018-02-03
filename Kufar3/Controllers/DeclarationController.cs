@@ -61,6 +61,8 @@ namespace Kufar3.Controllers
         {
             string userId = HttpContext.User.Identity.GetUserId();
             int intId = Convert.ToInt32(userId);
+
+            // TODO: Нижний регистр
             Declaration NewDeclaration = new Declaration
             {
                 Name = declaration.Name,
@@ -74,6 +76,9 @@ namespace Kufar3.Controllers
             _context.Declarations.Add(NewDeclaration);
             _context.SaveChanges();
 
+            // TODO: какой нахуй for?
+            // TODO: отступы
+            // TODO: string.IsNullOrEmpty()
             for (int i = 0; i < declaration.Images.Count; i++)
             {
             if (declaration.Images[i] != null && declaration.Images[i] != "")
@@ -96,6 +101,8 @@ namespace Kufar3.Controllers
             System.Threading.Thread.Sleep(2000);
 
             int k = 0;
+
+            // TODO: img - всунуть в цикл
             string img = "";
             List<string> imag = new List<string>();
             if (file != null)
