@@ -16,9 +16,8 @@
         <li class="declarations">  
             @{
                 string path = declaration.Images.FirstOrDefault()?.Name;
-
-                // TODO: Использовать Html хелпер
-                string url = "/Moderator/DeclarationModeration/?declarationId=" + @declaration.Id;
+                string url = Url.Action("DeclarationModeration", "Moderator", new { declarationId = declaration.Id });
+                //string url = "/Moderator/DeclarationModeration/?declarationId=" + @declaration.Id;
             }
                     
             <div id="img">

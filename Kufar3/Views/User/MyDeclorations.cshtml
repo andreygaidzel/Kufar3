@@ -15,12 +15,13 @@
         <li class="declarations">
             @{
                 string path = declaration.Images.FirstOrDefault()?.Name;
-                
-                // TODO: Использовать Html хелпер
 
-                string url = "/Home/Declaration/?declarationId=" + @declaration.Id;
-                string editUrl = "/User/UserDeclaration/?declarationId=" + @declaration.Id;
-                string removeUrl = "/User/DeleteImage/?declarationId=" + @declaration.Id;
+                string url = Url.Action("Declaration", "Home", new { declarationId = declaration.Id });
+                string editUrl = Url.Action("UserDeclaration", "User", new { declarationId = declaration.Id });
+                string removeUrl = Url.Action("DeleteImage", "User", new { declarationId = declaration.Id });
+                //string url = "/Home/Declaration/?declarationId=" + @declaration.Id;
+                //string editUrl = "/User/UserDeclaration/?declarationId=" + @declaration.Id;
+                //string removeUrl = "/User/DeleteImage/?declarationId=" + @declaration.Id;
             }
             <div id="menu-desc">
                 <a href="@editUrl">Редактировать</a> 

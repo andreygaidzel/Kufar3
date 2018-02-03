@@ -14,54 +14,41 @@
 
 <h2>@declaration.Name</h2>
 
-<div id="allImg">
-    
-    // TODO: шо это?
+    <div id="allImg">
+        @for (int i = 0; i < 6; i++)
+        {
+            string iimg = "img" + i;
+            <div class="image" id=@iimg>
+                <button>X</button>
+                <img />
+            </div>
+        }
 
-    @*@for (int j = 0; j < 6; j++)
-    {
-        string iimg = "img" + j;
-        <div class="image" id=@iimg>
+        @*<div class="image" id="img0">
             <button>X</button>
-            @if (@j < declaration.Images.Count)
-            {
-                <img src=@declaration.Images[j].Name>
-            }
-            else
-            {
-                <img/>
-            }
+            <img />
         </div>
-    }
-</div>*@
-    
-    // TODO: Использовать цикл
-
-    <div class="image" id="img0">
-        <button>X</button>
-        <img />
+        <div class="image" id="img1">
+            <button>X</button>
+            <img />
+        </div>
+        <div class="image" id="img2">
+            <button>X</button>
+            <img />
+        </div>
+        <div class="image" id="img3">
+            <button>X</button>
+            <img />
+        </div>
+        <div class="image" id="img4">
+            <button>X</button>
+            <img />
+        </div>
+        <div class="image" id="img5">
+            <button>X</button>
+            <img />
+        </div>*@
     </div>
-    <div class="image" id="img1">
-        <button>X</button>
-        <img/>
-    </div>
-    <div class="image" id="img2">
-        <button>X</button>
-        <img/>
-    </div>
-    <div class="image" id="img3">
-        <button>X</button>
-        <img/>
-    </div>
-    <div class="image" id="img4">
-        <button>X</button>
-        <img/>
-    </div>
-    <div class="image" id="img5">
-        <button>X</button>
-        <img/>
-    </div>
-</div>
 @*<button id="image-1">Button</button>*@
 
 <input hidden class="file-input-hidden" type="file" id="files" name="files" multiple/>
@@ -124,11 +111,6 @@
         </tr>
     </table>
 }
-
-// TODO: шо это?
-
-@*</div>*@
-
 
 <script type="text/javascript">
 

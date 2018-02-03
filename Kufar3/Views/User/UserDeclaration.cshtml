@@ -15,10 +15,16 @@
     <h2>@declaration.Name</h2>
 
     <div id="allImg">
+        @for (int i = 0; i < 6; i++)
+        {
+            string iimg = "img" + i;
+            <div class="image" id=@iimg>
+                <button>X</button>
+                <img />
+            </div>
+        }
 
-        // TODO: Использовать цикл
-
-        <div class="image" id="img0">
+        @*<div class="image" id="img0">
             <button>X</button>
             <img />
         </div>
@@ -41,7 +47,7 @@
         <div class="image" id="img5">
             <button>X</button>
             <img />
-        </div>
+        </div>*@
     </div>
 
     <input hidden class="file-input-hidden" type="file" id="files" name="files" multiple />

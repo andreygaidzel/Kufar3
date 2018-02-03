@@ -11,33 +11,40 @@
 
 <h2>Выберите изображения</h2>
 
-// TODO: использовать цикл
-
 <div id="allImg">
-    <div class="image" id="img1">
+    @for (int i = 1; i < 7; i++)
+    {
+        string iimg = "img" + i;
+        <div class="image" id=@iimg>
+            <button>X</button>
+            <img />
+        </div>
+    }
+
+    @*<div class="image" id="img1">
         <button>X</button>
-        <img/>
+        <img />
     </div>
     <div class="image" id="img2">
         <button>X</button>
-        <img/>
+        <img />
     </div>
     <div class="image" id="img3">
         <button>X</button>
-        <img/>
+        <img />
     </div>
     <div class="image" id="img4">
         <button>X</button>
-        <img/>
+        <img />
     </div>
     <div class="image" id="img5">
         <button>X</button>
-        <img/>
+        <img />
     </div>
     <div class="image" id="img6">
         <button>X</button>
-        <img/>
-    </div>
+        <img />
+    </div>*@
 </div>
 
 @*<button id="image-1">Button</button>*@
@@ -109,7 +116,7 @@
             var id = $(this).val();
             $.ajax({
                 type: 'GET',
-                url: '@Url.Action("GetItems")/' + id,
+                url: '@Url.Action("GetItems", "Declaration")/' + id,
                 success: function(data)
                 {
                     console.log("vernulll", data);
@@ -128,7 +135,7 @@
             var id = $(this).val();
             $.ajax({
                 type: 'GET',
-                url: '@Url.Action("GetCities")/' + id,
+                url: '@Url.Action("GetCities", "Declaration")/' + id,
                 success: function(data)
                 {
                     console.log("vernulllCity", data);
