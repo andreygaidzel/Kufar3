@@ -13,46 +13,22 @@
 }
 
 <h2>@declaration.Name</h2>
-
-    <div id="allImg">
-        @for (int i = 0; i < 6; i++)
-        {
-            string iimg = "img" + i;
-            <div class="image" id=@iimg>
-                <button>X</button>
-                <img />
-            </div>
-        }
-
-        @*<div class="image" id="img0">
+    
+// TODO: allImg ???
+<div id="allImg">
+    @for (int i = 0; i < 6; i++)
+    {
+        // TODO: iimg ???
+        string iimg = "img" + i;
+        // TODO: id=@iimg  "" ???
+        <div class="image" id=@iimg>
             <button>X</button>
             <img />
         </div>
-        <div class="image" id="img1">
-            <button>X</button>
-            <img />
-        </div>
-        <div class="image" id="img2">
-            <button>X</button>
-            <img />
-        </div>
-        <div class="image" id="img3">
-            <button>X</button>
-            <img />
-        </div>
-        <div class="image" id="img4">
-            <button>X</button>
-            <img />
-        </div>
-        <div class="image" id="img5">
-            <button>X</button>
-            <img />
-        </div>*@
-    </div>
-@*<button id="image-1">Button</button>*@
+    }
+</div>
 
 <input hidden class="file-input-hidden" type="file" id="files" name="files" multiple/>
-
 
 @using (Html.BeginForm("DeclarationUpdate", "Moderator", FormMethod.Post))
 {

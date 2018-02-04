@@ -14,6 +14,7 @@
 <div class="cont">
     <h2>@declaration.Name</h2>
 
+    // TODO: allImg ???
     <div id="allImg">
         @for (int i = 0; i < 6; i++)
         {
@@ -23,35 +24,9 @@
                 <img />
             </div>
         }
-
-        @*<div class="image" id="img0">
-            <button>X</button>
-            <img />
-        </div>
-        <div class="image" id="img1">
-            <button>X</button>
-            <img />
-        </div>
-        <div class="image" id="img2">
-            <button>X</button>
-            <img />
-        </div>
-        <div class="image" id="img3">
-            <button>X</button>
-            <img />
-        </div>
-        <div class="image" id="img4">
-            <button>X</button>
-            <img />
-        </div>
-        <div class="image" id="img5">
-            <button>X</button>
-            <img />
-        </div>*@
     </div>
 
     <input hidden class="file-input-hidden" type="file" id="files" name="files" multiple />
-
 
     @using (Html.BeginForm("DeclarationUpdate", "User", FormMethod.Post))
     {
@@ -110,7 +85,7 @@
             </tr>
         </table>
     }
-    </div>
+</div>
     <script type="text/javascript">
 
     $(function()
