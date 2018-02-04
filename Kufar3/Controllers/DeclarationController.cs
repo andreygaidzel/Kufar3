@@ -18,9 +18,6 @@ namespace Kufar3.Controllers
         public DeclarationController()
         {
             _context = new KufarContext();
-
-            var categories = _context.Categories.ToList();
-            ViewBag.menuCategories = categories;
         }
 
         [HttpGet]
@@ -92,8 +89,6 @@ namespace Kufar3.Controllers
 
             var k = 0;
 
-            // TODO: img - всунуть в цикл
-            var img = "";
             var imag = new List<string>();
             if (file != null)
             {
@@ -107,7 +102,7 @@ namespace Kufar3.Controllers
                         var fileName = "IMG" + random + "-Num" + k + ".jpg";
                         // сохраняем файл в папку Files в проекте
                         f.SaveAs(Server.MapPath("~/Images/" + fileName));
-                        img = "/Images/" + fileName;
+                        var img = "/Images/" + fileName;
                         imag.Add(img);
                     }
                 }

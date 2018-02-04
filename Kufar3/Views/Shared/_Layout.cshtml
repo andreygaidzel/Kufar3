@@ -1,11 +1,18 @@
-﻿<!DOCTYPE html>
+﻿@using System.Data.Entity.ModelConfiguration.Conventions
+@{
+    var ident = HttpContext.Current.User.Identity;
+
+    var url1 = "Login";
+    var url2 = "Account";
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
-    <link href="~/Content/scroll.css" rel="stylesheet" />
+    <link href="~/Content/scroll.css" rel="stylesheet"/>
     <script src="~/Scripts/jquery-3.2.1.min.js"></script>
     <link href="~/Content/SiteDeclaration.css" rel="stylesheet"/>
 </head>
@@ -13,15 +20,9 @@
 
 <div class="header">
     <div class="logo">
-        @{
-            var ident = HttpContext.Current.User.Identity;
-           
-            var url1 = "Login";
-            var url2 = "Account";
-        }
-        <h2>@Html.ActionLink("KUFAR", "Index", "Home", null, new {@class = "kuf"}) </h2>
+        <h2>@Html.ActionLink("KUFAR", "Index", "Home", null, new {@class = "kuf"})</h2>
     </div>
-
+    
     <div class="user">
         @if (ident.IsAuthenticated)
         {
@@ -29,15 +30,10 @@
             url2 = "Declaration";
             @Html.ActionLink(ident.Name, "MyDeclarations", "User")
         }
-        
-        @if (ident.IsAuthenticated)
-        {
-            @Html.ActionLink("Выход", "Logout", "Account")
-        }
-        else
-        {
-            @Html.ActionLink("Вход", "Login", "Account")
-        }
+
+        @(ident.IsAuthenticated
+              ? Html.ActionLink("Выход", "Logout", "Account")
+              : Html.ActionLink("Вход", "Login", "Account"))
     </div>
     <div class="plus">
         @Html.ActionLink("+", url1, url2)
@@ -46,7 +42,8 @@
 
 <div class="container">
     <div class="menu">
-        @Html.Partial("~/Views/Home/_CatalogMenu.cshtml")
+        @*@Html.Partial("~/Views/Home/_CatalogMenu.cshtml")*@
+        @Html.Action("MenuLeft", "Home")
     </div>
     <div class="content">
         <div class="content-holder">

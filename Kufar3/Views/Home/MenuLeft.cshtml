@@ -1,6 +1,8 @@
 ﻿@using Kufar3.Models
+@model List<Category>
+
 @{
-    List<Category> categories = ViewBag.menuCategories;
+    var categories = @Model;
     int? idCategory = ViewBag.idCategory;
     int? idSubCategory = ViewBag.idSubCategory;
 }
@@ -55,11 +57,11 @@
     {
         $('.li1').click(function()
         {
-           /* if ($(this).hasClass('show'))
-            {
-                console.log("bub");
-                $(this).removeClass('bub');
-            }*/
+            /* if ($(this).hasClass('show'))
+             {
+                 console.log("bub");
+                 $(this).removeClass('bub');
+             }*/
             $('.li1').removeClass('show');
             $(this).addClass('show');
         });

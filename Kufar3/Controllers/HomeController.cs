@@ -16,15 +16,13 @@ namespace Kufar3.Controllers
         public HomeController()
         {
             _context = new KufarContext();
+        }
 
-            var categories = _context.Categories.OrderBy(x => x.Id).ToList();
-
-            foreach (var category in categories)
-            {
-                category.SubCategories.OrderByDescending(x => x.Id);
-            }
-
-            ViewBag.menuCategories = categories;
+        [ChildActionOnly]
+        public ActionResult MenuLeft()
+        {
+            var categories = _context.Categories.ToList();
+            return PartialView(categories);
         }
 
         [HttpGet]

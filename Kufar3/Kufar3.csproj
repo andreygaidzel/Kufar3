@@ -338,7 +338,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Admin\UserChange.cshtml" />
-    <Content Include="Views\Home\_CatalogMenu.cshtml" />
     <Content Include="Views\Declaration\AddDeclaration.cshtml" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
@@ -353,6 +352,7 @@
     <Content Include="Views\Moderator\GetCities.cshtml" />
     <Content Include="Views\User\UserDeclaration.cshtml" />
     <Content Include="Views\User\AccountEdit.cshtml" />
+    <Content Include="Views\Home\MenuLeft.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
