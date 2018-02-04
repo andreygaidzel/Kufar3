@@ -21,6 +21,7 @@ namespace Kufar3.Controllers
             _context = new KufarContext();
         }
 
+        // TODO: DeclOOOOrations ???
         public ActionResult MyDeclorations()
         {
             int userId = Convert.ToInt32(HttpContext.User.Identity.GetUserId());
