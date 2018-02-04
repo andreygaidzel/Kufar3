@@ -18,5 +18,19 @@ namespace Kufar3.Controllers
             Context = new KufarContext();
         }
 
+        public void InitDropDownItems(int selectedSubCategory = 1, int selectedCity = 1)
+        {
+            var categories = new SelectList(Context.Categories, "Id", "Name", selectedSubCategory);
+            var subCategories = new SelectList(Context.SubCategories.Where(c => c.CategoryId == selectedSubCategory), "Id", "Name");
+
+            var regions = new SelectList(Context.Regions, "Id", "Name", selectedCity);
+            var cities = new SelectList(Context.Cities.Where(c => c.RegionId == selectedCity), "Id", "Name");
+
+            ViewBag.categories = categories;
+            ViewBag.subCategories = subCategories;
+
+            ViewBag.regions = regions;
+            ViewBag.cities = cities;
+        }
     }
 }

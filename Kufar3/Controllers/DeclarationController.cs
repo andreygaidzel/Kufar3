@@ -15,16 +15,7 @@ namespace Kufar3.Controllers
         [HttpGet]
         public ActionResult AddDeclaration()
         {
-            var selectedIndex = 1;
-            var categories = new SelectList(Context.Categories, "Id", "Name", selectedIndex);
-            var subCategories = new SelectList(Context.SubCategories.Where(c => c.CategoryId == selectedIndex), "Id", "Name");
-            ViewBag.categories = categories;
-            ViewBag.subCategories = subCategories;
-
-            var regions = new SelectList(Context.Regions, "Id", "Name", selectedIndex);
-            var cities = new SelectList(Context.Cities.Where(c => c.RegionId == selectedIndex), "Id", "Name");
-            ViewBag.regions = regions;
-            ViewBag.cities = cities;
+            InitDropDownItems();
 
             return View();
         }

@@ -20,6 +20,7 @@ namespace Kufar3.Controllers
             return View();
         }
 
+        // TODO: исправить
         [HttpGet]
         public ActionResult DeclarationModeration(int? declarationId)
         {
@@ -36,21 +37,7 @@ namespace Kufar3.Controllers
                 });
             }
 
-            var selectedIndex = declaration.SubCategory.CategoryId;
-
-            var categories = new SelectList(Context.Categories, "Id", "Name", selectedIndex);
-            var subCategories = new SelectList(Context.SubCategories.Where(c => c.CategoryId == selectedIndex), "Id", "Name");
-
-            ViewBag.categories = categories;
-            ViewBag.subCategories = subCategories;
-
-            selectedIndex = declaration.City.RegionId;
-
-            var regions = new SelectList(Context.Regions, "Id", "Name", selectedIndex);
-            var cities = new SelectList(Context.Cities.Where(c => c.RegionId == selectedIndex), "Id", "Name");
-
-            ViewBag.regions = regions;
-            ViewBag.cities = cities;
+            InitDropDownItems(declaration.SubCategory.CategoryId, declaration.City.RegionId);
 
             return View(declaration);
         }
