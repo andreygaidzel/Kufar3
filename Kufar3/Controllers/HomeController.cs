@@ -54,5 +54,15 @@ namespace Kufar3.Controllers
             ViewBag.declaration = declaration;
             return View();
         }
+
+        public ActionResult GetItems(int id)
+        {
+            return PartialView(Context.SubCategories.Where(c => c.CategoryId == id).ToList());
+        }
+
+        public ActionResult GetCities(int id)
+        {
+            return PartialView(Context.Cities.Where(c => c.RegionId == id).ToList());
+        }
     }
 }

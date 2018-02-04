@@ -342,15 +342,13 @@
     <Content Include="Views\Declaration\AddDeclaration.cshtml" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
-    <Content Include="Views\Declaration\GetItems.cshtml" />
+    <Content Include="Views\Home\GetItems.cshtml" />
     <Content Include="Views\Home\Declaration.cshtml" />
     <Content Include="Views\Moderator\DeclarationList.cshtml" />
     <Content Include="Views\Moderator\DeclarationModeration.cshtml" />
-    <Content Include="Views\Moderator\GetItems.cshtml" />
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\User\MyDeclarations.cshtml" />
-    <Content Include="Views\Declaration\GetCities.cshtml" />
-    <Content Include="Views\Moderator\GetCities.cshtml" />
+    <Content Include="Views\Home\GetCities.cshtml" />
     <Content Include="Views\User\UserDeclaration.cshtml" />
     <Content Include="Views\User\AccountEdit.cshtml" />
     <Content Include="Views\Home\MenuLeft.cshtml" />

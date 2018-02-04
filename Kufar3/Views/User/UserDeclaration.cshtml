@@ -94,7 +94,7 @@
             var id = $(this).val();
             $.ajax({
                 type: 'GET',
-                url: '@Url.Action("GetItems", "Declaration")/' + id,
+                url: '@Url.Action("GetItems", "Home")/' + id,
                 success: function(data)
                 {
                     console.log("vernulll", data);
@@ -113,7 +113,7 @@
             var id = $(this).val();
             $.ajax({
                 type: 'GET',
-                url: '@Url.Action("GetCities", "Declaration")/' + id,
+                url: '@Url.Action("GetCities", "Home")/' + id,
                 success: function(data)
                 {
                     console.log("vernulllCity", data);

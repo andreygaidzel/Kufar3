@@ -29,16 +29,6 @@ namespace Kufar3.Controllers
             return View();
         }
 
-        public ActionResult GetItems(int id)
-        {
-            return PartialView(Context.SubCategories.Where(c => c.CategoryId == id).ToList());
-        }
-
-        public ActionResult GetCities(int id)
-        {
-            return PartialView(Context.Cities.Where(c => c.RegionId == id).ToList());
-        }
-
         [HttpPost]
         public ActionResult AddDeclaration(DeclarationModel declaration)
         {
