@@ -9,19 +9,12 @@ using Microsoft.SqlServer.Server;
 
 namespace Kufar3.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private KufarContext _context;
-
-        public HomeController()
-        {
-            _context = new KufarContext();
-        }
-
         [ChildActionOnly]
         public ActionResult MenuLeft()
         {
-            var categories = _context.Categories.ToList();
+            var categories = Context.Categories.ToList();
             return PartialView(categories);
         }
 
@@ -29,17 +22,17 @@ namespace Kufar3.Controllers
         public ActionResult Index(int? idCategory, int? idSubCategory)
         {
             var title = string.Empty;
-            var query = _context.Declarations.Where(x => x.Moderation == true);
+            var query = Context.Declarations.Where(x => x.Moderation == true);
            
             if (idCategory != null)
             {
                 query = query.Where(x => x.SubCategory.CategoryId == idCategory);
-                title = _context.Categories.First(x => x.Id == idCategory).Name;
+                title = Context.Categories.First(x => x.Id == idCategory).Name;
             }
             else if (idSubCategory != null)
             {
                 query = query.Where(x => x.SubCategoryId == idSubCategory);
-                title = _context.SubCategories.First(x => x.Id == idSubCategory).Name;
+                title = Context.SubCategories.First(x => x.Id == idSubCategory).Name;
             }
 
             ViewBag.title = title;
@@ -57,7 +50,7 @@ namespace Kufar3.Controllers
 
         public ActionResult Declaration(int? declarationId)
         {
-            var declaration = _context.Declarations.FirstOrDefault(x => x.Id == declarationId);
+            var declaration = Context.Declarations.FirstOrDefault(x => x.Id == declarationId);
             ViewBag.declaration = declaration;
             return View();
         }

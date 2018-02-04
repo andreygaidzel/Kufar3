@@ -10,18 +10,11 @@ using Microsoft.Owin.Security;
 namespace Kufar3.Controllers
 {
     [Authorize(Roles = "moderator")]
-    public class ModeratorController : Controller
+    public class ModeratorController : BaseController
     {    
-        private KufarContext _context;
-
-        public ModeratorController()
-        {
-            _context = new KufarContext();
-        }
-
         public ActionResult DeclarationList()
         {
-            var declarations = _context.Declarations.Where(x=>x.Moderation == false).ToList();
+            var declarations = Context.Declarations.Where(x=>x.Moderation == false).ToList();
             ViewBag.declarations = declarations;
 
             return View();
@@ -29,18 +22,18 @@ namespace Kufar3.Controllers
 
         public ActionResult GetItems(int id)
         {
-            return PartialView(_context.SubCategories.Where(c => c.CategoryId == id).ToList());
+            return PartialView(Context.SubCategories.Where(c => c.CategoryId == id).ToList());
         }
 
         public ActionResult GetCities(int id)
         {
-            return PartialView(_context.Cities.Where(c => c.RegionId == id).ToList());
+            return PartialView(Context.Cities.Where(c => c.RegionId == id).ToList());
         }
 
         [HttpGet]
         public ActionResult DeclarationModeration(int? declarationId)
         {
-            var declaration = _context.Declarations.First(x => x.Id == declarationId);
+            var declaration = Context.Declarations.First(x => x.Id == declarationId);
             ViewBag.declaration = declaration;
             
             var countEmptyImages = 6 - declaration.Images.Count;
@@ -55,16 +48,16 @@ namespace Kufar3.Controllers
 
             var selectedIndex = declaration.SubCategory.CategoryId;
 
-            var categories = new SelectList(_context.Categories, "Id", "Name", selectedIndex);
-            var subCategories = new SelectList(_context.SubCategories.Where(c => c.CategoryId == selectedIndex), "Id", "Name");
+            var categories = new SelectList(Context.Categories, "Id", "Name", selectedIndex);
+            var subCategories = new SelectList(Context.SubCategories.Where(c => c.CategoryId == selectedIndex), "Id", "Name");
 
             ViewBag.categories = categories;
             ViewBag.subCategories = subCategories;
 
             selectedIndex = declaration.City.RegionId;
 
-            var regions = new SelectList(_context.Regions, "Id", "Name", selectedIndex);
-            var cities = new SelectList(_context.Cities.Where(c => c.RegionId == selectedIndex), "Id", "Name");
+            var regions = new SelectList(Context.Regions, "Id", "Name", selectedIndex);
+            var cities = new SelectList(Context.Cities.Where(c => c.RegionId == selectedIndex), "Id", "Name");
 
             ViewBag.regions = regions;
             ViewBag.cities = cities;
@@ -75,7 +68,7 @@ namespace Kufar3.Controllers
         [HttpPost]
         public ActionResult DeclarationUpdate(Declaration declaration)
         {
-            var newDeclaration = _context.Declarations.First(x => x.Id == declaration.Id);
+            var newDeclaration = Context.Declarations.First(x => x.Id == declaration.Id);
 
             newDeclaration.Name = declaration.Name;
             newDeclaration.Description = declaration.Description;
@@ -83,7 +76,7 @@ namespace Kufar3.Controllers
             newDeclaration.Moderation = true;
             newDeclaration.CityId = declaration.CityId;
           
-            _context.SaveChanges();
+            Context.SaveChanges();
 
             return RedirectToAction("DeclarationList");
         }
@@ -94,9 +87,9 @@ namespace Kufar3.Controllers
             var templatePath = test + url;
             System.IO.File.Delete(templatePath);
 
-            var delImg = _context.Images.First(x => x.Name == url);
-            _context.Images.Remove(delImg);
-            _context.SaveChanges();
+            var delImg = Context.Images.First(x => x.Name == url);
+            Context.Images.Remove(delImg);
+            Context.SaveChanges();
 
             return Json("Удалено", JsonRequestBehavior.AllowGet);
         }

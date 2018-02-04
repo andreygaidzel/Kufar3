@@ -6,34 +6,27 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Kufar3.Controllers;
 using Kufar3.Models;
 using Kufar3.ModelsView;
 using Microsoft.Owin.Security;
 
 namespace Authorize.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
-        private KufarContext _context;
-        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
-
-        public AccountController()
-        {
-            _context = new KufarContext();
-        }
-
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
-
+        
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = _context.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
+                var user = Context.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
 
                 if (user == null)
                 {
@@ -68,7 +61,7 @@ namespace Authorize.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
-            var dublicat = _context.Users.FirstOrDefault(x => x.Email == model.Email);
+            var dublicat = Context.Users.FirstOrDefault(x => x.Email == model.Email);
 
             if (dublicat != null)
             {
@@ -84,11 +77,11 @@ namespace Authorize.Controllers
                     Name = model.Name,
                     MobileNumber = model.MobileNumber,
                     Password = model.Password,
-                    Role = _context.Roles.First(x => x.Name == "user")
+                    Role = Context.Roles.First(x => x.Name == "user")
                 };
 
-                _context.Users.Add(user);
-                _context.SaveChanges();
+                Context.Users.Add(user);
+                Context.SaveChanges();
 
                 AuthenticationManager.SignOut();
                 return RedirectToAction("Login", "Account");

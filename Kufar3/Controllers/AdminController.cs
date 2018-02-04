@@ -13,16 +13,8 @@ using Microsoft.Owin.Security;
 namespace Kufar3.Controllers
 {
     [Authorize(Roles = "admin")]
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
-        private KufarContext _context;
-
-        public AdminController()
-        {
-            _context = new KufarContext();
-        }
-        // GET: Admin
-
         public ActionResult Index()
         {
             return View();
@@ -30,10 +22,10 @@ namespace Kufar3.Controllers
 
         public ActionResult Users()
         {
-            var users = _context.Users.ToList();
+            var users = Context.Users.ToList();
             ViewBag.Users = users;
 
-            var role = _context.Roles.ToList();
+            var role = Context.Roles.ToList();
             ViewBag.roles = role;
 
             return View();
@@ -41,32 +33,32 @@ namespace Kufar3.Controllers
 
         public ActionResult UsersChangeRole(int userId)
         {
-            var user = _context.Users.First(u => u.Id == userId);
+            var user = Context.Users.First(u => u.Id == userId);
 
             if (user.Role.Name == "admin")
             {
-                user.RoleId = _context.Roles.First(x => x.Name == "moderator").Id;
+                user.RoleId = Context.Roles.First(x => x.Name == "moderator").Id;
             }
             if (user.Role.Name == "moderator")
             {
-                user.RoleId = _context.Roles.First(x => x.Name == "user").Id;
+                user.RoleId = Context.Roles.First(x => x.Name == "user").Id;
             }
             if (user.Role.Name == "user")
             {
-                user.RoleId = _context.Roles.First(x => x.Name == "admin").Id;
+                user.RoleId = Context.Roles.First(x => x.Name == "admin").Id;
             }
 
-            _context.SaveChanges();
+            Context.SaveChanges();
 
             return RedirectToAction("Users", "Admin");
         }
 
         public ActionResult UserRemove(int userId)
         {
-            var user = _context.Users.First(u => u.Id == userId);
+            var user = Context.Users.First(u => u.Id == userId);
 
-            _context.Users.Remove(user);
-            _context.SaveChanges();
+            Context.Users.Remove(user);
+            Context.SaveChanges();
 
             return RedirectToAction("Users", "Admin");
         }
@@ -74,7 +66,7 @@ namespace Kufar3.Controllers
         public ActionResult UserChange(int userId)
         {
 
-            var model = _context.Users.First(u => u.Id == userId);
+            var model = Context.Users.First(u => u.Id == userId);
 
             return View(model);
         }
@@ -82,14 +74,14 @@ namespace Kufar3.Controllers
         [HttpPost]
         public ActionResult UserChange(User model)
         {
-            var user = _context.Users.First(x => x.Id == model.Id);
+            var user = Context.Users.First(x => x.Id == model.Id);
            
             user.Email = model.Email;
             user.Name = model.Name;
             user.MobileNumber = model.MobileNumber;
             user.Password = model.Password;
 
-            _context.SaveChanges();
+            Context.SaveChanges();
 
             return RedirectToAction("Users", "Admin");
         }

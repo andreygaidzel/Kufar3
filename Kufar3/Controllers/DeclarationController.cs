@@ -10,27 +10,19 @@ using Microsoft.AspNet.Identity;
 
 namespace Kufar3.Controllers
 {
-    public class DeclarationController : Controller
+    public class DeclarationController : BaseController
     {
-        // GET: Declaration
-        private KufarContext _context;
-
-        public DeclarationController()
-        {
-            _context = new KufarContext();
-        }
-
         [HttpGet]
         public ActionResult AddDeclaration()
         {
             var selectedIndex = 1;
-            var categories = new SelectList(_context.Categories, "Id", "Name", selectedIndex);
-            var subCategories = new SelectList(_context.SubCategories.Where(c => c.CategoryId == selectedIndex), "Id", "Name");
+            var categories = new SelectList(Context.Categories, "Id", "Name", selectedIndex);
+            var subCategories = new SelectList(Context.SubCategories.Where(c => c.CategoryId == selectedIndex), "Id", "Name");
             ViewBag.categories = categories;
             ViewBag.subCategories = subCategories;
 
-            var regions = new SelectList(_context.Regions, "Id", "Name", selectedIndex);
-            var cities = new SelectList(_context.Cities.Where(c => c.RegionId == selectedIndex), "Id", "Name");
+            var regions = new SelectList(Context.Regions, "Id", "Name", selectedIndex);
+            var cities = new SelectList(Context.Cities.Where(c => c.RegionId == selectedIndex), "Id", "Name");
             ViewBag.regions = regions;
             ViewBag.cities = cities;
 
@@ -39,12 +31,12 @@ namespace Kufar3.Controllers
 
         public ActionResult GetItems(int id)
         {
-            return PartialView(_context.SubCategories.Where(c => c.CategoryId == id).ToList());
+            return PartialView(Context.SubCategories.Where(c => c.CategoryId == id).ToList());
         }
 
         public ActionResult GetCities(int id)
         {
-            return PartialView(_context.Cities.Where(c => c.RegionId == id).ToList());
+            return PartialView(Context.Cities.Where(c => c.RegionId == id).ToList());
         }
 
         [HttpPost]
@@ -63,21 +55,21 @@ namespace Kufar3.Controllers
                 CreateTime = DateTime.Now,
                 CityId = declaration.CityId,
             };
-            _context.Declarations.Add(newDeclaration);
-            _context.SaveChanges();
+            Context.Declarations.Add(newDeclaration);
+            Context.SaveChanges();
 
             foreach (var img in declaration.Images)
             {
                 if (!string.IsNullOrEmpty(img))
                 {
-                    _context.Images.Add(new Image
+                    Context.Images.Add(new Image
                     {
                         Name = img,
                         DeclarationId = newDeclaration.Id,
                     });
                 }
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
 
             return RedirectToAction("AddDeclaration");
         }
