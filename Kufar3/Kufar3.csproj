@@ -348,7 +348,7 @@
     <Content Include="Views\Moderator\DeclarationModeration.cshtml" />
     <Content Include="Views\Moderator\GetItems.cshtml" />
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
-    <Content Include="Views\User\MyDeclorations.cshtml" />
+    <Content Include="Views\User\MyDeclarations.cshtml" />
     <Content Include="Views\Declaration\GetCities.cshtml" />
     <Content Include="Views\Moderator\GetCities.cshtml" />
     <Content Include="Views\User\UserDeclaration.cshtml" />

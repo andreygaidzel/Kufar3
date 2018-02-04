@@ -4,22 +4,21 @@
     List<Declaration> declarations = ViewBag.declarations;
 }
 @{
-    // TODO: DeclOOOOrations ???
-    ViewBag.Title = "MyDeclorations";
+    ViewBag.Title = "MyDeclarations";
     Layout = "~/Views/Shared/_layoutUser.cshtml";
 }
 <h2>Мои объявления</h2>
 
 <ul>
-    @foreach (Declaration declaration in declarations)
+    @foreach (var declaration in declarations)
     {
         <li class="declarations">
             @{
-                string path = declaration.Images.FirstOrDefault()?.Name;
+                var path = declaration.Images.FirstOrDefault()?.Name;
 
-                string url = Url.Action("Declaration", "Home", new { declarationId = declaration.Id });
-                string editUrl = Url.Action("UserDeclaration", "User", new { declarationId = declaration.Id });
-                string removeUrl = Url.Action("DeleteImage", "User", new { declarationId = declaration.Id });
+                var url = Url.Action("Declaration", "Home", new { declarationId = declaration.Id });
+                var editUrl = Url.Action("UserDeclaration", "User", new { declarationId = declaration.Id });
+                var removeUrl = Url.Action("DeleteImage", "User", new { declarationId = declaration.Id });
             }
             <div id="menu-desc">
                 <a href="@editUrl">Редактировать</a> 

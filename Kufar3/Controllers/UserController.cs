@@ -22,10 +22,10 @@ namespace Kufar3.Controllers
         }
 
         // TODO: DeclOOOOrations ???
-        public ActionResult MyDeclorations()
+        public ActionResult MyDeclarations()
         {
-            int userId = Convert.ToInt32(HttpContext.User.Identity.GetUserId());
-            IQueryable<Declaration> query = _context.Declarations.Where(x =>x.UserId == userId);
+            var userId = Convert.ToInt32(HttpContext.User.Identity.GetUserId());
+            var query = _context.Declarations.Where(x =>x.UserId == userId);
             ViewBag.Declarations = query.ToList();
 
             return View();
@@ -34,11 +34,11 @@ namespace Kufar3.Controllers
         [HttpGet]
         public ActionResult UserDeclaration(int? declarationId)
         {
-            Declaration declaration = _context.Declarations.First(x => x.Id == declarationId);
+            var declaration = _context.Declarations.First(x => x.Id == declarationId);
             ViewBag.declaration = declaration;
 
-            int colIm0 = 6 - declaration.Images.Count;
-            for (int i = 0; i < colIm0; i++)
+            var countEmptyImages = 6 - declaration.Images.Count;
+            for (var i = 0; i < countEmptyImages; i++)
             {
                 declaration.Images.Add(new Image
                 {
@@ -47,16 +47,16 @@ namespace Kufar3.Controllers
                 });
             }
 
-            int selectedIndex = declaration.SubCategory.CategoryId;
+            var selectedIndex = declaration.SubCategory.CategoryId;
 
-            SelectList categories = new SelectList(_context.Categories, "Id", "Name", selectedIndex);
-            SelectList subCat = new SelectList(_context.SubCategories.Where(c => c.CategoryId == selectedIndex), "Id", "Name");
-            ViewBag.cats = categories;
-            ViewBag.subCat = subCat;
+            var categories = new SelectList(_context.Categories, "Id", "Name", selectedIndex);
+            var subCategories = new SelectList(_context.SubCategories.Where(c => c.CategoryId == selectedIndex), "Id", "Name");
+            ViewBag.categories = categories;
+            ViewBag.subCategories = subCategories;
 
             selectedIndex = declaration.City.RegionId;
-            SelectList regions = new SelectList(_context.Regions, "Id", "Name", selectedIndex);
-            SelectList cities = new SelectList(_context.Cities.Where(c => c.RegionId == selectedIndex), "Id", "Name");
+            var regions = new SelectList(_context.Regions, "Id", "Name", selectedIndex);
+            var cities = new SelectList(_context.Cities.Where(c => c.RegionId == selectedIndex), "Id", "Name");
             ViewBag.regions = regions;
             ViewBag.cities = cities;
 
@@ -66,7 +66,7 @@ namespace Kufar3.Controllers
         [HttpPost]
         public ActionResult DeclarationUpdate(Declaration declaration)
         {
-            Declaration newDeclaration = _context.Declarations.First(x => x.Id == declaration.Id);
+            var newDeclaration = _context.Declarations.First(x => x.Id == declaration.Id);
 
             newDeclaration.Name = declaration.Name;
             newDeclaration.Description = declaration.Description;
@@ -76,23 +76,23 @@ namespace Kufar3.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction("MyDeclorations");
+            return RedirectToAction("MyDeclarations");
         }
 
         public ActionResult DeleteImage(int? declarationId)
         {
-            Declaration declaration = _context.Declarations.First(x => x.Id == declarationId);
+            var declaration = _context.Declarations.First(x => x.Id == declarationId);
             _context.Declarations.Remove(declaration);
             _context.SaveChanges();
 
-            return RedirectToAction("MyDeclorations");
+            return RedirectToAction("MyDeclarations");
         }
         /********************************************************************************************************/
 
         public ActionResult AccountEdit()
         {
-            int userId = int.Parse(HttpContext.User.Identity.GetUserId());
-            User model = _context.Users.First(u => u.Id == userId);
+            var userId = int.Parse(HttpContext.User.Identity.GetUserId());
+            var model = _context.Users.First(u => u.Id == userId);
 
             return View(model);
         }
@@ -100,7 +100,7 @@ namespace Kufar3.Controllers
         [HttpPost]
         public ActionResult AccountEdit(User model)
         {
-            User user = _context.Users.First(x => x.Id == model.Id);
+            var user = _context.Users.First(x => x.Id == model.Id);
 
             user.Email = model.Email;
             user.Name = model.Name;

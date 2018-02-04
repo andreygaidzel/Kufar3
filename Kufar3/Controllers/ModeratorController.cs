@@ -21,7 +21,7 @@ namespace Kufar3.Controllers
 
         public ActionResult DeclarationList()
         {
-            List<Declaration> declarations = _context.Declarations.Where(x=>x.Moderation == false).ToList();
+            var declarations = _context.Declarations.Where(x=>x.Moderation == false).ToList();
             ViewBag.declarations = declarations;
 
             return View();
@@ -40,11 +40,11 @@ namespace Kufar3.Controllers
         [HttpGet]
         public ActionResult DeclarationModeration(int? declarationId)
         {
-            Declaration declaration = _context.Declarations.First(x => x.Id == declarationId);
+            var declaration = _context.Declarations.First(x => x.Id == declarationId);
             ViewBag.declaration = declaration;
-
-            int colIm0 = 6 - declaration.Images.Count;
-            for (int i = 0; i < colIm0; i++)
+            
+            var countEmptyImages = 6 - declaration.Images.Count;
+            for (var i = 0; i < countEmptyImages; i++)
             {
                 declaration.Images.Add(new Image
                 {
@@ -53,18 +53,18 @@ namespace Kufar3.Controllers
                 });
             }
 
-            int selectedIndex = declaration.SubCategory.CategoryId;
+            var selectedIndex = declaration.SubCategory.CategoryId;
 
-            SelectList categories = new SelectList(_context.Categories, "Id", "Name", selectedIndex);
-            SelectList subCat = new SelectList(_context.SubCategories.Where(c => c.CategoryId == selectedIndex), "Id", "Name");
+            var categories = new SelectList(_context.Categories, "Id", "Name", selectedIndex);
+            var subCategories = new SelectList(_context.SubCategories.Where(c => c.CategoryId == selectedIndex), "Id", "Name");
 
-            ViewBag.cats = categories;
-            ViewBag.subCat = subCat;
+            ViewBag.categories = categories;
+            ViewBag.subCategories = subCategories;
 
             selectedIndex = declaration.City.RegionId;
 
-            SelectList regions = new SelectList(_context.Regions, "Id", "Name", selectedIndex);
-            SelectList cities = new SelectList(_context.Cities.Where(c => c.RegionId == selectedIndex), "Id", "Name");
+            var regions = new SelectList(_context.Regions, "Id", "Name", selectedIndex);
+            var cities = new SelectList(_context.Cities.Where(c => c.RegionId == selectedIndex), "Id", "Name");
 
             ViewBag.regions = regions;
             ViewBag.cities = cities;
@@ -75,7 +75,7 @@ namespace Kufar3.Controllers
         [HttpPost]
         public ActionResult DeclarationUpdate(Declaration declaration)
         {
-            Declaration newDeclaration = _context.Declarations.First(x => x.Id == declaration.Id);
+            var newDeclaration = _context.Declarations.First(x => x.Id == declaration.Id);
 
             newDeclaration.Name = declaration.Name;
             newDeclaration.Description = declaration.Description;
@@ -94,7 +94,7 @@ namespace Kufar3.Controllers
             var templatePath = test + url;
             System.IO.File.Delete(templatePath);
 
-            Image delImg = _context.Images.First(x => x.Name == url);
+            var delImg = _context.Images.First(x => x.Name == url);
             _context.Images.Remove(delImg);
             _context.SaveChanges();
 

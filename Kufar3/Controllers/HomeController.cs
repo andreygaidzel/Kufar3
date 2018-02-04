@@ -17,21 +17,21 @@ namespace Kufar3.Controllers
         {
             _context = new KufarContext();
 
-            List<Category> categories = _context.Categories.OrderBy(x => x.Id).ToList();
+            var categories = _context.Categories.OrderBy(x => x.Id).ToList();
 
             foreach (var category in categories)
             {
                 category.SubCategories.OrderByDescending(x => x.Id);
             }
 
-            ViewBag.categories = categories;
+            ViewBag.menuCategories = categories;
         }
 
         [HttpGet]
         public ActionResult Index(int? idCategory, int? idSubCategory)
         {
-            string title = string.Empty;
-            IQueryable<Declaration> query = _context.Declarations.Where(x => x.Moderation == true);
+            var title = string.Empty;
+            var query = _context.Declarations.Where(x => x.Moderation == true);
            
             if (idCategory != null)
             {
@@ -59,7 +59,7 @@ namespace Kufar3.Controllers
 
         public ActionResult Declaration(int? declarationId)
         {
-            Declaration declaration = _context.Declarations.FirstOrDefault(x => x.Id == declarationId);
+            var declaration = _context.Declarations.FirstOrDefault(x => x.Id == declarationId);
             ViewBag.declaration = declaration;
             return View();
         }

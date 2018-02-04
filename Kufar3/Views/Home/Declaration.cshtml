@@ -19,7 +19,7 @@
 <div class="all-foto">
     @foreach (var image in declaration.Images)
     {
-        string path = image.Name;
+        var path = image.Name;
         <img src="@path" alt="No img" />
     }
 </div>

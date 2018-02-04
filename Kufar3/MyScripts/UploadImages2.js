@@ -2,27 +2,27 @@
 
 var dataImages = [
     {
-        imgId: 'img0',
+        imgId: 'img-0',
         path: null,
     },
     {
-        imgId: 'img1',
+        imgId: 'img-1',
         path: null,
     },
     {
-        imgId: 'img2',
+        imgId: 'img-2',
         path: null,
     },
     {
-        imgId: 'img3',
+        imgId: 'img-3',
         path: null,
     },
     {
-        imgId: 'img4',
+        imgId: 'img-4',
         path: null,
     },
     {
-        imgId: 'img5',
+        imgId: 'img-5',
         path: null,
     }
 ];
@@ -98,8 +98,8 @@ var imagesService = {
 
 
 
-$("#allImg button").click(function () {
-    var index = $('#allImg button').index(this);
+$("#all-images button").click(function () {
+    var index = $('#all-images button').index(this);
     imagesService.remove(index);
     console.log("fffffff");
 });

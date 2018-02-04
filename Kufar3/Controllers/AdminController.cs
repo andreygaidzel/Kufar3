@@ -16,7 +16,6 @@ namespace Kufar3.Controllers
     public class AdminController : Controller
     {
         private KufarContext _context;
-        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
         public AdminController()
         {
@@ -31,10 +30,10 @@ namespace Kufar3.Controllers
 
         public ActionResult Users()
         {
-            List<User> users = _context.Users.ToList();
+            var users = _context.Users.ToList();
             ViewBag.Users = users;
 
-            List<Role> role = _context.Roles.ToList();
+            var role = _context.Roles.ToList();
             ViewBag.roles = role;
 
             return View();
@@ -42,7 +41,7 @@ namespace Kufar3.Controllers
 
         public ActionResult UsersChangeRole(int userId)
         {
-            User user = _context.Users.First(u => u.Id == userId);
+            var user = _context.Users.First(u => u.Id == userId);
 
             if (user.Role.Name == "admin")
             {
@@ -64,7 +63,7 @@ namespace Kufar3.Controllers
 
         public ActionResult UserRemove(int userId)
         {
-            User user = _context.Users.First(u => u.Id == userId);
+            var user = _context.Users.First(u => u.Id == userId);
 
             _context.Users.Remove(user);
             _context.SaveChanges();
@@ -75,7 +74,7 @@ namespace Kufar3.Controllers
         public ActionResult UserChange(int userId)
         {
 
-            User model = _context.Users.First(u => u.Id == userId);
+            var model = _context.Users.First(u => u.Id == userId);
 
             return View(model);
         }
@@ -83,7 +82,7 @@ namespace Kufar3.Controllers
         [HttpPost]
         public ActionResult UserChange(User model)
         {
-            User user = _context.Users.First(x => x.Id == model.Id);
+            var user = _context.Users.First(x => x.Id == model.Id);
            
             user.Email = model.Email;
             user.Name = model.Name;

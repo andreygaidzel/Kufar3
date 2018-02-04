@@ -1,14 +1,14 @@
 ﻿@using Kufar3.Models
 @{
-    List<Category> categories = ViewBag.categories;
+    List<Category> categories = ViewBag.menuCategories;
     int? idCategory = ViewBag.idCategory;
     int? idSubCategory = ViewBag.idSubCategory;
 }
 
 <ul class="main-menu">
-    @foreach (Category category in categories)
+    @foreach (var category in categories)
     {
-        string isShow="";
+        var isShow="";
         // TODO: ИСПРАВИТЬ!
         if (idCategory != null)
         {
@@ -23,7 +23,7 @@
             @Html.ActionLink(@category.Name, "Index", "Home", new { idCategory = category.Id }, new{@class="rita"})
             <ul class="sub-menu">
                
-                @foreach (SubCategory sub in category.SubCategories)
+                @foreach (var sub in category.SubCategories)
                 {
                     <li class="li2">
                         @Html.ActionLink(@sub.Name, "Index", "Home", new {idSubCategory = sub.Id}, null)

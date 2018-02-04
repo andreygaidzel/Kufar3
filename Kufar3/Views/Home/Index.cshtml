@@ -6,12 +6,12 @@
 }
 
 <h2>@title</h2><ul>
-    @foreach (Declaration declaration in declarations)
+    @foreach (var declaration in declarations)
     {
         <li class="declarations">
             @{
-                string path = declaration.Images.FirstOrDefault()?.Name;
-                string url = Url.Action("Declaration", "Home", new{declarationId = declaration.Id});
+                var path = declaration.Images.FirstOrDefault()?.Name;
+                var url = Url.Action("Declaration", "Home", new{declarationId = declaration.Id});
             }
 
             <div id="img">

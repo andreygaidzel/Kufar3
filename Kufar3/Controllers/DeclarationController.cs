@@ -19,22 +19,22 @@ namespace Kufar3.Controllers
         {
             _context = new KufarContext();
 
-            List<Category> categories = _context.Categories.ToList();
-            ViewBag.categories = categories;
+            var categories = _context.Categories.ToList();
+            ViewBag.menuCategories = categories;
         }
 
         [HttpGet]
         public ActionResult AddDeclaration()
         {
-            int selectedIndex = 1;
-            SelectList categories = new SelectList(_context.Categories, "Id", "Name", selectedIndex);
-            ViewBag.cats = categories;
-            SelectList subCat = new SelectList(_context.SubCategories.Where(c => c.CategoryId == selectedIndex), "Id", "Name");
-            ViewBag.subCat = subCat;
+            var selectedIndex = 1;
+            var categories = new SelectList(_context.Categories, "Id", "Name", selectedIndex);
+            var subCategories = new SelectList(_context.SubCategories.Where(c => c.CategoryId == selectedIndex), "Id", "Name");
+            ViewBag.categories = categories;
+            ViewBag.subCategories = subCategories;
 
-            SelectList regions = new SelectList(_context.Regions, "Id", "Name", selectedIndex);
+            var regions = new SelectList(_context.Regions, "Id", "Name", selectedIndex);
+            var cities = new SelectList(_context.Cities.Where(c => c.RegionId == selectedIndex), "Id", "Name");
             ViewBag.regions = regions;
-            SelectList cities = new SelectList(_context.Cities.Where(c => c.RegionId == selectedIndex), "Id", "Name");
             ViewBag.cities = cities;
 
             return View();
@@ -53,10 +53,10 @@ namespace Kufar3.Controllers
         [HttpPost]
         public ActionResult AddDeclaration(DeclarationModel declaration)
         {
-            string userId = HttpContext.User.Identity.GetUserId();
-            int intId = Convert.ToInt32(userId);
+            var userId = HttpContext.User.Identity.GetUserId();
+            var intId = Convert.ToInt32(userId);
 
-            Declaration newDeclaration = new Declaration
+            var newDeclaration = new Declaration
             {
                 Name = declaration.Name,
                 Description = declaration.Description,
@@ -69,7 +69,7 @@ namespace Kufar3.Controllers
             _context.Declarations.Add(newDeclaration);
             _context.SaveChanges();
 
-            foreach (string img in declaration.Images)
+            foreach (var img in declaration.Images)
             {
                 if (!string.IsNullOrEmpty(img))
                 {
@@ -90,11 +90,11 @@ namespace Kufar3.Controllers
         {
             System.Threading.Thread.Sleep(2000);
 
-            int k = 0;
+            var k = 0;
 
             // TODO: img - всунуть в цикл
-            string img = "";
-            List<string> imag = new List<string>();
+            var img = "";
+            var imag = new List<string>();
             if (file != null)
             {
                 foreach (var f in file)
@@ -104,7 +104,7 @@ namespace Kufar3.Controllers
                         k++;
                         var random = Guid.NewGuid().ToString("n");
                         // получаем имя файла
-                        string fileName = "IMG" + random + "-Num" + k + ".jpg";
+                        var fileName = "IMG" + random + "-Num" + k + ".jpg";
                         // сохраняем файл в папку Files в проекте
                         f.SaveAs(Server.MapPath("~/Images/" + fileName));
                         img = "/Images/" + fileName;

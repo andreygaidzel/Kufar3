@@ -17,9 +17,9 @@
         <div class="logo">
             @{
                 var ident = HttpContext.Current.User.Identity;
-                string user = "Вход";
-                string url1 = "Login";
-                string url2 = "Account";
+                var user = "Вход";
+                var url1 = "Login";
+                var url2 = "Account";
             }
             <h2>@Html.ActionLink("KUFAR", "Index", "Home", null, new { @class = "kuf" }) </h2>
         </div>
@@ -31,7 +31,7 @@
                 url1 = "AddDeclaration";
                 url2 = "Declaration";
             }
-             @Html.ActionLink(user, "MyDeclorations", "User")
+             @Html.ActionLink(user, "MyDeclarations", "User")
 
             @if (ident.IsAuthenticated)
             {
@@ -46,7 +46,7 @@
     <div class="container">
         <div class="menu">
             <ul class="main-menu">
-                <li>@Html.ActionLink("Мои объявления", "MyDeclorations", "User")</li>
+                <li>@Html.ActionLink("Мои объявления", "MyDeclarations", "User")</li>
                 <li>Мои сообщения</li>
                 <li>@Html.ActionLink("Настройки", "AccountEdit", "User")</li>
                 <li>@Html.ActionLink("Выход", "Logout", "Account")</li>

@@ -32,7 +32,7 @@
 
         </table>
     </div>
-    @foreach (User user in Users)
+    @foreach (var user in Users)
     {
         <div class="tab">
             <table class="table">
@@ -46,7 +46,7 @@
                     <td width="100">
                         
                         @{
-                            string roleName = Roles.First(x => x.Id == user.RoleId).Name;
+                            var roleName = Roles.First(x => x.Id == user.RoleId).Name;
                             @Html.ActionLink(roleName, "UsersChangeRole", "Admin", new { userId = user.Id }, null)
                         }
                     </td>

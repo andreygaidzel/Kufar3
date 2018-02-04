@@ -33,7 +33,7 @@ namespace Authorize.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = _context.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
+                var user = _context.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
 
                 if (user == null)
                 {
@@ -41,7 +41,7 @@ namespace Authorize.Controllers
                 }
                 else
                 {
-                    ClaimsIdentity claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                    var claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                     claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.String));
                     claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
 
@@ -68,7 +68,7 @@ namespace Authorize.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
-            User dublicat = _context.Users.FirstOrDefault(x => x.Email == model.Email);
+            var dublicat = _context.Users.FirstOrDefault(x => x.Email == model.Email);
 
             if (dublicat != null)
             {

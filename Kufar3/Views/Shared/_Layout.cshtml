@@ -16,8 +16,8 @@
         @{
             var ident = HttpContext.Current.User.Identity;
            
-            string url1 = "Login";
-            string url2 = "Account";
+            var url1 = "Login";
+            var url2 = "Account";
         }
         <h2>@Html.ActionLink("KUFAR", "Index", "Home", null, new {@class = "kuf"}) </h2>
     </div>
@@ -25,10 +25,9 @@
     <div class="user">
         @if (ident.IsAuthenticated)
         {
-            string user = ident.Name;
             url1 = "AddDeclaration";
             url2 = "Declaration";
-            @Html.ActionLink(user, "MyDeclorations", "User")
+            @Html.ActionLink(ident.Name, "MyDeclarations", "User")
         }
         
         @if (ident.IsAuthenticated)
