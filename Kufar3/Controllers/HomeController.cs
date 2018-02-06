@@ -18,12 +18,6 @@ namespace Kufar3.Controllers
             return PartialView(categories);
         }
 
-        [ChildActionOnly]
-        public ActionResult layoutHeader()
-        {
-            return PartialView();
-        }
-
         [HttpGet]
         public ActionResult Index(int? idCategory, int? idSubCategory)
         {

@@ -355,6 +355,7 @@
     <Content Include="Views\User\AccountEdit.cshtml" />
     <Content Include="Views\Home\MenuLeft.cshtml" />
     <Content Include="Views\Home\LayoutHeader.cshtml" />
+    <Content Include="Views\Declaration\DeclarationView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

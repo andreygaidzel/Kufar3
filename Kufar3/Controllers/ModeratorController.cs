@@ -28,18 +28,10 @@ namespace Kufar3.Controllers
             return View();
         }
 
-        public ActionResult DeclarationSend(bool flag, int declarationId)
+        public ActionResult DeclarationSend(DeclarationTypes flag, int declarationId)
         {
             var declaration = Context.Declarations.FirstOrDefault(x => x.Id == declarationId);
-            if (flag == true)
-            {
-                declaration.DeclarationType = DeclarationTypes.Active;
-            }
-            else
-            {
-                declaration.DeclarationType = DeclarationTypes.Rejected;
-            }
-
+            declaration.DeclarationType = flag;
             Context.SaveChanges();
 
             return RedirectToAction("DeclarationList", "Moderator");
