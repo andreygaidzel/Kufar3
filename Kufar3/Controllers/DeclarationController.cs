@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Kufar3.Helpers;
 using Kufar3.ModelsView;
 using Microsoft.AspNet.Identity;
 
@@ -23,16 +24,13 @@ namespace Kufar3.Controllers
         [HttpPost]
         public ActionResult AddDeclaration(DeclarationModel declaration)
         {
-            var userId = HttpContext.User.Identity.GetUserId();
-            var intId = Convert.ToInt32(userId);
-
             var newDeclaration = new Declaration
             {
                 Name = declaration.Name,
                 Description = declaration.Description,
                 SubCategoryId = declaration.SubCategoryId,
-                Moderation = false,
-                UserId = intId,
+                DeclarationType = DeclarationTypes.OnModeration,
+                UserId = UserId,
                 CreateTime = DateTime.Now,
                 CityId = declaration.CityId,
             };
@@ -85,10 +83,7 @@ namespace Kufar3.Controllers
 
         public JsonResult DeleteImage(string url)
         {
-            var test = AppDomain.CurrentDomain.BaseDirectory;
-            var templatePath = test + url;
-
-            System.IO.File.Delete(templatePath);
+            FilesHelper.DeleteImage(url);
 
             return Json("Удалено", JsonRequestBehavior.AllowGet);
         }

@@ -83,13 +83,13 @@ namespace Kufar3.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public bool Moderation { get; set; }
+        public DeclarationTypes DeclarationType { get; set; }
+        public DateTime CreateTime { get; set; }
+        public virtual List<Image> Images { get; set; }
 
         [ForeignKey(nameof(SubCategory))]
         public int SubCategoryId { get; set; }
-        public DateTime CreateTime { get; set; }
         public virtual SubCategory SubCategory { get; set; }
-        public virtual List<Image> Images { get; set; }
 
         [ForeignKey(nameof(City))]
         public int CityId { get; set; }

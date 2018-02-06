@@ -6,13 +6,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Kufar3.Models;
-using Kufar3.Models;
-using Kufar3.ModelsView;
 using Microsoft.Owin.Security;
 
 namespace Kufar3.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, moderator")]
     public class AdminController : BaseController
     {
         public ActionResult Index()
@@ -20,6 +18,7 @@ namespace Kufar3.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult Users()
         {
             var users = Context.Users.ToList();
@@ -31,6 +30,7 @@ namespace Kufar3.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult UsersChangeRole(int userId)
         {
             var user = Context.Users.First(u => u.Id == userId);
@@ -53,6 +53,7 @@ namespace Kufar3.Controllers
             return RedirectToAction("Users", "Admin");
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult UserRemove(int userId)
         {
             var user = Context.Users.First(u => u.Id == userId);
@@ -63,14 +64,15 @@ namespace Kufar3.Controllers
             return RedirectToAction("Users", "Admin");
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult UserChange(int userId)
         {
-
             var model = Context.Users.First(u => u.Id == userId);
 
             return View(model);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public ActionResult UserChange(User model)
         {

@@ -15,14 +15,12 @@ namespace Kufar3.Controllers
     {
         public ActionResult MyDeclarations()
         {
-            var userId = Convert.ToInt32(HttpContext.User.Identity.GetUserId());
-            var query = Context.Declarations.Where(x =>x.UserId == userId);
+            var query = Context.Declarations.Where(x =>x.UserId == UserId);
             ViewBag.Declarations = query.ToList();
 
             return View();
         }
 
-        // TODO: исправить
         [HttpGet]
         public ActionResult UserDeclaration(int? declarationId)
         {
@@ -51,7 +49,7 @@ namespace Kufar3.Controllers
             newDeclaration.Name = declaration.Name;
             newDeclaration.Description = declaration.Description;
             newDeclaration.SubCategoryId = declaration.SubCategoryId;
-            newDeclaration.Moderation = false;
+            newDeclaration.DeclarationType = DeclarationTypes.OnModeration;
             newDeclaration.CityId = declaration.CityId;
 
             Context.SaveChanges();
@@ -71,8 +69,7 @@ namespace Kufar3.Controllers
 
         public ActionResult AccountEdit()
         {
-            var userId = int.Parse(HttpContext.User.Identity.GetUserId());
-            var model = Context.Users.First(u => u.Id == userId);
+            var model = Context.Users.First(u => u.Id == UserId);
 
             return View(model);
         }

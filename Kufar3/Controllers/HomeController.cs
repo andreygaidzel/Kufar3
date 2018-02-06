@@ -18,11 +18,17 @@ namespace Kufar3.Controllers
             return PartialView(categories);
         }
 
+        [ChildActionOnly]
+        public ActionResult layoutHeader()
+        {
+            return PartialView();
+        }
+
         [HttpGet]
         public ActionResult Index(int? idCategory, int? idSubCategory)
         {
             var title = string.Empty;
-            var query = Context.Declarations.Where(x => x.Moderation == true);
+            var query = Context.Declarations.Where(x => x.DeclarationType == DeclarationTypes.Active);
            
             if (idCategory != null)
             {

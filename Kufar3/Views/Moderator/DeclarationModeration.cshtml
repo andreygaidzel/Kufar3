@@ -1,126 +1,84 @@
 ﻿@using Kufar3.Models
-@model Kufar3.Models.Declaration
 @{
     ViewBag.Title = "DeclarationModeration";
     Layout = "~/Views/Shared/_layoutAdmin.cshtml";
-
     Declaration declaration = ViewBag.declaration;
-
-    SelectList categories = ViewBag.categories;
-    SelectList subCategories = ViewBag.subCategories;
-    SelectList regions = ViewBag.regions;
-    SelectList cities = ViewBag.cities;
+    string region = declaration.City.Region.Name;
+    string category = declaration.SubCategory.Category.Name;
+    var activate = Url.Action("DeclarationSend", "Moderator", new { flag = true, declarationId = declaration.Id });
+    var reject = Url.Action("DeclarationSend", "Moderator", new { flag = false, declarationId = declaration.Id });
 }
 
-<h2>@declaration.Name</h2>
-    
-<div id="all-images">
-    @for (var i = 0; i < 6; i++)
-    {
-        <div class="image" id="img-@i">
-            <button>X</button>
-            <img />
-        </div>
-    }
+<div class="all-elements">
+    <div class="foto">
+        <button id="left-button"><</button>
+        <button id="right-button">></button>
+        <img src="@declaration.Images.First().Name" alt="No img" />
+    </div>
+    <div class="contacts">
+        <b>@declaration.Name</b><br /><br />
+        <b>Область:&nbsp;</b>@region <br />
+        <b>Город:&nbsp;</b>@declaration.City.Name <br /><br />
+        <b>Имя продавца:&nbsp;</b>@declaration.User.Name <br />
+        <b>Телефон:&nbsp;</b>@declaration.User.MobileNumber<br />
+        <br />
+    </div>
 </div>
 
-<input hidden class="file-input-hidden" type="file" id="files" name="files" multiple/>
-
-@using (Html.BeginForm("DeclarationUpdate", "Moderator", FormMethod.Post))
-{
-
-    @Html.HiddenFor(x => x.Images[0].Name, new { id = "formId0" })
-    @Html.HiddenFor(x => x.Images[1].Name, new { id = "formId1" })
-    @Html.HiddenFor(x => x.Images[2].Name, new { id = "formId2" })
-    @Html.HiddenFor(x => x.Images[3].Name, new { id = "formId3" })
-    @Html.HiddenFor(x => x.Images[4].Name, new { id = "formId4" })
-    @Html.HiddenFor(x => x.Images[5].Name, new { id = "formId5" })
-
-    @Html.HiddenFor(x => x.Id)
-
-    <table>
-        <tr>
-            <td>
-                <p>Раздел:</p>
-            </td>
-            <td>@Html.DropDownList("Category", categories, new {id = "Category"})</td>
-        </tr>
-        <tr>
-            <td>
-                <p>Подраздел:</p>
-            </td>
-            <td>@Html.DropDownListFor(x => x.SubCategoryId, subCategories, new {id = "SubCategoryId" })</td>
-        </tr>
-        <tr>
-            <td>
-                <p>Область:</p>
-            </td>
-            <td>@Html.DropDownList("Region", regions, new {id = "Region"})</td>
-        </tr>
-        <tr>
-            <td>
-                <p>Город:</p>
-            </td>
-            <td>@Html.DropDownListFor(x => x.CityId, cities, new {id = "CityId" })</td>
-        </tr>
-        <tr>
-            <td>
-                <p>Название:</p>
-            </td>
-            <td>@Html.TextBoxFor(x => x.Name)</td>
-        </tr>
-        <tr>
-            <td>
-                <p>Описание:</p>
-            </td>
-            <td>@Html.TextAreaFor(x => x.Description, new {style = "height: 80px; width: 350px; font-size:12px;"})</td>
-        </tr>
-        <tr>
-        <tr>
-            <td>
-                <input type="submit" value="Отправить"/>
-            </td>
-        </tr>
-    </table>
-}
+<div class="all-foto">
+    @foreach (var image in declaration.Images)
+    {
+        var path = image.Name;
+        <img src="@path" alt="No img" />
+    }
+</div>
+<div id="description">
+    <br />
+    <b>Категория:&nbsp;</b>@category <br />
+    <b>Подкатегория:&nbsp;</b>@declaration.SubCategory.Name
+    <br /><br />
+    <b>Цена:&nbsp;</b><b>Договорная</b><br />
+    <br />
+    <b>Описание:&nbsp;</b>@declaration.Description <br />
+</div> 
+<br />
+                    
+<div id="moderator-click">
+    <a href="@activate"><b>Одобрить</b></a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="@reject"><b>Отклонить</b></a>
+</div>
 
 <script type="text/javascript">
+    $(function () {
+        var i = 0;
+        var array = $('.all-foto img');
 
-    $(function()
-    {
-        $('#Category').change(function()
-        {
-            // получаем выбранный id
-            var id = $(this).val();
-            $.ajax({
-                type: 'GET',
-                url: '@Url.Action("GetItems", "Home")/' + id,
-                success: function(data)
-                {
-                    console.log("vernulll", data);
-                    // заменяем содержимое присланным частичным представлением
-                    $('#SubCategoryId').replaceWith(data);
-                }
-            });
+        $('#right-button').click(function () {
+            if (i < array.length - 1)
+                i++;
+            if (i < array.length) {
+                button();
+            }
         });
-    });
 
-    $(function()
-    {
-        $('#Region').change(function()
-        {
-            // получаем выбранный id
-            var id = $(this).val();
-            $.ajax({
-                type: 'GET',
-                url: '@Url.Action("GetCities", "Home")/' + id,
-                success: function(data)
-                {
-                    console.log("vernulllCity", data);
-                    // заменяем содержимое присланным частичным представлением
-                    $('#CityId').replaceWith(data);
-                }
-            });
+        $('#left-button').click(function () {
+            if (i > 0)
+                i--;
+            if (i >= 0) {
+                button();
+            }
         });
+
+        $('.all-foto img').click(function () {
+            i = $('.all-foto img').index(this);
+            button();
+        });
+
+        function button() {
+            var elem = $(array[i]).attr('src');
+            $('.foto img').attr('src', elem);
+            $(`.all-foto img`).removeClass('img-light');
+            $(`.all-foto img:eq(${i})`).addClass('img-light');
+        };
     });
 </script>

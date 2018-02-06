@@ -4,9 +4,10 @@
     ViewBag.Title = "Declaration";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Declaration declaration = ViewBag.declaration;
+    string region = declaration.City.Region.Name;
+    string category = declaration.SubCategory.Category.Name;
 }
 
-<h2>@declaration.Name</h2>
 
 <div class="all-elements">
     <div class="foto">
@@ -14,6 +15,14 @@
         <button id="right-button">></button>
         <img src="@declaration.Images.First().Name" alt="No img" />
     </div>
+    <div class="contacts">
+        <b>@declaration.Name</b><br /><br />
+        <b>Область:&nbsp;</b>@region <br />
+        <b>Город:&nbsp;</b>@declaration.City.Name <br /><br />
+        <b>Имя продавца:&nbsp;</b>@declaration.User.Name <br />
+        <b>Телефон:&nbsp;</b>@declaration.User.MobileNumber<br />
+        <br />
+</div>
 </div>
 
 <div class="all-foto">
@@ -23,7 +32,16 @@
         <img src="@path" alt="No img" />
     }
 </div>
-@declaration.Description
+<div id="description">    
+    <br/>
+    <b>Категория:&nbsp;</b>@category <br/>
+    <b>Подкатегория:&nbsp;</b>@declaration.SubCategory.Name 
+    <br/><br />
+    <b>Цена:&nbsp;</b><b>Договорная</b><br/>
+    <br/>
+    <b>Описание:&nbsp;</b>@declaration.Description <br/>
+</div>
+
 
 <script type="text/javascript">
     $(function () {

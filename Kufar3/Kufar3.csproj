@@ -119,7 +119,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Content\SiteAdmin.css" />
     <Content Include="Content\SiteDeclaration.css" />
-    <Content Include="Content\SiteModerator.css" />
     <Content Include="Content\User.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -321,10 +320,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ClaimsHelper.cs" />
+    <Compile Include="Helpers\FilesHelper.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelsView\DeclarationModel.cs" />
     <Compile Include="ModelsView\LoginModel.cs" />
     <Compile Include="ModelsView\RegisterModel.cs" />
+    <Compile Include="Models\DeclarationTypes.cs" />
     <Compile Include="Models\KufarContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -352,6 +354,7 @@
     <Content Include="Views\User\UserDeclaration.cshtml" />
     <Content Include="Views\User\AccountEdit.cshtml" />
     <Content Include="Views\Home\MenuLeft.cshtml" />
+    <Content Include="Views\Home\LayoutHeader.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

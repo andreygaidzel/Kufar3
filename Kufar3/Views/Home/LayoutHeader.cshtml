@@ -1,0 +1,34 @@
+﻿@{
+    var isAuthenticated = (bool)ViewBag.IsAuthenticated;
+    var userName = (string)ViewBag.UserName;
+    var userRole = (string)ViewBag.UserRole;
+    var url1 = "Login";
+    var url2 = "Account";
+}
+<div class="header">
+    <div class="logo">
+        <h2>
+            @Html.ActionLink("KUFAR", "Index", "Home", null, new { @class = "kuf" })
+        </h2>
+    </div>
+    <div class="user">
+        @if (userRole == "moderator" || userRole == "admin")
+        {
+            @Html.ActionLink("Adminka", "Index", "Admin")
+        }
+        @if (isAuthenticated)
+        {
+            url1 = "AddDeclaration";
+            url2 = "Declaration";
+            @Html.ActionLink(userName, "MyDeclarations", "User")
+        }
+
+        @(isAuthenticated
+              ? Html.ActionLink("Выход", "Logout", "Account")
+              : Html.ActionLink("Вход", "Login", "Account"))
+    </div>
+    <div class="plus">
+        @Html.ActionLink("+", url1, url2)
+    </div>
+</div>
+

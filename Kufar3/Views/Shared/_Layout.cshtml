@@ -1,11 +1,4 @@
-﻿@using System.Data.Entity.ModelConfiguration.Conventions
-@{
-    var ident = HttpContext.Current.User.Identity;
-
-    var url1 = "Login";
-    var url2 = "Account";
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -17,29 +10,7 @@
     <link href="~/Content/SiteDeclaration.css" rel="stylesheet"/>
 </head>
 <body>
-
-<div class="header">
-    <div class="logo">
-        <h2>@Html.ActionLink("KUFAR", "Index", "Home", null, new {@class = "kuf"})</h2>
-    </div>
-    
-    <div class="user">
-        @if (ident.IsAuthenticated)
-        {
-            url1 = "AddDeclaration";
-            url2 = "Declaration";
-            @Html.ActionLink(ident.Name, "MyDeclarations", "User")
-        }
-
-        @(ident.IsAuthenticated
-              ? Html.ActionLink("Выход", "Logout", "Account")
-              : Html.ActionLink("Вход", "Login", "Account"))
-    </div>
-    <div class="plus">
-        @Html.ActionLink("+", url1, url2)
-    </div>
-</div>
-
+@Html.Action("LayoutHeader", "Home")
 <div class="container">
     <div class="menu">
         @*@Html.Partial("~/Views/Home/_CatalogMenu.cshtml")*@
