@@ -23,6 +23,7 @@ namespace Kufar3.Controllers
 
         public ActionResult DeclarationModeration(int? declarationId)
         {
+            // TODO: передать модель без вивбаг
             var declaration = Context.Declarations.FirstOrDefault(x => x.Id == declarationId);
             ViewBag.declaration = declaration;
             return View();

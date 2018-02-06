@@ -40,3 +40,43 @@
     color: azure;
     text-decoration: none;
 }
+
+/********************************************admin****************************************************/
+
+.container-admin {
+    border: 1px solid black;
+    text-align: -webkit-center;
+    margin: 10px;
+}
+
+.table {
+    border-collapse: collapse; /* Убираем двойные границы между ячейками */
+}
+
+.tab {
+    text-align: -webkit-center;
+    margin-bottom: 10px;
+}
+
+.table td {
+    border: 1px solid black;
+    text-align: -webkit-center;
+}
+
+/*****************************************User*****************************************/
+
+#menu-desc {
+    /*border: 1px solid red;*/
+    height: 18px;
+    width: 170px;
+    float: right;
+    color: green;
+}
+
+.cont {
+    /*border: 1px solid red;*/
+    height: 800px;
+    width: 500px;
+    float: left;
+    margin: 10px;
+}

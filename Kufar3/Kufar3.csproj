@@ -117,9 +117,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\scroll.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Content\SiteAdmin.css" />
     <Content Include="Content\SiteDeclaration.css" />
-    <Content Include="Content\User.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\731.gif" />
@@ -291,7 +289,6 @@
     <Content Include="MyScripts\JQueryTest.js" />
     <Content Include="MyScripts\StrTest1.js" />
     <Content Include="MyScripts\UploadImages.js" />
-    <Content Include="MyScripts\UploadImages2.js" />
     <Content Include="MyScripts\UserImg.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

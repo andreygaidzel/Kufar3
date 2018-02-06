@@ -21,7 +21,7 @@ namespace Kufar3.Controllers
         [HttpGet]
         public ActionResult Index(int? idCategory, int? idSubCategory)
         {
-            var title = string.Empty;
+            var title = "Все категории";
             var query = Context.Declarations.Where(x => x.DeclarationType == DeclarationTypes.Active);
            
             if (idCategory != null)
@@ -39,7 +39,8 @@ namespace Kufar3.Controllers
             ViewBag.Declarations = query.ToList();
             ViewBag.idCategory = idCategory;
             ViewBag.idSubCategory = idSubCategory;
-            return View();
+            //return View();
+            return RedirectToAction("Declarations");
         }
 
         [HttpGet]

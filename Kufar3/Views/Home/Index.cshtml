@@ -2,10 +2,13 @@
 
 @{
     List<Declaration> declarations = ViewBag.declarations;
-    string title = ViewBag.title;
+    var title = ViewBag.title;
 }
 
-<h2>@title</h2><ul>
+<div class="content-holder">
+    <p class="nameD"><b>@title</b></p>
+</div>
+<ul>
     @foreach (var declaration in declarations)
     {
         <li class="declarations">
@@ -17,14 +20,21 @@
             <div id="img">
                 <a href="@url"><img src="@path" alt="No img"/></a>
             </div>
-            <div id="desc">
-                <h3>
-                    <p id="nameD">
-                        @declaration.Name
-                    </p>
-                </h3>
+            <div class="desc">
+                <p class="nameD">
+                    <b>
+                        <a href="@Url.Action("Declaration", "Home", new {declarationId = declaration.Id})">@declaration.Name</a>
+                    </b>
+                </p>
+
+                <div class="text">
+                    @declaration.CreateTime / @declaration.City.Region.Name / @declaration.City.Name<br />
+                    @declaration.SubCategory.Category.Name / @declaration.SubCategory.Name 
+                    <br />
+                    <div class="price">Цена</div>
+                </div>
+                
             </div>
-            <div id="text">@declaration.Description</div>
         </li>
     }
 </ul>

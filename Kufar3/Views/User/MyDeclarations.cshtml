@@ -3,6 +3,7 @@
 @{
     List<Declaration> declarations = ViewBag.declarations;
 }
+
 @{
     ViewBag.Title = "MyDeclarations";
     Layout = "~/Views/Shared/_layoutUser.cshtml";
@@ -12,29 +13,33 @@
 <ul>
     @foreach (var declaration in declarations)
     {
+        var editUrl = Url.Action("UserDeclaration", "User", new { declarationId = declaration.Id });
+        var removeUrl = Url.Action("DeleteImage", "User", new { declarationId = declaration.Id });
+       
+        <div id="menu-desc">
+            <a href="@editUrl">Редактировать</a>
+            <a href="@removeUrl">Удалить</a>
+        </div>
+
         <li class="declarations">
             @{
                 var path = declaration.Images.FirstOrDefault()?.Name;
-
-                var url = Url.Action("Declaration", "Home", new { declarationId = declaration.Id });
-                var editUrl = Url.Action("UserDeclaration", "User", new { declarationId = declaration.Id });
-                var removeUrl = Url.Action("DeleteImage", "User", new { declarationId = declaration.Id });
+                var url = Url.Action("UserDeclaration", "User", new { declarationId = declaration.Id });
             }
-            <div id="menu-desc">
-                <a href="@editUrl">Редактировать</a> 
-                <a href="@removeUrl">Удалить</a> 
-            </div>        
+
             <div id="img">
-                <a href="@url"><img src="@path" alt="No img"/></a>
+                <a href="@url"><img src="@path" alt="No img" /></a>
             </div>
-            <div id="desc">
-                <h3>
-                    <p id="nameD">
-                        @declaration.Name
-                    </p>
-                </h3>
+            <div class="desc">
+                <p id="nameD"><b>@declaration.Name</b></p>
+
+                <div class="text">
+                    @declaration.CreateTime / @declaration.City.Region.Name / @declaration.City.Name<br />
+                    @declaration.SubCategory.Category.Name / @declaration.SubCategory.Name
+                    <div class="price">Цена</div>
+                </div>
+
             </div>
-            <div id="text">@declaration.Description</div>
         </li>
-    }
+                }
 </ul>

@@ -9,12 +9,13 @@
 @Html.Partial("~/Views/Declaration/DeclarationView.cshtml")
 
 @{
+    // TODO: убрать переменные
     var activate = Url.Action("DeclarationSend", "Moderator", new { DeclarationTypes = DeclarationTypes.Active, declarationId = declaration.Id });
     var reject = Url.Action("DeclarationSend", "Moderator", new { DeclarationTypes = DeclarationTypes.Rejected, declarationId = declaration.Id });
 }
 
-<br/>
+
 <div id="moderator-click">
     <a href="@activate"><b>Одобрить</b></a>&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="@reject"><b>Отклонить</b></a>
-</div>
+</div><br />

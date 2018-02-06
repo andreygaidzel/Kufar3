@@ -10,26 +10,31 @@
     string title = ViewBag.title;
 }
 
-<h2>@title</h2><ul>
+<div class="content-holder">
+    <p class="nameD"><b>Объявления</b></p>
+</div>
+<ul>
     @foreach (var declaration in declarations)
     {
-        <li class="declarations">  
+        <li class="declarations">
             @{
                 var path = declaration.Images.FirstOrDefault()?.Name;
                 var url = Url.Action("DeclarationModeration", "Moderator", new { declarationId = declaration.Id });
             }
-                    
+
             <div id="img">
-                <a href="@url"><img src="@path" alt="No img"/></a>
+                <a href="@url"><img src="@path" alt="No img" /></a>
             </div>
-            <div id="desc">
-                <h3>
-                    <p id="nameD">
-                        @declaration.Name
-                    </p>
-                </h3>
+            <div class="desc">
+                <p class="nameD"><b>@declaration.Name</b></p>
+
+                <div class="text">
+                    @declaration.CreateTime / @declaration.City.Region.Name / @declaration.City.Name<br />
+                    @declaration.SubCategory.Category.Name / @declaration.SubCategory.Name
+                    <div class="price">Цена</div>
+                </div>
+
             </div>
-            <div id="text">@declaration.Description</div>
         </li>
     }
 </ul>
