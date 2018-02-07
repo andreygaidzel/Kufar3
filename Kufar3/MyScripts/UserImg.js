@@ -1,4 +1,4 @@
-﻿var newImage = "/Images/null.jpg";
+﻿var newImage = "/ContentImages/null.jpg";
 
 var dataImages = [
     {
@@ -78,7 +78,7 @@ var imagesService = {
     },
     srcKill: function (i) {
         $(`#${dataImages[i].imgId} button`).css('display', 'none');
-        $(`#${dataImages[i].imgId} img`).attr('src', '/Images/invis.png');
+        $(`#${dataImages[i].imgId} img`).attr('src', '/ContentImages/invis.png');
     },
     delete: function (url) {
         $.ajax({

@@ -39,8 +39,8 @@ namespace Kufar3.Controllers
             ViewBag.Declarations = query.ToList();
             ViewBag.idCategory = idCategory;
             ViewBag.idSubCategory = idSubCategory;
-            //return View();
-            return RedirectToAction("Declarations");
+            return View();
+           // return RedirectToAction("Declarations");
         }
 
         [HttpGet]
@@ -52,8 +52,7 @@ namespace Kufar3.Controllers
         public ActionResult Declaration(int? declarationId)
         {
             var declaration = Context.Declarations.FirstOrDefault(x => x.Id == declarationId);
-            ViewBag.declaration = declaration;
-            return View();
+            return View(declaration);
         }
 
         public ActionResult GetItems(int id)

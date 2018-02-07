@@ -1,21 +1,14 @@
 ﻿@using Kufar3.Models
+@model Declaration
 
 @{
     ViewBag.Title = "DeclarationModeration";
     Layout = "~/Views/Shared/_layoutAdmin.cshtml";
-    Declaration declaration = ViewBag.declaration;
 }
 
 @Html.Partial("~/Views/Declaration/DeclarationView.cshtml")
 
-@{
-    // TODO: убрать переменные
-    var activate = Url.Action("DeclarationSend", "Moderator", new { DeclarationTypes = DeclarationTypes.Active, declarationId = declaration.Id });
-    var reject = Url.Action("DeclarationSend", "Moderator", new { DeclarationTypes = DeclarationTypes.Rejected, declarationId = declaration.Id });
-}
-
-
-<div id="moderator-click">
-    <a href="@activate"><b>Одобрить</b></a>&nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="@reject"><b>Отклонить</b></a>
+<div>
+    <b>@Html.ActionLink("Одобрить", "DeclarationSend", "Moderator", new { declarationId = Model.Id, declarationType = DeclarationTypes.Active }, new { @class = "moderator-click" })</b>
+    <b>@Html.ActionLink("Отклонить", "DeclarationSend", "Moderator", new { declarationId = Model.Id, declarationType = DeclarationTypes.Rejected }, new { @class = "moderator-click" })</b>
 </div><br />

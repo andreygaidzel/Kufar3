@@ -23,16 +23,15 @@ namespace Kufar3.Controllers
 
         public ActionResult DeclarationModeration(int? declarationId)
         {
-            // TODO: передать модель без вивбаг
             var declaration = Context.Declarations.FirstOrDefault(x => x.Id == declarationId);
-            ViewBag.declaration = declaration;
-            return View();
+            return View(declaration);
         }
 
-        public ActionResult DeclarationSend(DeclarationTypes flag, int declarationId)
+        public ActionResult DeclarationSend(int declarationId, DeclarationTypes declarationType)
         {
-            var declaration = Context.Declarations.FirstOrDefault(x => x.Id == declarationId);
-            declaration.DeclarationType = flag;
+            var declaration = Context.Declarations.First(x => x.Id == declarationId);
+
+            declaration.DeclarationType = declarationType;
             Context.SaveChanges();
 
             return RedirectToAction("DeclarationList", "Moderator");

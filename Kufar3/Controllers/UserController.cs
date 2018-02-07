@@ -13,14 +13,31 @@ namespace Kufar3.Controllers
     [Authorize]
     public class UserController : BaseController
     {
-        public ActionResult MyDeclarations()
+        public ActionResult MyDeclarations(DeclarationTypes declarationTypes = DeclarationTypes.Active)
         {
             var query = Context.Declarations.Where(x =>x.UserId == UserId);
+            var activCount = query.Count(x => x.DeclarationType == DeclarationTypes.Active);
+            var moderCount = query.Count(x => x.DeclarationType == DeclarationTypes.OnModeration);
+            var rejCount = query.Count(x => x.DeclarationType == DeclarationTypes.Rejected);
+            var countDeclaration = new List<int> {activCount, moderCount, rejCount};
+
+            switch (declarationTypes)
+            {
+                case DeclarationTypes.Active:
+                    query = query.Where(x => x.DeclarationType == DeclarationTypes.Active);
+                    break;
+                case DeclarationTypes.OnModeration:
+                    query = query.Where(x => x.DeclarationType == DeclarationTypes.OnModeration);
+                    break;
+                case DeclarationTypes.Rejected:
+                    query = query.Where(x => x.DeclarationType == DeclarationTypes.Rejected);
+                    break;
+            }
             ViewBag.Declarations = query.ToList();
 
-            return View();
+            return View(countDeclaration);
         }
-
+        
         [HttpGet]
         public ActionResult UserDeclaration(int? declarationId)
         {
@@ -32,7 +49,7 @@ namespace Kufar3.Controllers
             {
                 declaration.Images.Add(new Image
                 {
-                    Name = "/Images/null.jpg",
+                    Name = "/ContentImages/null.jpg",
                     DeclarationId = declaration.Id,
                 });
             }

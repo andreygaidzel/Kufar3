@@ -10,24 +10,17 @@
     <link href="~/Content/SiteDeclaration.css" rel="stylesheet"/>
 </head>
 @{
-   // Html.Action("InitDropDownItems", "Base");
     SelectList regions = ViewBag.regions;
     SelectList cities = ViewBag.cities;
 }
 <body>
-@*@Html.Action("LayoutHeader", "Home")*@
 @Html.Partial("~/Views/Home/LayoutHeader.cshtml")
 
 <div class="region">
     <b>Область:</b>
-    @*@Html.DropDownList("Region", regions, new {id = "Region"})
-    
-    <b>Город:</b>
-    @Html.DropDownList("City", cities, new {id = "CityId" })*@
 </div>
 <div class="container">
     <div class="menu">
-        @*@Html.Partial("~/Views/Home/_CatalogMenu.cshtml")*@
         @Html.Action("MenuLeft", "Home")
     </div>
     <div class="content">

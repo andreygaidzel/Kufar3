@@ -1,7 +1,11 @@
 ﻿@using Kufar3.Models
+@model List<int>
 
 @{
     List<Declaration> declarations = ViewBag.declarations;
+    var activ = "Активные (" + Model[0] + ")";
+    var moder = "На модерации (" + Model[1] + ")";
+    var rej = "Откланенные (" + Model[2] + ")";
 }
 
 @{
@@ -9,18 +13,17 @@
     Layout = "~/Views/Shared/_layoutUser.cshtml";
 }
 <h2>Мои объявления</h2>
+<div class="horizontal-menu">
+    <ul>
+        <li>@Html.ActionLink(activ, "MyDeclarations", "User", new { declarationTypes = DeclarationTypes.Active}, null)</li>
+        <li>@Html.ActionLink(moder, "MyDeclarations", "User", new { declarationTypes = DeclarationTypes.OnModeration }, null)</li>
+        <li>@Html.ActionLink(rej, "MyDeclarations", "User", new { declarationTypes = DeclarationTypes.Rejected}, null)</li>
+    </ul>
+</div>
 
 <ul>
     @foreach (var declaration in declarations)
     {
-        var editUrl = Url.Action("UserDeclaration", "User", new { declarationId = declaration.Id });
-        var removeUrl = Url.Action("DeleteImage", "User", new { declarationId = declaration.Id });
-       
-        <div id="menu-desc">
-            <a href="@editUrl">Редактировать</a>
-            <a href="@removeUrl">Удалить</a>
-        </div>
-
         <li class="declarations">
             @{
                 var path = declaration.Images.FirstOrDefault()?.Name;
@@ -28,18 +31,23 @@
             }
 
             <div id="img">
-                <a href="@url"><img src="@path" alt="No img" /></a>
+                <a href="@url"><img src="@path" alt="No img"/></a>
             </div>
             <div class="desc">
-                <p id="nameD"><b>@declaration.Name</b></p>
+                <p class="nameD">
+                    <b>
+                        <a href="@url">@declaration.Name</a>
+                    </b>
+                </p>
 
                 <div class="text">
                     @declaration.CreateTime / @declaration.City.Region.Name / @declaration.City.Name<br />
-                    @declaration.SubCategory.Category.Name / @declaration.SubCategory.Name
+                    @declaration.SubCategory.Category.Name / @declaration.SubCategory.Name 
+                    <br />
                     <div class="price">Цена</div>
                 </div>
-
+                
             </div>
         </li>
-                }
+    }
 </ul>
