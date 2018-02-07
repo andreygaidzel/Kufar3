@@ -6,12 +6,11 @@
 }
 
 @{
-    List<User> Users = ViewBag.Users;
-    List<Role> Roles = ViewBag.Roles;
+    var users = (List<User>) ViewBag.Users;
+    var roles = (List<Role>) ViewBag.Roles;
 }
 
 <div class="container-admin">
-
     <h2>Users</h2>
     <div class="tab">
         <table class="table">
@@ -32,7 +31,7 @@
 
         </table>
     </div>
-    @foreach (var user in Users)
+    @foreach (var user in users)
     {
         <div class="tab">
             <table class="table">
@@ -44,15 +43,15 @@
                         @user.Email
                     </td>
                     <td width="100">
-                        
+
                         @{
-                            var roleName = Roles.First(x => x.Id == user.RoleId).Name;
-                            @Html.ActionLink(roleName, "UsersChangeRole", "Admin", new { userId = user.Id }, null)
+                            var roleName = roles.First(x => x.Id == user.RoleId).Name;
+                            @Html.ActionLink(roleName, "UsersChangeRole", "Admin", new {userId = user.Id}, null)
                         }
                     </td>
                     <td width="100">
-                        @Html.ActionLink("Remove", "UserRemove", "Admin", new { userId = user.Id }, null)
-                        @Html.ActionLink("Change", "UserChange", "Admin", new { userId = user.Id }, null)
+                        @Html.ActionLink("Remove", "UserRemove", "Admin", new {userId = user.Id}, null)
+                        @Html.ActionLink("Change", "UserChange", "Admin", new {userId = user.Id}, null)
                     </td>
                 </tr>
 
@@ -61,6 +60,3 @@
     }
 
 </div>
-
-
-

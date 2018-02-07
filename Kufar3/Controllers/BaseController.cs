@@ -47,11 +47,11 @@ namespace Kufar3.Controllers
             var regions = new SelectList(Context.Regions, "Id", "Name", selectedCity);
             var cities = new SelectList(Context.Cities.Where(c => c.RegionId == selectedCity), "Id", "Name");
 
-            ViewBag.categories = categories;
-            ViewBag.subCategories = subCategories;
+            ViewBag.Categories = categories;
+            ViewBag.SubCategories = subCategories;
 
-            ViewBag.regions = regions;
-            ViewBag.cities = cities;
+            ViewBag.Regions = regions;
+            ViewBag.Cities = cities;
         }
     }
 }

@@ -1,15 +1,14 @@
 ﻿@using Kufar3.Models
-@model Kufar3.Models.Declaration
+@model Declaration
 @{
     ViewBag.Title = "UserDeclaration";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 
-    Declaration declaration = ViewBag.declaration;
-
-    SelectList categories = ViewBag.categories;
-    SelectList subCategories = ViewBag.subCategories;
-    SelectList regions = ViewBag.regions;
-    SelectList cities = ViewBag.cities;
+    var declaration = (Declaration) ViewBag.Declaration;
+    var categories = (SelectList) ViewBag.Categories;
+    var subCategories = (SelectList) ViewBag.SubCategories;
+    var regions = (SelectList) ViewBag.Regions;
+    var cities = (SelectList) ViewBag.Cities;
 }
 <div class="cont">
     <h2>@declaration.Name</h2>

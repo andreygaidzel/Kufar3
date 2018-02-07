@@ -25,7 +25,7 @@ namespace Kufar3.Controllers
             ViewBag.Users = users;
 
             var role = Context.Roles.ToList();
-            ViewBag.roles = role;
+            ViewBag.Roles = role;
 
             return View();
         }

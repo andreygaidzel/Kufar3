@@ -35,10 +35,10 @@ namespace Kufar3.Controllers
                 title = Context.SubCategories.First(x => x.Id == idSubCategory).Name;
             }
 
-            ViewBag.title = title;
+            ViewBag.Title = title;
             ViewBag.Declarations = query.ToList();
-            ViewBag.idCategory = idCategory;
-            ViewBag.idSubCategory = idSubCategory;
+            ViewBag.IdCategory = idCategory;
+            ViewBag.IdSubCategory = idSubCategory;
             return View();
            // return RedirectToAction("Declarations");
         }

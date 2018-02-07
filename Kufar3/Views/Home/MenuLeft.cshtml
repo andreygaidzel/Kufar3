@@ -2,13 +2,12 @@
 @model List<Category>
 
 @{
-    var categories = @Model;
-    int? idCategory = ViewBag.idCategory;
-    int? idSubCategory = ViewBag.idSubCategory;
+    var idCategory = (int?) ViewBag.IdCategory;
+    var idSubCategory = (int?) ViewBag.IdSubCategory;
 }
 
 <ul class="main-menu">
-    @foreach (var category in categories)
+    @foreach (var category in Model)
     {
         var isShow="";
         // TODO: ИСПРАВИТЬ!

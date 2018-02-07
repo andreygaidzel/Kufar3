@@ -16,7 +16,7 @@ namespace Kufar3.Controllers
         public ActionResult DeclarationList()
         {
             var declarations = Context.Declarations.Where(x=>x.DeclarationType == DeclarationTypes.OnModeration).ToList();
-            ViewBag.declarations = declarations;
+            ViewBag.Declarations = declarations;
 
             return View();
         }

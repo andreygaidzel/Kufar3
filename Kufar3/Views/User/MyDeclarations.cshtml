@@ -2,15 +2,14 @@
 @model List<Declaration>
 
 @{
-    string activCount = ViewBag.ActivCount;
-    string moderCount = ViewBag.ModerCount;
-    string rejCount = ViewBag.RejCount;
-}
-
-@{
     ViewBag.Title = "MyDeclarations";
     Layout = "~/Views/Shared/_layoutUser.cshtml";
+
+    var activCount = (string) ViewBag.ActivCount;
+    var moderCount = (string) ViewBag.ModerCount;
+    var rejCount = (string) ViewBag.RejCount;
 }
+
 <h2>Мои объявления</h2>
 <div class="horizontal-menu">
     <ul>

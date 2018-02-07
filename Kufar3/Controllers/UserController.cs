@@ -42,7 +42,7 @@ namespace Kufar3.Controllers
         public ActionResult UserDeclaration(int? declarationId)
         {
             var declaration = Context.Declarations.First(x => x.Id == declarationId);
-            ViewBag.declaration = declaration;
+            ViewBag.Declaration = declaration;
 
             var countEmptyImages = 6 - declaration.Images.Count;
             for (var i = 0; i < countEmptyImages; i++)

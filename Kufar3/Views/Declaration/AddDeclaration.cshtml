@@ -1,12 +1,12 @@
-﻿@using Kufar3.Models
-@model Kufar3.ModelsView.DeclarationModel
+﻿@model Kufar3.ModelsView.DeclarationModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    SelectList categories = ViewBag.categories;
-    SelectList subCategories = ViewBag.subCategories;
-    SelectList regions = ViewBag.regions;
-    SelectList cities = ViewBag.cities;
+
+    var categories = (SelectList) ViewBag.Categories;
+    var subCategories = (SelectList) ViewBag.SubCategories;
+    var regions = (SelectList) ViewBag.Regions;
+    var cities = (SelectList) ViewBag.Cities;
 }
 
 <h2>Выберите изображения</h2>
@@ -16,15 +16,12 @@
     {
         <div class="image" id="img-@i">
             <button>X</button>
-            <img />
+            <img/>
         </div>
     }
 </div>
 
-@*<button id="image-1">Button</button>*@
-
 <input hidden class="file-input-hidden" type="file" id="files" name="files" multiple/>
-
 
 @using (Html.BeginForm("AddDeclaration", "Declaration", FormMethod.Post))
 {
@@ -34,7 +31,7 @@
     @Html.HiddenFor(x => x.Images[3], new {id = "formId3"})
     @Html.HiddenFor(x => x.Images[4], new {id = "formId4"})
     @Html.HiddenFor(x => x.Images[5], new {id = "formId5"})
-    
+
     <table>
         <tr>
             <td>
@@ -46,7 +43,7 @@
             <td>
                 <p>Подраздел:</p>
             </td>
-            <td>@Html.DropDownListFor(x => x.SubCategoryId, subCategories, new {id = "SubCategoryId" })</td>
+            <td>@Html.DropDownListFor(x => x.SubCategoryId, subCategories, new {id = "SubCategoryId"})</td>
         </tr>
         <tr>
             <td>
@@ -58,7 +55,7 @@
             <td>
                 <p>Город:</p>
             </td>
-            <td>@Html.DropDownListFor(x => x.CityId, cities, new {id = "CityId" })</td>
+            <td>@Html.DropDownListFor(x => x.CityId, cities, new {id = "CityId"})</td>
         </tr>
         <tr>
             <td>
