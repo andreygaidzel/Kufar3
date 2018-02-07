@@ -13,15 +13,14 @@ namespace Kufar3.Controllers
     [Authorize]
     public class UserController : BaseController
     {
-        public ActionResult MyDeclarations(DeclarationTypes declarationTypes = DeclarationTypes.Active)
+        public ActionResult MyDeclarations(DeclarationTypes declarationType = DeclarationTypes.Active)
         {
             var query = Context.Declarations.Where(x =>x.UserId == UserId);
-            var activCount = query.Count(x => x.DeclarationType == DeclarationTypes.Active);
-            var moderCount = query.Count(x => x.DeclarationType == DeclarationTypes.OnModeration);
-            var rejCount = query.Count(x => x.DeclarationType == DeclarationTypes.Rejected);
-            var countDeclaration = new List<int> {activCount, moderCount, rejCount};
+            ViewBag.ActivCount = query.Count(x => x.DeclarationType == DeclarationTypes.Active);
+            ViewBag.ModerCount = query.Count(x => x.DeclarationType == DeclarationTypes.OnModeration);
+            ViewBag.RejCount = query.Count(x => x.DeclarationType == DeclarationTypes.Rejected);
 
-            switch (declarationTypes)
+            switch (declarationType)
             {
                 case DeclarationTypes.Active:
                     query = query.Where(x => x.DeclarationType == DeclarationTypes.Active);
@@ -33,9 +32,10 @@ namespace Kufar3.Controllers
                     query = query.Where(x => x.DeclarationType == DeclarationTypes.Rejected);
                     break;
             }
-            ViewBag.Declarations = query.ToList();
 
-            return View(countDeclaration);
+            var declarations = query.ToList();
+
+            return View(declarations);
         }
         
         [HttpGet]

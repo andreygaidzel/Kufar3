@@ -1,11 +1,10 @@
 ﻿@using Kufar3.Models
-@model List<int>
+@model List<Declaration>
 
 @{
-    List<Declaration> declarations = ViewBag.declarations;
-    var activ = "Активные (" + Model[0] + ")";
-    var moder = "На модерации (" + Model[1] + ")";
-    var rej = "Откланенные (" + Model[2] + ")";
+    string activCount = ViewBag.ActivCount;
+    string moderCount = ViewBag.ModerCount;
+    string rejCount = ViewBag.RejCount;
 }
 
 @{
@@ -15,14 +14,14 @@
 <h2>Мои объявления</h2>
 <div class="horizontal-menu">
     <ul>
-        <li>@Html.ActionLink(activ, "MyDeclarations", "User", new { declarationTypes = DeclarationTypes.Active}, null)</li>
-        <li>@Html.ActionLink(moder, "MyDeclarations", "User", new { declarationTypes = DeclarationTypes.OnModeration }, null)</li>
-        <li>@Html.ActionLink(rej, "MyDeclarations", "User", new { declarationTypes = DeclarationTypes.Rejected}, null)</li>
+        <li><a href="@Url.Action("MyDeclarations", "User", new { declarationType = DeclarationTypes.Active })">(Активные(@activCount))</a></li>
+        <li><a href="@Url.Action("MyDeclarations", "User", new { declarationType = DeclarationTypes.OnModeration })">(На модерации(@moderCount))</a></li>
+        <li><a href="@Url.Action("MyDeclarations", "User", new { declarationType = DeclarationTypes.Rejected })">(Отклоненные(@rejCount))</a></li>
     </ul>
 </div>
 
 <ul>
-    @foreach (var declaration in declarations)
+    @foreach (var declaration in Model)
     {
         <li class="declarations">
             @{
