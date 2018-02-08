@@ -21,7 +21,7 @@ namespace Kufar3.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Users()
         {
-            var users = Context.Users.ToList();
+            var users = UserRepository.List();
             ViewBag.Users = users;
 
             var role = Context.Roles.ToList();
@@ -33,7 +33,7 @@ namespace Kufar3.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult UsersChangeRole(int userId)
         {
-            var user = Context.Users.First(u => u.Id == userId);
+            var user = UserRepository.GetById(userId);
 
             if (user.Role.Name == "admin")
             {
@@ -56,10 +56,7 @@ namespace Kufar3.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult UserRemove(int userId)
         {
-            var user = Context.Users.First(u => u.Id == userId);
-
-            Context.Users.Remove(user);
-            Context.SaveChanges();
+            UserRepository.Remove(userId);
 
             return RedirectToAction("Users", "Admin");
         }
@@ -67,7 +64,7 @@ namespace Kufar3.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult UserChange(int userId)
         {
-            var model = Context.Users.First(u => u.Id == userId);
+            var model = UserRepository.GetById(userId);
 
             return View(model);
         }
@@ -76,14 +73,7 @@ namespace Kufar3.Controllers
         [HttpPost]
         public ActionResult UserChange(User model)
         {
-            var user = Context.Users.First(x => x.Id == model.Id);
-           
-            user.Email = model.Email;
-            user.Name = model.Name;
-            user.MobileNumber = model.MobileNumber;
-            user.Password = model.Password;
-
-            Context.SaveChanges();
+            UserRepository.Update(model);
 
             return RedirectToAction("Users", "Admin");
         }

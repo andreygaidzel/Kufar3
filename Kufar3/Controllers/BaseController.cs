@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Kufar3.Helpers;
 using Kufar3.Models;
+using Kufar3.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
@@ -14,6 +15,8 @@ namespace Kufar3.Controllers
     public class BaseController : Controller
     {
         public KufarContext Context;
+        public UserRepository UserRepository;
+
         public IAuthenticationManager AuthenticationManager => System.Web.HttpContext.Current.GetOwinContext().Authentication;
         private IPrincipal Principal => System.Web.HttpContext.Current.User;
         public int UserId => Principal.Identity.GetUserId<int>();
@@ -24,12 +27,14 @@ namespace Kufar3.Controllers
         public BaseController()
         {
             Context = new KufarContext();
+            UserRepository = new UserRepository();
             ViewBags();
         }
 
         public void ViewBags()
         {
             ViewBag.IsAuthenticated = IsAuthenticated;
+            ViewBag.UserId = UserId;
             ViewBag.UserName = UserName;
             ViewBag.UserRole = UserRole;
         }

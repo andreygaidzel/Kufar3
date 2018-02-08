@@ -80,8 +80,7 @@ namespace Authorize.Controllers
                     Role = Context.Roles.First(x => x.Name == "user")
                 };
 
-                Context.Users.Add(user);
-                Context.SaveChanges();
+                UserRepository.Add(user);
 
                 AuthenticationManager.SignOut();
                 return RedirectToAction("Login", "Account");
