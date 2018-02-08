@@ -15,7 +15,7 @@ namespace Kufar3.Controllers
     {    
         public ActionResult DeclarationList()
         {
-            var declarations = Context.Declarations.Where(x=>x.DeclarationType == DeclarationTypes.OnModeration).ToList();
+            var declarations = DeclarationRepository.GetDeclarationsByDeclarationType(DeclarationTypes.OnModeration).ToList();
             ViewBag.Declarations = declarations;
 
             return View();
@@ -23,16 +23,13 @@ namespace Kufar3.Controllers
 
         public ActionResult DeclarationModeration(int? declarationId)
         {
-            var declaration = Context.Declarations.FirstOrDefault(x => x.Id == declarationId);
+            var declaration = DeclarationRepository.GetById(declarationId);
             return View(declaration);
         }
 
         public ActionResult DeclarationSend(int declarationId, DeclarationTypes declarationType)
         {
-            var declaration = Context.Declarations.First(x => x.Id == declarationId);
-
-            declaration.DeclarationType = declarationType;
-            Context.SaveChanges();
+            DeclarationRepository.EditDeclarationType(declarationId, declarationType);
 
             return RedirectToAction("DeclarationList", "Moderator");
         }

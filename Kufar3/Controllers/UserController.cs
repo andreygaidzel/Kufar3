@@ -15,7 +15,7 @@ namespace Kufar3.Controllers
     {
         public ActionResult MyDeclarations(DeclarationTypes declarationType = DeclarationTypes.Active)
         {
-            var query = Context.Declarations.Where(x =>x.UserId == UserId);
+            var query = DeclarationRepository.GetDeclarationsByUserId(UserId);
             ViewBag.ActivCount = query.Count(x => x.DeclarationType == DeclarationTypes.Active);
             ViewBag.ModerCount = query.Count(x => x.DeclarationType == DeclarationTypes.OnModeration);
             ViewBag.RejCount = query.Count(x => x.DeclarationType == DeclarationTypes.Rejected);
@@ -42,7 +42,7 @@ namespace Kufar3.Controllers
         [HttpGet]
         public ActionResult UserDeclaration(int? declarationId)
         {
-            var declaration = Context.Declarations.First(x => x.Id == declarationId);
+            var declaration = DeclarationRepository.GetById(declarationId);
             ViewBag.Declaration = declaration;
 
             var countEmptyImages = 6 - declaration.Images.Count;
@@ -62,24 +62,14 @@ namespace Kufar3.Controllers
         [HttpPost]
         public ActionResult DeclarationUpdate(Declaration declaration)
         {
-            var newDeclaration = Context.Declarations.First(x => x.Id == declaration.Id);
-
-            newDeclaration.Name = declaration.Name;
-            newDeclaration.Description = declaration.Description;
-            newDeclaration.SubCategoryId = declaration.SubCategoryId;
-            newDeclaration.DeclarationType = DeclarationTypes.OnModeration;
-            newDeclaration.CityId = declaration.CityId;
-
-            Context.SaveChanges();
+            DeclarationRepository.Update(declaration);
 
             return RedirectToAction("MyDeclarations");
         }
 
         public ActionResult DeleteDeclaration(int? declarationId)
         {
-            var declaration = Context.Declarations.First(x => x.Id == declarationId);
-            Context.Declarations.Remove(declaration);
-            Context.SaveChanges();
+            DeclarationRepository.Remove(declarationId);
 
             return RedirectToAction("MyDeclarations");
         }
@@ -87,7 +77,7 @@ namespace Kufar3.Controllers
 
         public ActionResult AccountEdit()
         {
-            var model = Context.Users.First(u => u.Id == UserId);
+            var model = UserRepository.GetById(UserId);
 
             return View(model);
         }
@@ -95,14 +85,7 @@ namespace Kufar3.Controllers
         [HttpPost]
         public ActionResult AccountEdit(User model)
         {
-            var user = Context.Users.First(x => x.Id == model.Id);
-
-            user.Email = model.Email;
-            user.Name = model.Name;
-            user.MobileNumber = model.MobileNumber;
-            user.Password = model.Password;
-
-            Context.SaveChanges();
+           UserRepository.Edit(model);
 
             return RedirectToAction("AccountEdit", "User");
         }

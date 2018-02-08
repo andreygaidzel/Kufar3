@@ -24,7 +24,7 @@ namespace Kufar3.Controllers
             var users = UserRepository.List();
             ViewBag.Users = users;
 
-            var role = Context.Roles.ToList();
+            var role = UserRepository.GetAllRoles().ToList();
             ViewBag.Roles = role;
 
             return View();
@@ -37,15 +37,15 @@ namespace Kufar3.Controllers
 
             if (user.Role.Name == "admin")
             {
-                user.RoleId = Context.Roles.First(x => x.Name == "moderator").Id;
+                user.RoleId = UserRepository.GetRoleIdByName("moderator");
             }
             if (user.Role.Name == "moderator")
             {
-                user.RoleId = Context.Roles.First(x => x.Name == "user").Id;
+                user.RoleId = UserRepository.GetRoleIdByName("user");
             }
             if (user.Role.Name == "user")
             {
-                user.RoleId = Context.Roles.First(x => x.Name == "admin").Id;
+                user.RoleId = UserRepository.GetRoleIdByName("admin");
             }
 
             Context.SaveChanges();

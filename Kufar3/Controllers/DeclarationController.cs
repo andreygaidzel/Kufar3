@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Kufar3.Helpers;
 using Kufar3.ModelsView;
+using Kufar3.Repositories;
 using Microsoft.AspNet.Identity;
 
 namespace Kufar3.Controllers
@@ -34,21 +35,20 @@ namespace Kufar3.Controllers
                 CreateTime = DateTime.Now,
                 CityId = declaration.CityId,
             };
-            Context.Declarations.Add(newDeclaration);
-            Context.SaveChanges();
+
+            DeclarationRepository.Add(newDeclaration);
 
             foreach (var img in declaration.Images)
             {
                 if (!string.IsNullOrEmpty(img))
                 {
-                    Context.Images.Add(new Image
+                    ImageRepository.Add(new Image
                     {
                         Name = img,
                         DeclarationId = newDeclaration.Id,
                     });
                 }
             }
-            Context.SaveChanges();
 
             return RedirectToAction("AddDeclaration");
         }

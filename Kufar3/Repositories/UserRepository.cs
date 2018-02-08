@@ -48,5 +48,29 @@ namespace Kufar3.Repositories
             Context.Users.Remove(user);
             Context.SaveChanges();
         }
+
+        public void Edit(User model)
+        {
+            var user = Context.Users.First(x => x.Id == model.Id);
+
+            user.Email = model.Email;
+            user.Name = model.Name;
+            user.MobileNumber = model.MobileNumber;
+            user.Password = model.Password;
+
+            Context.SaveChanges();
+        }
+
+        /***********************************************Role********************************************************/
+
+        public IQueryable<Role> GetAllRoles()
+        {
+            return Context.Roles;
+        }
+
+        public int GetRoleIdByName(string name)
+        {
+            return Context.Roles.First(x => x.Name == name).Id;
+        }
     }
 }

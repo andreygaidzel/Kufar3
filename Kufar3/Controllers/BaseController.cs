@@ -16,6 +16,10 @@ namespace Kufar3.Controllers
     {
         public KufarContext Context;
         public UserRepository UserRepository;
+        public DeclarationRepository DeclarationRepository;
+        public CategoryRepository CategoryRepository;
+        public RegionRepository RegionRepository;
+        public ImageRepository ImageRepository;
 
         public IAuthenticationManager AuthenticationManager => System.Web.HttpContext.Current.GetOwinContext().Authentication;
         private IPrincipal Principal => System.Web.HttpContext.Current.User;
@@ -28,6 +32,10 @@ namespace Kufar3.Controllers
         {
             Context = new KufarContext();
             UserRepository = new UserRepository();
+            DeclarationRepository = new DeclarationRepository();
+            CategoryRepository = new CategoryRepository();
+            RegionRepository = new RegionRepository();
+            ImageRepository = new ImageRepository();
             ViewBags();
         }
 
@@ -46,11 +54,11 @@ namespace Kufar3.Controllers
 
         public void InitDropDownItems(int selectedSubCategory = 1, int selectedCity = 1)
         {
-            var categories = new SelectList(Context.Categories, "Id", "Name", selectedSubCategory);
-            var subCategories = new SelectList(Context.SubCategories.Where(c => c.CategoryId == selectedSubCategory), "Id", "Name");
+            var categories = new SelectList(CategoryRepository.GetAllCategories(), "Id", "Name", selectedSubCategory);
+            var subCategories = new SelectList(CategoryRepository.GetSubCategoriesByCategoryId(selectedSubCategory), "Id", "Name");
 
-            var regions = new SelectList(Context.Regions, "Id", "Name", selectedCity);
-            var cities = new SelectList(Context.Cities.Where(c => c.RegionId == selectedCity), "Id", "Name");
+            var regions = new SelectList(RegionRepository.GetAllRegions(), "Id", "Name", selectedCity);
+            var cities = new SelectList(RegionRepository.GetCitiesByRegionId(selectedCity), "Id", "Name");
 
             ViewBag.Categories = categories;
             ViewBag.SubCategories = subCategories;

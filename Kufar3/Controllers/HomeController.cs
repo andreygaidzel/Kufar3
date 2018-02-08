@@ -14,7 +14,7 @@ namespace Kufar3.Controllers
         [ChildActionOnly]
         public ActionResult MenuLeft()
         {
-            var categories = Context.Categories.ToList();
+            var categories = CategoryRepository.GetAllCategories().ToList();
             return PartialView(categories);
         }
 
@@ -22,17 +22,17 @@ namespace Kufar3.Controllers
         public ActionResult Index(int? idCategory, int? idSubCategory)
         {
             var title = "Все категории";
-            var query = Context.Declarations.Where(x => x.DeclarationType == DeclarationTypes.Active);
+            var query = DeclarationRepository.GetDeclarationsByDeclarationType(DeclarationTypes.Active);
            
             if (idCategory != null)
             {
                 query = query.Where(x => x.SubCategory.CategoryId == idCategory);
-                title = Context.Categories.First(x => x.Id == idCategory).Name;
+                title = CategoryRepository.GetCategoryById(idCategory).Name;
             }
             else if (idSubCategory != null)
             {
                 query = query.Where(x => x.SubCategoryId == idSubCategory);
-                title = Context.SubCategories.First(x => x.Id == idSubCategory).Name;
+                title = CategoryRepository.GetSubCategoryById(idSubCategory).Name;
             }
 
             ViewBag.Title = title;
@@ -40,7 +40,6 @@ namespace Kufar3.Controllers
             ViewBag.IdCategory = idCategory;
             ViewBag.IdSubCategory = idSubCategory;
             return View();
-           // return RedirectToAction("Declarations");
         }
 
         [HttpGet]
@@ -51,18 +50,18 @@ namespace Kufar3.Controllers
 
         public ActionResult Declaration(int? declarationId)
         {
-            var declaration = Context.Declarations.FirstOrDefault(x => x.Id == declarationId);
+            var declaration = DeclarationRepository.GetById(declarationId);
             return View(declaration);
         }
 
         public ActionResult GetItems(int id)
         {
-            return PartialView(Context.SubCategories.Where(c => c.CategoryId == id).ToList());
+            return PartialView(CategoryRepository.GetSubCategoriesByCategoryId(id).ToList());
         }
 
         public ActionResult GetCities(int id)
         {
-            return PartialView(Context.Cities.Where(c => c.RegionId == id).ToList());
+            return PartialView(RegionRepository.GetCitiesByRegionId(id).ToList());
         }
     }
 }
