@@ -24,9 +24,14 @@ namespace Kufar3.Models
         public DbSet<City> Cities { get; set; }
     }
 
-    public class User
+    public class EntityBase
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
+        public DateTime CreatedDate => DateTime.Now;
+    }
+
+    public class User : EntityBase
+    {
         public string Email { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
@@ -38,22 +43,19 @@ namespace Kufar3.Models
         public virtual List<Declaration> Declarations { get; set; }
     }
 
-    public class Role
+    public class Role : EntityBase
     {
-        public int Id { get; set; }
         public UserRoles UserRole { get; set; }
     }
 
-    public class Category
+    public class Category : EntityBase
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public virtual List<SubCategory> SubCategories { get; set; }
     }
 
-    public class SubCategory
+    public class SubCategory : EntityBase
     {
-        public int Id { get; set; }
         public string Name { get; set; }
 
         [ForeignKey(nameof(Category))]
@@ -62,16 +64,14 @@ namespace Kufar3.Models
         public virtual List<Declaration> Declarations { get; set; }
     }
 
-    public class Region
+    public class Region : EntityBase
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public virtual List<City> Cities { get; set; }
     }
 
-    public class City
+    public class City : EntityBase
     {
-        public int Id { get; set; }
         public string Name { get; set; }
 
         [ForeignKey(nameof(Region))]
@@ -80,13 +80,11 @@ namespace Kufar3.Models
         public virtual List<Declaration> Declarations { get; set; }
     }
 
-    public class Declaration
+    public class Declaration : EntityBase
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DeclarationTypes Type { get; set; }
-        public DateTime CreateTime { get; set; }
         public string Price { get; set; }
 
         [ForeignKey(nameof(SubCategory))]
@@ -103,9 +101,8 @@ namespace Kufar3.Models
         public virtual List<Image> Images { get; set; }
     }
 
-    public class Image
+    public class Image : EntityBase
     {
-        public int Id { get; set; }
         public string Name { get; set; }
 
         [ForeignKey(nameof(Declaration))]

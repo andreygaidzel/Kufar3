@@ -32,7 +32,6 @@ namespace Kufar3.Controllers
                 SubCategoryId = declaration.SubCategoryId,
                 Type = DeclarationTypes.OnModeration,
                 UserId = UserId,
-                CreateTime = DateTime.Now,
                 CityId = declaration.CityId,
             };
 
