@@ -10,7 +10,7 @@ using Microsoft.Owin.Security;
 
 namespace Kufar3.Controllers
 {
-    [Authorize(Roles = "moderator")]
+    [Authorize(Roles = "Admin, Moderator")]
     public class ModeratorController : BaseController
     {    
         public ActionResult DeclarationList()

@@ -4,6 +4,7 @@
     var declarations = (List<Declaration>) ViewBag.Declarations;
     var userRole = (string) ViewBag.UserRole;
 }
+
 <ul>
     @foreach (var declaration in declarations)
     {
@@ -11,7 +12,7 @@
             @{
                 var path = declaration.Images.FirstOrDefault()?.Name;
                 var url = Url.Action("Declaration", "Home", new { declarationId = declaration.Id });
-                if (userRole == "moderator")
+                if (userRole == "Moderator")
                 {
                    url = Url.Action("DeclarationModeration", "Moderator", new { declarationId = declaration.Id });
                 }
@@ -26,7 +27,7 @@
                         <a href="@url">@declaration.Name</a>
                     </b>
                 </p>
-
+                
                 <div class="text">
                     @declaration.CreateTime / @declaration.City.Region.Name / @declaration.City.Name<br />
                     @declaration.SubCategory.Category.Name / @declaration.SubCategory.Name
