@@ -2,8 +2,15 @@
 @{
     string region = Model.City.Region.Name;
     string category = Model.SubCategory.Category.Name;
+    var userId = (int)ViewBag.UserId;
 }
-
+@if (Model.UserId == userId)
+{
+    <div class="user-menu">
+        <b>@Html.ActionLink("Удалить", "DeleteDeclaration", "User", new { declarationId = Model.Id }, null)</b>
+        <b>@Html.ActionLink("Изменить", "UserDeclaration", "User", new { declarationId = Model.Id }, null) </b>
+    </div>
+}
 
 <div class="all-elements">
     <div class="foto">

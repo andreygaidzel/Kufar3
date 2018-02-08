@@ -75,6 +75,19 @@
     background-color: rgb(254, 254, 254);
 }
 
+.user-menu {
+    height: 18px;
+    width: 100%;
+    background-color: rgb(255, 235, 126);
+}
+
+.user-menu a{
+    float: right;
+    padding-right: 30px;
+    color: red;
+    text-decoration: none;
+}
+
 #menu-desc {
     /*border: 1px solid red;*/
     height: 18px;

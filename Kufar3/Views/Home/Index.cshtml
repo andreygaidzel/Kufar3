@@ -1,40 +1,9 @@
-﻿@using Kufar3.Models
-
-@{
-    var declarations = (List<Declaration>) ViewBag.Declarations;
+﻿@{
     var title = ViewBag.Title;
 }
 
 <div class="content-holder">
     <p class="nameD"><b>@title</b></p>
 </div>
-<ul>
-    @foreach (var declaration in declarations)
-    {
-        <li class="declarations">
-            @{
-                var path = declaration.Images.FirstOrDefault()?.Name;
-                var url = Url.Action("Declaration", "Home", new{declarationId = declaration.Id});
-            }
 
-            <div id="img">
-                <a href="@url"><img src="@path" alt="No img"/></a>
-            </div>
-            <div class="desc">
-                <p class="nameD">
-                    <b>
-                        <a href="@url">@declaration.Name</a>
-                    </b>
-                </p>
-
-                <div class="text">
-                    @declaration.CreateTime / @declaration.City.Region.Name / @declaration.City.Name<br />
-                    @declaration.SubCategory.Category.Name / @declaration.SubCategory.Name 
-                    <br />
-                    <div class="price">Цена</div>
-                </div>
-                
-            </div>
-        </li>
-    }
-</ul>
+@Html.Partial("~/Views/Declaration/DeclarationShow.cshtml")

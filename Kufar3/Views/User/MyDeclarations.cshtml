@@ -1,51 +1,21 @@
 ﻿@using Kufar3.Models
-@model List<Declaration>
 
 @{
     ViewBag.Title = "MyDeclarations";
     Layout = "~/Views/Shared/_layoutUser.cshtml";
 
-    var activCount = (string) ViewBag.ActivCount;
-    var moderCount = (string) ViewBag.ModerCount;
-    var rejCount = (string) ViewBag.RejCount;
+    var activCount = (int) ViewBag.ActivCount;
+    var moderCount = (int) ViewBag.ModerCount;
+    var rejCount = (int) ViewBag.RejCount;
 }
 
 <h2>Мои объявления</h2>
 <div class="horizontal-menu">
     <ul>
-        <li><a href="@Url.Action("MyDeclarations", "User", new { declarationType = DeclarationTypes.Active })">(Активные(@activCount))</a></li>
-        <li><a href="@Url.Action("MyDeclarations", "User", new { declarationType = DeclarationTypes.OnModeration })">(На модерации(@moderCount))</a></li>
-        <li><a href="@Url.Action("MyDeclarations", "User", new { declarationType = DeclarationTypes.Rejected })">(Отклоненные(@rejCount))</a></li>
+        <li><a href="@Url.Action("MyDeclarations", "User", new { declarationType = DeclarationTypes.Active })">Активные(@activCount)</a></li>
+        <li><a href="@Url.Action("MyDeclarations", "User", new { declarationType = DeclarationTypes.OnModeration })">На модерации(@moderCount)</a></li>
+        <li><a href="@Url.Action("MyDeclarations", "User", new { declarationType = DeclarationTypes.Rejected })">Отклоненные(@rejCount)</a></li>
     </ul>
 </div>
 
-<ul>
-    @foreach (var declaration in Model)
-    {
-        <li class="declarations">
-            @{
-                var path = declaration.Images.FirstOrDefault()?.Name;
-                var url = Url.Action("UserDeclaration", "User", new { declarationId = declaration.Id });
-            }
-
-            <div id="img">
-                <a href="@url"><img src="@path" alt="No img"/></a>
-            </div>
-            <div class="desc">
-                <p class="nameD">
-                    <b>
-                        <a href="@url">@declaration.Name</a>
-                    </b>
-                </p>
-
-                <div class="text">
-                    @declaration.CreateTime / @declaration.City.Region.Name / @declaration.City.Name<br />
-                    @declaration.SubCategory.Category.Name / @declaration.SubCategory.Name 
-                    <br />
-                    <div class="price">Цена</div>
-                </div>
-                
-            </div>
-        </li>
-    }
-</ul>
+@Html.Partial("~/Views/Declaration/DeclarationShow.cshtml")

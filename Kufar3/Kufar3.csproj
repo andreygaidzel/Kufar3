@@ -326,6 +326,8 @@
     <Compile Include="Models\DeclarationTypes.cs" />
     <Compile Include="Models\KufarContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -353,6 +355,7 @@
     <Content Include="Views\Home\MenuLeft.cshtml" />
     <Content Include="Views\Home\LayoutHeader.cshtml" />
     <Content Include="Views\Declaration\DeclarationView.cshtml" />
+    <Content Include="Views\Declaration\DeclarationShow.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

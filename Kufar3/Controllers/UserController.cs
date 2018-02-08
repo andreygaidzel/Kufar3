@@ -34,8 +34,9 @@ namespace Kufar3.Controllers
             }
 
             var declarations = query.ToList();
+            ViewBag.Declarations = declarations;
 
-            return View(declarations);
+            return View();
         }
         
         [HttpGet]
@@ -74,7 +75,7 @@ namespace Kufar3.Controllers
             return RedirectToAction("MyDeclarations");
         }
 
-        public ActionResult DeleteImage(int? declarationId)
+        public ActionResult DeleteDeclaration(int? declarationId)
         {
             var declaration = Context.Declarations.First(x => x.Id == declarationId);
             Context.Declarations.Remove(declaration);
