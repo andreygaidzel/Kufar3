@@ -8,7 +8,7 @@ namespace Kufar3.Repositories
 {
     public class CategoryRepository : BaseRepository
     {
-        public Category GetCategoryById(int? id)
+        public Category GetById(int? id)
         {
             return Context.Categories.FirstOrDefault(x => x.Id == id);
         }

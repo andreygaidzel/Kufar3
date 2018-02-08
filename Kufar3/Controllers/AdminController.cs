@@ -33,23 +33,23 @@ namespace Kufar3.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult UsersChangeRole(int userId)
         {
-            var user = UserRepository.GetById(userId);
+            // TODO: ПЕРЕДЕЛАТЬ
 
-            if (user.Role.Name == "admin")
-            {
-                user.RoleId = UserRepository.GetRoleIdByName("moderator");
-            }
-            if (user.Role.Name == "moderator")
-            {
-                user.RoleId = UserRepository.GetRoleIdByName("user");
-            }
-            if (user.Role.Name == "user")
-            {
-                user.RoleId = UserRepository.GetRoleIdByName("admin");
-            }
+            //var user = UserRepository.GetById(userId);
 
-            Context.SaveChanges();
-
+            //switch (user.Role.UserRole)
+            //{
+            //    case UserRoles.Admin:
+            //        user.RoleId = UserRepository.GetRoleIdByName(UserRoles.Moderator).Id;
+            //        break;
+            //    case UserRoles.Moderator:
+            //        user.RoleId = UserRepository.GetRoleIdByName(UserRoles.User).Id;
+            //        break;
+            //    case UserRoles.User:
+            //        user.RoleId = UserRepository.GetRoleIdByName(UserRoles.Admin).Id;
+            //        break;
+            //}
+;
             return RedirectToAction("Users", "Admin");
         }
 

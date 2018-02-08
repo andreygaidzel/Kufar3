@@ -30,7 +30,7 @@ namespace Kufar3.Controllers
                 Name = declaration.Name,
                 Description = declaration.Description,
                 SubCategoryId = declaration.SubCategoryId,
-                DeclarationType = DeclarationTypes.OnModeration,
+                Type = DeclarationTypes.OnModeration,
                 UserId = UserId,
                 CreateTime = DateTime.Now,
                 CityId = declaration.CityId,

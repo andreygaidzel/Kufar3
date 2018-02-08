@@ -18,6 +18,16 @@ namespace Kufar3.Repositories
             return Context.Users.FirstOrDefault(x => x.Id == id);
         }
 
+        public User GetByEmail(string email)
+        {
+            return Context.Users.FirstOrDefault(x => x.Email == email);
+        }
+
+        public User GetBy(string email, string password)
+        {
+            return Context.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
+        }
+
         public void Add(User user)
         {
             Context.Users.Add(user);
@@ -68,9 +78,9 @@ namespace Kufar3.Repositories
             return Context.Roles;
         }
 
-        public int GetRoleIdByName(string name)
+        public Role GetRoleIdByName(UserRoles userRole)
         {
-            return Context.Roles.First(x => x.Name == name).Id;
+            return Context.Roles.First(x => x.UserRole == userRole);
         }
     }
 }

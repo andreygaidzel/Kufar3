@@ -325,6 +325,7 @@
     <Compile Include="ModelsView\RegisterModel.cs" />
     <Compile Include="Models\DeclarationTypes.cs" />
     <Compile Include="Models\KufarContext.cs" />
+    <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />

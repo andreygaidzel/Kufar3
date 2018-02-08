@@ -14,7 +14,6 @@ namespace Kufar3.Controllers
 {
     public class BaseController : Controller
     {
-        public KufarContext Context;
         public UserRepository UserRepository;
         public DeclarationRepository DeclarationRepository;
         public CategoryRepository CategoryRepository;
@@ -30,7 +29,6 @@ namespace Kufar3.Controllers
 
         public BaseController()
         {
-            Context = new KufarContext();
             UserRepository = new UserRepository();
             DeclarationRepository = new DeclarationRepository();
             CategoryRepository = new CategoryRepository();

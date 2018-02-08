@@ -26,7 +26,7 @@ namespace Authorize.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = Context.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
+                var user = UserRepository.GetBy(model.Email, model.Password);
 
                 if (user == null)
                 {
@@ -37,10 +37,10 @@ namespace Authorize.Controllers
                     var claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                     claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.String));
                     claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
-
+                    
                     if (user.Role != null)
                     {
-                        claim.AddClaim(new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name, ClaimValueTypes.String));
+                        claim.AddClaim(new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.UserRole.ToString(), ClaimValueTypes.String));
                     }
 
                     AuthenticationManager.SignOut();
@@ -61,7 +61,7 @@ namespace Authorize.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
-            var dublicat = Context.Users.FirstOrDefault(x => x.Email == model.Email);
+            var dublicat = UserRepository.GetByEmail(model.Email);
 
             if (dublicat != null)
             {
@@ -77,7 +77,7 @@ namespace Authorize.Controllers
                     Name = model.Name,
                     MobileNumber = model.MobileNumber,
                     Password = model.Password,
-                    Role = Context.Roles.First(x => x.Name == "user")
+                    Role = UserRepository.GetRoleIdByName(UserRoles.User)
                 };
 
                 UserRepository.Add(user);

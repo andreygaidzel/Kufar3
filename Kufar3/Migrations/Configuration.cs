@@ -19,9 +19,9 @@ namespace Kufar3.Migrations
         {
             if (!context.Roles.Any())
             {
-                context.Roles.Add(new Role {Name = "admin"});
-                context.Roles.Add(new Role {Name = "moderator"});
-                context.Roles.Add(new Role {Name = "user"});
+                context.Roles.Add(new Role {UserRole = UserRoles.Admin});
+                context.Roles.Add(new Role {UserRole = UserRoles.Moderator});
+                context.Roles.Add(new Role {UserRole = UserRoles.User});
 
                 context.SaveChanges();
             }
@@ -34,7 +34,7 @@ namespace Kufar3.Migrations
                     Name = "Иван",
                     MobileNumber = "+375255212343",
                     Password = "123",
-                    RoleId = context.Roles.First(x => x.Name == "admin").Id,
+                    RoleId = context.Roles.First(x => x.UserRole == UserRoles.Admin).Id,
                 });
 
                 context.Users.Add(new User
@@ -43,7 +43,7 @@ namespace Kufar3.Migrations
                     Name = "Роман",
                     MobileNumber = "+375255212883",
                     Password = "12345",
-                    RoleId = context.Roles.First(x => x.Name == "moderator").Id,
+                    RoleId = context.Roles.First(x => x.UserRole == UserRoles.Moderator).Id,
                 });
 
                 context.Users.Add(new User
@@ -52,7 +52,7 @@ namespace Kufar3.Migrations
                     Name = "Дмитрий",
                     MobileNumber = "+375255212311",
                     Password = "123456",
-                    RoleId = context.Roles.First(x => x.Name == "user").Id,
+                    RoleId = context.Roles.First(x => x.UserRole == UserRoles.User).Id,
                 });
 
                 context.SaveChanges();

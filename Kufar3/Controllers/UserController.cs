@@ -16,20 +16,20 @@ namespace Kufar3.Controllers
         public ActionResult MyDeclarations(DeclarationTypes declarationType = DeclarationTypes.Active)
         {
             var query = DeclarationRepository.GetDeclarationsByUserId(UserId);
-            ViewBag.ActivCount = query.Count(x => x.DeclarationType == DeclarationTypes.Active);
-            ViewBag.ModerCount = query.Count(x => x.DeclarationType == DeclarationTypes.OnModeration);
-            ViewBag.RejCount = query.Count(x => x.DeclarationType == DeclarationTypes.Rejected);
+            ViewBag.ActivCount = query.Count(x => x.Type == DeclarationTypes.Active);
+            ViewBag.ModerCount = query.Count(x => x.Type == DeclarationTypes.OnModeration);
+            ViewBag.RejCount = query.Count(x => x.Type == DeclarationTypes.Rejected);
 
             switch (declarationType)
             {
                 case DeclarationTypes.Active:
-                    query = query.Where(x => x.DeclarationType == DeclarationTypes.Active);
+                    query = query.Where(x => x.Type == DeclarationTypes.Active);
                     break;
                 case DeclarationTypes.OnModeration:
-                    query = query.Where(x => x.DeclarationType == DeclarationTypes.OnModeration);
+                    query = query.Where(x => x.Type == DeclarationTypes.OnModeration);
                     break;
                 case DeclarationTypes.Rejected:
-                    query = query.Where(x => x.DeclarationType == DeclarationTypes.Rejected);
+                    query = query.Where(x => x.Type == DeclarationTypes.Rejected);
                     break;
             }
 

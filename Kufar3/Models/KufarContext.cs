@@ -29,17 +29,19 @@ namespace Kufar3.Models
         public int Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public virtual Role Role { get; set; }
-        public int RoleId { get; set; }
         public string Name { get; set; }
         public string MobileNumber { get; set; }
+
+        [ForeignKey(nameof(Role))]
+        public int RoleId { get; set; }
+        public virtual Role Role { get; set; }
         public virtual List<Declaration> Declarations { get; set; }
     }
 
     public class Role
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public UserRoles UserRole { get; set; }
     }
 
     public class Category
@@ -83,9 +85,9 @@ namespace Kufar3.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public DeclarationTypes DeclarationType { get; set; }
+        public DeclarationTypes Type { get; set; }
         public DateTime CreateTime { get; set; }
-        public virtual List<Image> Images { get; set; }
+        public string Price { get; set; }
 
         [ForeignKey(nameof(SubCategory))]
         public int SubCategoryId { get; set; }
@@ -98,6 +100,7 @@ namespace Kufar3.Models
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }
         public virtual User User { get; set; }
+        public virtual List<Image> Images { get; set; }
     }
 
     public class Image

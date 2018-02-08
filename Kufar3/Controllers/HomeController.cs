@@ -27,7 +27,7 @@ namespace Kufar3.Controllers
             if (idCategory != null)
             {
                 query = query.Where(x => x.SubCategory.CategoryId == idCategory);
-                title = CategoryRepository.GetCategoryById(idCategory).Name;
+                title = CategoryRepository.GetById(idCategory).Name;
             }
             else if (idSubCategory != null)
             {

@@ -25,7 +25,7 @@ namespace Kufar3.Repositories
 
         public IQueryable<Declaration> GetDeclarationsByDeclarationType(DeclarationTypes declarationType)
         {
-            return Context.Declarations.Where(x => x.DeclarationType == declarationType);
+            return Context.Declarations.Where(x => x.Type == declarationType);
         }
 
         public void Add(Declaration declaration)
@@ -41,7 +41,7 @@ namespace Kufar3.Repositories
             newDeclaration.Name = declaration.Name;
             newDeclaration.Description = declaration.Description;
             newDeclaration.SubCategoryId = declaration.SubCategoryId;
-            newDeclaration.DeclarationType = DeclarationTypes.OnModeration;
+            newDeclaration.Type = DeclarationTypes.OnModeration;
             newDeclaration.CityId = declaration.CityId;
 
             Context.SaveChanges();
@@ -57,7 +57,7 @@ namespace Kufar3.Repositories
         public void EditDeclarationType(int declarationId, DeclarationTypes declarationType)
         {
             var declaration = GetById(declarationId);
-            declaration.DeclarationType = declarationType;
+            declaration.Type = declarationType;
             Context.SaveChanges();
         }
     }
