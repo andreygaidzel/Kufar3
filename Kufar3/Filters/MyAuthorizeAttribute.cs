@@ -10,13 +10,11 @@ namespace Kufar3.Filters
 {
     public class MyAuthorizeAttribute : AuthorizeAttribute
     {
-        private readonly List<string> _userRoles = new List<string>();
+        private readonly UserRoles[] _userRoles;
 
         public MyAuthorizeAttribute(params UserRoles[] userRoles)
         {
-            userRoles
-                .ToList()
-                .ForEach(userRole => _userRoles.Add(userRole.ToString()));
+            _userRoles = userRoles;
         }
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)

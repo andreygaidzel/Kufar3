@@ -25,7 +25,7 @@ namespace Kufar3.Controllers
         public int UserId => Principal.Identity.GetUserId<int>();
         public bool IsAuthenticated => Principal.Identity.IsAuthenticated;
         public string UserName => Principal.Identity.Name;
-        public string UserRole => Principal.Identity.GetClaimRole();
+        public UserRoles UserRole => Principal.Identity.GetClaimRole();
 
         public BaseController()
         {

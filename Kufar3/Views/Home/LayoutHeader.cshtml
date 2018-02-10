@@ -1,7 +1,8 @@
-﻿@{
+﻿@using Kufar3.Models
+@{
     var isAuthenticated = (bool) ViewBag.IsAuthenticated;
     var userName = (string) ViewBag.UserName;
-    var userRole = (string) ViewBag.UserRole;
+    var userRole = (UserRoles) ViewBag.UserRole;
     var url1 = "Login";
     var url2 = "Account";
 }
@@ -13,7 +14,7 @@
         </h2>
     </div>
     <div class="user">
-        @if (userRole == "Moderator" || userRole == "Admin")
+        @if (userRole == UserRoles.Admin || userRole == UserRoles.Moderator)
         {
             @Html.ActionLink("Adminka", "Index", "Admin")
         }

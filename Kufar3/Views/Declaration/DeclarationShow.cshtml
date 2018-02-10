@@ -2,7 +2,7 @@
 
 @{
     var declarations = (List<Declaration>) ViewBag.Declarations;
-    var userRole = (string) ViewBag.UserRole;
+    var userRole = (UserRoles) ViewBag.UserRole;
     var userId = (int)ViewBag.UserId;
     var directory = (DirectoryTypes)ViewBag.Directory;
 }
@@ -22,7 +22,8 @@
             @{
                 var path = declaration.Images.FirstOrDefault()?.Name;
                 var url = Url.Action("Declaration", "Home", new {declarationId = declaration.Id});
-                if (userRole == "Moderator" && directory == DirectoryTypes.Moderator)
+
+                if (userRole == UserRoles.Moderator && directory == DirectoryTypes.Moderator)
                 {
                     url = Url.Action("DeclarationModeration", "Moderator", new {declarationId = declaration.Id});
                 }
