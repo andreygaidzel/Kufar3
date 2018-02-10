@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Kufar3.Filters;
 using Kufar3.Helpers;
 using Kufar3.Models;
 using Kufar3.ModelsView;
@@ -10,7 +11,7 @@ using Microsoft.Owin.Security;
 
 namespace Kufar3.Controllers
 {
-    [Authorize(Roles = "Admin, Moderator")]
+    [MyAuthorize(UserRoles.Admin, UserRoles.Moderator)]
     public class ModeratorController : BaseController
     {
         public ModeratorController()

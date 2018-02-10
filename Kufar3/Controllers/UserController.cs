@@ -4,13 +4,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Kufar3.Filters;
 using Kufar3.Models;
 using Microsoft.SqlServer.Server;
 using Microsoft.AspNet.Identity;
 
 namespace Kufar3.Controllers
 {
-    [Authorize]
+    [MyAuthorize]
     public class UserController : BaseController
     {
         public UserController()

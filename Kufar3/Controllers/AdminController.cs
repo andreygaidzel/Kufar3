@@ -5,20 +5,22 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Kufar3.Filters;
 using Kufar3.Models;
 using Microsoft.Owin.Security;
 
 namespace Kufar3.Controllers
 {
-    [Authorize(Roles = "Admin, Moderator")]
+    [MyAuthorize(UserRoles.Admin)]
     public class AdminController : BaseController
     {
+        [OverrideFilter]
+        [MyAuthorize(UserRoles.Admin, UserRoles.Moderator)]
         public ActionResult Index()
         {
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
         public ActionResult Users()
         {
             var users = UserRepository.List();
@@ -30,7 +32,6 @@ namespace Kufar3.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
         public ActionResult UsersChangeRole(int userId)
         {
             // TODO: ПЕРЕДЕЛАТЬ
@@ -53,7 +54,6 @@ namespace Kufar3.Controllers
             return RedirectToAction("Users", "Admin");
         }
 
-        [Authorize(Roles = "Admin")]
         public ActionResult UserRemove(int userId)
         {
             UserRepository.Remove(userId);
@@ -61,7 +61,6 @@ namespace Kufar3.Controllers
             return RedirectToAction("Users", "Admin");
         }
 
-        [Authorize(Roles = "Admin")]
         public ActionResult UserChange(int userId)
         {
             var model = UserRepository.GetById(userId);
@@ -69,7 +68,6 @@ namespace Kufar3.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult UserChange(User model)
         {
