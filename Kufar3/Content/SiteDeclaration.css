@@ -93,7 +93,16 @@
     height: 18px;
     width: 170px;
     float: right;
-    color: green;
+}
+
+#menu-desc a{
+    text-decoration: none;
+    color: rgb(14, 185, 14);
+}
+
+#menu-desc a:hover {
+    text-decoration: none;
+    color: rgb(185, 69, 14);
 }
 
 .cont {

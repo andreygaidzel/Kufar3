@@ -58,7 +58,7 @@ body {
     height: 50px;
     background: #f88b10;
     color: azure;
-    display: inline-block;
+    /*display: inline-block;*/
     float: right;
     text-decoration: none;
     margin-top: 8px;
@@ -177,6 +177,7 @@ textarea { max-width: 280px; }
 .nameD {
     font-size: 24px;
     color: black;
+    margin: 8px;
 }
 
 .nameD a{
