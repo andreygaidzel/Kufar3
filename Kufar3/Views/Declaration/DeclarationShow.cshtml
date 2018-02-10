@@ -3,23 +3,33 @@
 @{
     var declarations = (List<Declaration>) ViewBag.Declarations;
     var userRole = (string) ViewBag.UserRole;
+    var userId = (int)ViewBag.UserId;
+    var directory = (DirectoryTypes)ViewBag.Directory;
 }
 
 <ul>
     @foreach (var declaration in declarations)
     {
         <li class="declarations">
+            @if (declaration.UserId == userId && directory == DirectoryTypes.User)
+            {
+                <div id="menu-desc">
+                    <b>@Html.ActionLink("Изменить", "UserDeclaration", "User", new { declarationId = declaration.Id }, null) </b>
+                    <b>@Html.ActionLink("Удалить", "DeleteDeclaration", "User", new {declarationId = declaration.Id}, null)</b>
+
+                </div>
+            }
             @{
                 var path = declaration.Images.FirstOrDefault()?.Name;
-                var url = Url.Action("Declaration", "Home", new { declarationId = declaration.Id });
-                if (userRole == "Moderator")
+                var url = Url.Action("Declaration", "Home", new {declarationId = declaration.Id});
+                if (userRole == "Moderator" && directory == DirectoryTypes.Moderator)
                 {
-                   url = Url.Action("DeclarationModeration", "Moderator", new { declarationId = declaration.Id });
+                    url = Url.Action("DeclarationModeration", "Moderator", new {declarationId = declaration.Id});
                 }
             }
 
             <div id="img">
-                <a href="@url"><img src="@path" alt="No img" /></a>
+                <a href="@url"><img src="@path" alt="No img"/></a>
             </div>
             <div class="desc">
                 <p class="nameD">
@@ -27,11 +37,11 @@
                         <a href="@url">@declaration.Name</a>
                     </b>
                 </p>
-                
+
                 <div class="text">
-                    @declaration.CreateTime / @declaration.City.Region.Name / @declaration.City.Name<br />
+                    @declaration.CreatedDate / @declaration.City.Region.Name / @declaration.City.Name<br/>
                     @declaration.SubCategory.Category.Name / @declaration.SubCategory.Name
-                    <br />
+                    <br/>
                     <div class="price">Цена</div>
                 </div>
 

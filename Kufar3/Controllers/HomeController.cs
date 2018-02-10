@@ -11,6 +11,11 @@ namespace Kufar3.Controllers
 {
     public class HomeController : BaseController
     {
+        public HomeController()
+        {
+            ViewBag.Directory = DirectoryTypes.Home;
+        }
+
         [ChildActionOnly]
         public ActionResult MenuLeft()
         {

@@ -13,6 +13,11 @@ namespace Kufar3.Controllers
     [Authorize]
     public class UserController : BaseController
     {
+        public UserController()
+        {
+            ViewBag.Directory = DirectoryTypes.User;
+        }
+
         public ActionResult MyDeclarations(DeclarationTypes declarationType = DeclarationTypes.Active)
         {
             var query = DeclarationRepository.GetDeclarationsByUserId(UserId);

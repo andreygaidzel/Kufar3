@@ -12,12 +12,16 @@ namespace Kufar3.Controllers
 {
     [Authorize(Roles = "Admin, Moderator")]
     public class ModeratorController : BaseController
-    {    
+    {
+        public ModeratorController()
+        {
+             ViewBag.Directory = DirectoryTypes.Moderator;
+        }
+
         public ActionResult DeclarationList()
         {
             var declarations = DeclarationRepository.GetDeclarationsByDeclarationType(DeclarationTypes.OnModeration).ToList();
             ViewBag.Declarations = declarations;
-
             return View();
         }
 
