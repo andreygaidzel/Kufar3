@@ -13,12 +13,12 @@ namespace Kufar3.Repositories
             return Context.Declarations.ToList();
         }
 
-        public Declaration GetById(int? id)
+        public Declaration GetById(long? id)
         {
             return Context.Declarations.FirstOrDefault(x => x.Id == id);
         }
 
-        public IQueryable<Declaration> GetDeclarationsByUserId(int userId)
+        public IQueryable<Declaration> GetDeclarationsByUserId(long userId)
         {
             return Context.Declarations.Where(x => x.UserId == userId);
         }
@@ -47,14 +47,14 @@ namespace Kufar3.Repositories
             Context.SaveChanges();
         }
 
-        public void Remove(int? id)
+        public void Remove(long? id)
         {
             var declaration = Context.Declarations.First(x => x.Id == id);
             Context.Declarations.Remove(declaration);
             Context.SaveChanges();
         }
 
-        public void EditDeclarationType(int declarationId, DeclarationTypes declarationType)
+        public void EditDeclarationType(long declarationId, DeclarationTypes declarationType)
         {
             var declaration = GetById(declarationId);
             declaration.Type = declarationType;

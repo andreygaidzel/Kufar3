@@ -38,7 +38,7 @@ namespace Kufar3.Models
         public string MobileNumber { get; set; }
 
         [ForeignKey(nameof(Role))]
-        public int RoleId { get; set; }
+        public long RoleId { get; set; }
         public virtual Role Role { get; set; }
         public virtual List<Declaration> Declarations { get; set; }
     }
@@ -59,7 +59,7 @@ namespace Kufar3.Models
         public string Name { get; set; }
 
         [ForeignKey(nameof(Category))]
-        public int CategoryId { get; set; }
+        public long CategoryId { get; set; }
         public virtual Category Category { get; set; }
         public virtual List<Declaration> Declarations { get; set; }
     }
@@ -75,7 +75,7 @@ namespace Kufar3.Models
         public string Name { get; set; }
 
         [ForeignKey(nameof(Region))]
-        public int RegionId { get; set; }
+        public long RegionId { get; set; }
         public virtual Region Region { get; set; }
         public virtual List<Declaration> Declarations { get; set; }
     }
@@ -88,15 +88,15 @@ namespace Kufar3.Models
         public string Price { get; set; }
 
         [ForeignKey(nameof(SubCategory))]
-        public int SubCategoryId { get; set; }
+        public long SubCategoryId { get; set; }
         public virtual SubCategory SubCategory { get; set; }
 
         [ForeignKey(nameof(City))]
-        public int CityId { get; set; }
+        public long CityId { get; set; }
         public virtual City City { get; set; }
 
         [ForeignKey(nameof(User))]
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public virtual User User { get; set; }
         public virtual List<Image> Images { get; set; }
     }
@@ -106,7 +106,7 @@ namespace Kufar3.Models
         public string Name { get; set; }
 
         [ForeignKey(nameof(Declaration))]
-        public int DeclarationId { get; set; }
+        public long DeclarationId { get; set; }
         public virtual Declaration Declaration { get; set; }
     }
 }

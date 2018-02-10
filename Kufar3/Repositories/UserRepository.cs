@@ -13,7 +13,7 @@ namespace Kufar3.Repositories
             return Context.Users.ToList();
         }
 
-        public User GetById(int id)
+        public User GetById(long id)
         {
             return Context.Users.FirstOrDefault(x => x.Id == id);
         }

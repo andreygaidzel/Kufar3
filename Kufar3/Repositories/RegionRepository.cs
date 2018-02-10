@@ -8,7 +8,7 @@ namespace Kufar3.Repositories
 {
     public class RegionRepository : BaseRepository
     {
-        public IQueryable<City> GetCitiesByRegionId(int? id)
+        public IQueryable<City> GetCitiesByRegionId(long? id)
         {
             return Context.Cities.Where(x => x.RegionId == id);
         }

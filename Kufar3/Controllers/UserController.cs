@@ -35,12 +35,12 @@ namespace Kufar3.Controllers
 
             var declarations = query.ToList();
             ViewBag.Declarations = declarations;
-
+            
             return View();
         }
         
         [HttpGet]
-        public ActionResult UserDeclaration(int? declarationId)
+        public ActionResult UserDeclaration(long? declarationId)
         {
             var declaration = DeclarationRepository.GetById(declarationId);
             ViewBag.Declaration = declaration;

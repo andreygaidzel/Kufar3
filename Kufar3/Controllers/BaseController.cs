@@ -50,7 +50,7 @@ namespace Kufar3.Controllers
             return Principal.IsInRole(role);
         }
 
-        public void InitDropDownItems(int selectedSubCategory = 1, int selectedCity = 1)
+        public void InitDropDownItems(long selectedSubCategory = 1, long selectedCity = 1)
         {
             var categories = new SelectList(CategoryRepository.GetAllCategories(), "Id", "Name", selectedSubCategory);
             var subCategories = new SelectList(CategoryRepository.GetSubCategoriesByCategoryId(selectedSubCategory), "Id", "Name");
