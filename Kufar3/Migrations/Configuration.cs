@@ -16,15 +16,6 @@ namespace Kufar3.Migrations
 
         protected override void Seed(Kufar3.Models.KufarContext context)
         {
-            if (!context.Roles.Any())
-            {
-                context.Roles.Add(new Role {UserRole = UserRoles.Admin});
-                context.Roles.Add(new Role {UserRole = UserRoles.Moderator});
-                context.Roles.Add(new Role {UserRole = UserRoles.User});
-
-                context.SaveChanges();
-            }
-
             if (!context.Users.Any())
             {
                 context.Users.Add(new User
@@ -33,7 +24,7 @@ namespace Kufar3.Migrations
                     Name = "Иван",
                     MobileNumber = "+375255212343",
                     Password = "123",
-                    RoleId = context.Roles.First(x => x.UserRole == UserRoles.Admin).Id,
+                    Role = UserRoles.Admin
                 });
 
                 context.Users.Add(new User
@@ -42,16 +33,16 @@ namespace Kufar3.Migrations
                     Name = "Роман",
                     MobileNumber = "+375255212883",
                     Password = "12345",
-                    RoleId = context.Roles.First(x => x.UserRole == UserRoles.Moderator).Id,
+                    Role = UserRoles.Moderator
                 });
 
                 context.Users.Add(new User
                 {
-                    Email = "tom@gmail.com",
+                    Email = "user@gmail.com",
                     Name = "Дмитрий",
                     MobileNumber = "+375255212311",
                     Password = "123456",
-                    RoleId = context.Roles.First(x => x.UserRole == UserRoles.User).Id,
+                    Role = UserRoles.User
                 });
 
                 context.SaveChanges();

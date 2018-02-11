@@ -21,7 +21,7 @@ namespace Kufar3.Helpers
                 return UserRoles.None;
             }
             
-            return (UserRoles) Enum.Parse(typeof(UserRoles), clam.Value);
+            return clam.Value.StringToEnumRole();
         }
     }
 }

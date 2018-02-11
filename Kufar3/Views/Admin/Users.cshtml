@@ -3,11 +3,9 @@
 @{
     ViewBag.Title = "Users";
     Layout = "~/Views/Shared/_layoutAdmin.cshtml";
-}
 
-@{
     var users = (List<User>) ViewBag.Users;
-    var roles = (List<Role>) ViewBag.Roles;
+    var roles = Enum.GetNames(typeof(UserRoles)).Where((role, i) => i > 0).ToList();
 }
 
 <div class="container-admin">
@@ -18,13 +16,19 @@
                 <td width="50">
                     Id
                 </td>
-                <td width="230">
+                <td width="220">
                     Email
+                </td>
+                <td width="90">
+                    Name
+                </td>
+                <td width="130">
+                    Mobile Number
                 </td>
                 <td width="100">
                     Role
                 </td>
-                <td width="100">
+                <td width="80">
                     Option
                 </td>
             </tr>
@@ -34,22 +38,27 @@
     @foreach (var user in users)
     {
         <div class="tab">
+            @{
+                var rolesList = new SelectList(roles, user.Role.ToString());
+            }
             <table class="table">
                 <tr>
                     <td width="50">
                         @user.Id
                     </td>
-                    <td width="230">
+                    <td width="220">
                         @user.Email
                     </td>
-                    <td width="100">
-
-                        @{
-                            var roleName = roles.First(x => x.Id == user.RoleId).Name;
-                            @Html.ActionLink(roleName, "UsersChangeRole", "Admin", new {userId = user.Id}, null)
-                        }
+                    <td width="90">
+                        @user.Name
+                    </td>
+                    <td width="130">
+                        @user.MobileNumber
                     </td>
                     <td width="100">
+                        @Html.DropDownList("UserRoles", rolesList, new {@class = "role", @onchange = $"changeRole({user.Id}, this.value)"})
+                    </td>
+                    <td width="80">
                         @Html.ActionLink("Remove", "UserRemove", "Admin", new {userId = user.Id}, null)
                         @Html.ActionLink("Change", "UserChange", "Admin", new {userId = user.Id}, null)
                     </td>
@@ -58,5 +67,18 @@
             </table>
         </div>
     }
-
 </div>
+
+<script type="text/javascript">
+    function changeRole(id, val)
+    {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("UsersChangeRole", "Admin")' + `?id=${id}&role=${val}`,
+            success: function(data)
+            {
+                console.log("success");
+            }
+        });
+    }
+</script>

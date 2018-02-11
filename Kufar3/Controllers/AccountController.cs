@@ -37,11 +37,7 @@ namespace Authorize.Controllers
                     var claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                     claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.String));
                     claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
-                    
-                    if (user.Role != null)
-                    {
-                        claim.AddClaim(new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.UserRole.ToString(), ClaimValueTypes.String));
-                    }
+                    claim.AddClaim(new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString(), ClaimValueTypes.String));
 
                     AuthenticationManager.SignOut();
                     AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claim);
@@ -77,7 +73,7 @@ namespace Authorize.Controllers
                     Name = model.Name,
                     MobileNumber = model.MobileNumber,
                     Password = model.Password,
-                    Role = UserRepository.GetRoleIdByName(UserRoles.User)
+                    Role = UserRoles.User
                 };
 
                 UserRepository.Add(user);

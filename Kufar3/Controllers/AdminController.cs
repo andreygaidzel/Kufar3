@@ -24,34 +24,18 @@ namespace Kufar3.Controllers
         public ActionResult Users()
         {
             var users = UserRepository.List();
-            ViewBag.Users = users;
 
-            var role = UserRepository.GetAllRoles().ToList();
-            ViewBag.Roles = role;
+            ViewBag.Users = users;
 
             return View();
         }
 
-        public ActionResult UsersChangeRole(int userId)
+        [HttpGet]
+        public ActionResult UsersChangeRole(int id, string role)
         {
-            // TODO: ПЕРЕДЕЛАТЬ
-
-            //var user = UserRepository.GetById(userId);
-
-            //switch (user.Role.UserRole)
-            //{
-            //    case UserRoles.Admin:
-            //        user.RoleId = UserRepository.GetRoleIdByName(UserRoles.Moderator).Id;
-            //        break;
-            //    case UserRoles.Moderator:
-            //        user.RoleId = UserRepository.GetRoleIdByName(UserRoles.User).Id;
-            //        break;
-            //    case UserRoles.User:
-            //        user.RoleId = UserRepository.GetRoleIdByName(UserRoles.Admin).Id;
-            //        break;
-            //}
+            UserRepository.EditRole(id, role)
 ;
-            return RedirectToAction("Users", "Admin");
+            return Json("blablasd", JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult UserRemove(int userId)

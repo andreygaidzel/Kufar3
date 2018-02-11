@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Kufar3.Helpers;
 using Kufar3.Models;
 
 namespace Kufar3.Repositories
@@ -71,16 +72,11 @@ namespace Kufar3.Repositories
             Context.SaveChanges();
         }
 
-        /***********************************************Role********************************************************/
-
-        public IQueryable<Role> GetAllRoles()
+        public void EditRole(int id, string role)
         {
-            return Context.Roles;
-        }
-
-        public Role GetRoleIdByName(UserRoles userRole)
-        {
-            return Context.Roles.First(x => x.UserRole == userRole);
+            var user = Context.Users.First(x => x.Id == id);
+            user.Role = role.StringToEnumRole();
+            Context.SaveChanges();
         }
     }
 }

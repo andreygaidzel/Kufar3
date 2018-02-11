@@ -15,7 +15,6 @@ namespace Kufar3.Models
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Declaration> Declarations { get; set; }
@@ -36,16 +35,8 @@ namespace Kufar3.Models
         public string Password { get; set; }
         public string Name { get; set; }
         public string MobileNumber { get; set; }
-
-        [ForeignKey(nameof(Role))]
-        public long RoleId { get; set; }
-        public virtual Role Role { get; set; }
+        public UserRoles Role { get; set; }
         public virtual List<Declaration> Declarations { get; set; }
-    }
-
-    public class Role : EntityBase
-    {
-        public UserRoles UserRole { get; set; }
     }
 
     public class Category : EntityBase
