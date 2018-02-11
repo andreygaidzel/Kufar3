@@ -35,7 +35,7 @@ namespace Kufar3.Controllers
         {
             UserRepository.EditRole(id, role)
 ;
-            return Json("blablasd", JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult UserRemove(int userId)

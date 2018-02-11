@@ -56,7 +56,7 @@
                         @user.MobileNumber
                     </td>
                     <td width="100">
-                        @Html.DropDownList("UserRoles", rolesList, new {@class = "role", @onchange = $"changeRole({user.Id}, this.value)"})
+                        @Html.DropDownList("UserRoles", rolesList, new {@onchange = $"changeRole({user.Id}, this.value)"})
                     </td>
                     <td width="80">
                         @Html.ActionLink("Remove", "UserRemove", "Admin", new {userId = user.Id}, null)
@@ -74,11 +74,7 @@
     {
         $.ajax({
             type: 'GET',
-            url: '@Url.Action("UsersChangeRole", "Admin")' + `?id=${id}&role=${val}`,
-            success: function(data)
-            {
-                console.log("success");
-            }
+            url: '@Url.Action("UsersChangeRole", "Admin")' + `?id=${id}&role=${val}`
         });
     }
 </script>
