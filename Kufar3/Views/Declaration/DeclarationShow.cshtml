@@ -29,7 +29,7 @@
                 }
             }
 
-            <div id="img">
+            <div class="img">
                 <a href="@url"><img src="@path" alt="No img"/></a>
             </div>
             <div class="desc">
@@ -38,12 +38,12 @@
                         <a href="@url">@declaration.Name</a>
                     </b>
                 </p>
-
+                <br />
                 <div class="text">
                     @declaration.CreatedDate / @declaration.City.Region.Name / @declaration.City.Name<br/>
                     @declaration.SubCategory.Category.Name / @declaration.SubCategory.Name
-                    <br/>
-                    <div class="price">Цена</div>
+                    <br/><br />
+                    <div class="price">Цена: @declaration.Price p.</div>
                 </div>
 
             </div>
