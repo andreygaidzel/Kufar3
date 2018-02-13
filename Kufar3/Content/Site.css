@@ -228,6 +228,14 @@ textarea { max-width: 280px; }
     color: green;
 }
 
+.links {
+    width: 100%;
+    height: 20px;
+    border: 1px solid black;
+    background-color: #cbebae;
+    float: left;
+    text-align: -webkit-center;
+}
 /********************************************************/
 
 .all-elements {

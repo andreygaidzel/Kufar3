@@ -24,11 +24,12 @@ namespace Kufar3.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(int? idCategory, int? idSubCategory)
+        public ActionResult Index(int? idCategory, int? idSubCategory, int num = 1)
         {
             var title = "Все категории";
             var query = DeclarationRepository.GetDeclarationsByDeclarationType(DeclarationTypes.Active);
-           
+            int pageSize = 3;   // количество элементов на странице
+
             if (idCategory != null)
             {
                 query = query.Where(x => x.SubCategory.CategoryId == idCategory);
@@ -40,8 +41,18 @@ namespace Kufar3.Controllers
                 title = CategoryRepository.GetSubCategoryById(idSubCategory).Name;
             }
 
+            var col = query.Count();
+
+            var items = query
+                .OrderBy(x => x.CreatedDate)
+                .Skip((num - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.Num = num;
+            ViewBag.Count = col;
             ViewBag.Title = title;
-            ViewBag.Declarations = query.ToList();
+            ViewBag.Declarations = items;
             ViewBag.IdCategory = idCategory;
             ViewBag.IdSubCategory = idSubCategory;
             return View();
