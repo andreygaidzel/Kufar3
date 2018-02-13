@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using Kufar3.Models;
 
 namespace Kufar3.Models
 {
@@ -25,8 +26,13 @@ namespace Kufar3.Models
 
     public class EntityBase
     {
+        public EntityBase()
+        {
+            CreatedDate = DateTime.UtcNow;    
+        }
+
         public long Id { get; set; }
-        public DateTime CreatedDate => DateTime.Now;
+        public DateTime CreatedDate { get; set; }
     }
 
     public class User : EntityBase
