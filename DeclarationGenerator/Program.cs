@@ -60,11 +60,11 @@ namespace DeclarationGenerator
                 Name = NewName(),
                 Description = NewDescription(),
                 SubCategoryId = R.Next(1, Context.SubCategories.Count()),
-                Type = 0,
+                Type = (DeclarationTypes)R.Next(0,2),
                 UserId = R.Next(1, Context.Users.Count()),
                 CityId = R.Next(1, Context.Cities.Count()),
                 Price = R.Next(1, 500).ToString(),
-                CreatedDate = DateTime.UtcNow
+                CreatedDate = RandomDay()
             };
 
             Context.Declarations.Add(newDeclaration);
@@ -85,6 +85,13 @@ namespace DeclarationGenerator
                 }
             }
             Context.SaveChanges();
+        }
+
+        public static DateTime RandomDay()
+        {
+            DateTime start = new DateTime(2017, 1, 1);
+            int range = (DateTime.Today - start).Days;
+            return start.AddDays(R.Next(range));
         }
 
         public static string NewDescription()
