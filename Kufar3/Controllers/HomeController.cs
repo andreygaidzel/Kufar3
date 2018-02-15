@@ -28,7 +28,7 @@ namespace Kufar3.Controllers
         {
             var title = "Все категории";
             var query = DeclarationRepository.GetDeclarationsByDeclarationType(DeclarationTypes.Active);
-            int pageSize = 3;   // количество элементов на странице
+            int pageSize = 5;   // количество элементов на странице
 
             if (idCategory != null)
             {
@@ -41,7 +41,7 @@ namespace Kufar3.Controllers
                 title = CategoryRepository.GetSubCategoryById(idSubCategory).Name;
             }
 
-            var col = query.Count();
+            var count = query.Count();
 
             var items = query
                 .OrderBy(x => x.CreatedDate)
@@ -50,7 +50,7 @@ namespace Kufar3.Controllers
                 .ToList();
 
             ViewBag.Num = num;
-            ViewBag.Count = col;
+            ViewBag.Count = count;
             ViewBag.Title = title;
             ViewBag.Declarations = items;
             ViewBag.IdCategory = idCategory;

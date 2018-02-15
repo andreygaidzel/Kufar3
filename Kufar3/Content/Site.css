@@ -228,13 +228,44 @@ textarea { max-width: 280px; }
     color: green;
 }
 
-.links {
+.pagination {
     width: 100%;
-    height: 20px;
-    border: 1px solid black;
-    background-color: #cbebae;
+    height: 31px;
+    /*border: 1px solid black;*/
+    background-color: #3cad01;
     float: left;
     text-align: -webkit-center;
+    
+}
+
+    .pagination ul {
+        margin: 0; /* Обнуляем значение отступов */
+        margin-top: 1px;
+        padding: 4px; /* Значение полей */
+    }
+
+    .pagination a {
+        text-decoration: none;
+    }
+
+.pagination li {
+    display: inline; /* Отображать как строчный элемент */
+    border: 1px solid #494747; /* Рамка вокруг текста */
+    padding: 2px; /* Поля вокруг текста */
+    margin: 1px;
+    color: #000000;
+    background-color: #ffffff;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 14pt;
+}
+
+    .pagination li:hover {
+        background-color: #d8d8d8; 
+    }
+
+.darc-cub li {
+    background-color: #cdbdbd;
 }
 /********************************************************/
 

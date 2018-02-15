@@ -52,35 +52,18 @@
         </li>
     }
 </ul>
-<div class="links">
-    @if (num > 3)
-    {
-        var number2 = num + 3;
-        var number1 = num - 2;
-        for (int i = number1; i < number2; i++)
-        {
-            var number = i +"  ";
-            @Html.ActionLink(number, "Index", "Home", new {num = i}, null)
-        }
-    }
-    else
-    {
-        if (count > 15)
-        {
-            for (int i = 1; i < 6; i++)
-            {
-                var number = i + "  ";
-                @Html.ActionLink(number, "Index", "Home", new {num = i}, null)
-            }
-        }
-        else
-        {
-            var cols = (int) count / 3;
-            for (int i = 1; i < cols; i++)
-            {
-                var number = i + "  ";
-                @Html.ActionLink(number, "Index", "Home", new {num = i}, null)
-            }
-        }
-    }
+<div class="pagination">
+    <ul>
+    </ul>
 </div>
+<script>
+    var pageNumber = '@ViewBag.Num';
+    var countDeclaration = '@ViewBag.Count';
+    var idCategory = Number('@ViewBag.IdCategory');
+    var idSubcategory = Number('@ViewBag.IdSubcategory');
+    console.log("pageNumber", pageNumber);
+    console.log("countDeclaration", countDeclaration);
+    console.log("idCategory", idCategory);
+    console.log("idSubcategory", idSubcategory);
+</script>
+<script src="~/MyScripts/Pagination.js"></script>
