@@ -5,28 +5,14 @@
     var idCategory = (int?) ViewBag.IdCategory;
     var idSubCategory = (int?) ViewBag.IdSubCategory;
 }
-
+<div class="side">
 <ul class="main-menu">
     @foreach (var category in Model)
     {
-        var isShow = "";
-        if (idCategory != null)
-        {
-            isShow = category.Id == idCategory ? "show" : "";
-        }
-        else
-        {
-            isShow = category.SubCategories.Any(x => x.Id == idSubCategory) ? "show" : "";
-        }
-        <li class="categories @isShow">
-            <div class="list-menu">
+        <li class="categories">
                 <a href="@Url.Action("Index", "Home", new {idCategory = category.Id}, null)">
-                    <div class="menu-name">
                         @category.Name
-                    </div>
                 </a>
-                <img src="~/ContentImages/down.png" class="icon-bottom">
-            </div>
             <ul class="sub-menu">
                 @foreach (var sub in category.SubCategories)
                 {
@@ -38,30 +24,4 @@
         </li>
     }
 </ul>
-
-<script type="text/javascript">
-
-    $(function()
-    {
-        $('.icon-bottom').click(function()
-        {
-            var tt = $(this).parent().parent();
-            console.log(tt);
-            if ($(tt).hasClass('show'))
-            {
-                console.log("yes");
-                $(tt).removeClass('show');
-                $(this).attr("src", "/ContentImages/down.png");
-            }
-            else
-            {
-                console.log("no");
-                $('.categories').removeClass('show');
-                $(`.icon-bottom`).attr("src", "/ContentImages/down.png");
-                $(tt).addClass('show');
-                $(this).attr("src", "/ContentImages/_top.png");
-            }
-        });
-    });
-
-</script>
+</div>
