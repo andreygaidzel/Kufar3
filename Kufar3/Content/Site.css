@@ -99,44 +99,72 @@ textarea { max-width: 280px; }
     padding-left: 0; /* Отступ слева в браузере Firefox, Safari, Chrome */
 }
 
-.bub:hover {
-    background: rgb(240, 240, 240);
-    cursor: pointer;
-}
-
 .main-menu li ul li:hover {
     background: rgb(205, 215, 239);
     cursor: pointer;
 }
 
-.li1.show .li2 { display: block; }
+.categories.show .sub-categories {
+    display: block;
+}
 
 .main-menu ul {
     list-style: none;
     -webkit-padding-start: 0px;    
 }
 
-.main-menu li a {
+.main-menu a {
     text-decoration: none;
     color: #000000;
 }
 
 .main-menu li {
-    
     border-bottom: 1px solid rgb(45, 244, 45);
     text-align: -webkit-center;
     margin: 3px;
     width: auto;
     font-weight: 600;
-    list-style-type: none; /* Убираем маркеры */    
+    /*list-style-type: none;*/ /* Убираем маркеры */    
 }
 
+    .menu-name:hover {
+        background: rgb(240, 240, 240);
+        cursor: pointer;
+    }
+
 .main-menu ul li {
-    background: #cbebae;
+    /*background: #cbebae;*/
     display: none;
     margin-left: 0; /* Отступ слева в браузере IE и Opera */
     padding-left: 0; /* Отступ слева в браузере Firefox, Safari, Chrome */
     text-decoration: none;
+}
+
+.icon-bottom {
+    height: 17px;
+    width: 17px;
+   float: right;
+    margin-bottom: 1px;
+}
+
+    .icon-bottom:hover {
+        height: 19px;
+        width: 20px;
+    }
+
+.list-menu {
+    height: 21px;
+    width: 210px;
+    border-bottom: 1px solid rgb(45, 244, 45);
+    /*border: 1px solid red;*/
+    background-color: #a0fb71;
+}
+
+.menu-name {
+    height: 21px;
+    width: 187px;
+    /*border: 1px solid red;*/
+    float: left;
 }
 
 /*------------------------------------- content -----------------------------------------------------------------------------------*/
