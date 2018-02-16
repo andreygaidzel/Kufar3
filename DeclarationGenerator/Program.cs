@@ -19,23 +19,34 @@ namespace DeclarationGenerator
 {
     class Program
     {
-        public static KufarContext Context = new KufarContext();
-        public static Random R = new Random();
+        private static KufarContext Context = new KufarContext();
+        private static Random R = new Random();
+        private static readonly int _subcategoryCount;
+        private static readonly int _userCount;
+        private static readonly int _cityCount;
+
+        static Program()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            _subcategoryCount = Context.SubCategories.Count();
+            _userCount = Context.Users.Count();
+            _cityCount = Context.Cities.Count();
+        }
 
         private static void Main()
         {
             //Configure();
-            var declarationCount = (float) 20;
-            Console.ForegroundColor = ConsoleColor.Green;
+            const int declarationCount = 70;
+
             Console.WriteLine("<Download Declarations>");
-            for (int i = 1; i < declarationCount + 1; i++)
+            for (var i = 1; i < declarationCount + 1; i++)
             {
-                var prosent = i / declarationCount * 100;
+                var prosent = (float) (i / declarationCount * 100);
                 AddDeclaration();
-                Console.Write("\rAdd:");
-                Console.Write(prosent);
-                Console.Write("%");
+                Console.Write($"\rAdd: {prosent}%");
             }
+
             Console.WriteLine("\n__Done");
             Console.Read();
         }
@@ -53,44 +64,79 @@ namespace DeclarationGenerator
             }
         }
 
-        public static void AddDeclaration() 
+        public static void AddDeclaration()
         {
-            var newDeclaration = new Declaration
-            {
-                Name = NewName(),
-                Description = NewDescription(),
-                SubCategoryId = R.Next(1, Context.SubCategories.Count()),
-                Type = (DeclarationTypes)R.Next(0,2),
-                UserId = R.Next(1, Context.Users.Count()),
-                CityId = R.Next(1, Context.Cities.Count()),
-                Price = R.Next(1, 500).ToString(),
-                CreatedDate = RandomDay()
-            };
-
-            Context.Declarations.Add(newDeclaration);
-            Context.SaveChanges();
-
+            List<Image> images = new List<Image>();
             var imgMax = R.Next(1, 6);
-            for (int i = 0; i < imgMax; i++)
+            for (var i = 0; i < imgMax; i++)
             {
                 var url = UploadImage();
 
                 if (!string.IsNullOrEmpty(url))
                 {
-                    Context.Images.Add(new Image
+                    images.Add(new Image
                     {
                         Name = url,
-                        DeclarationId = newDeclaration.Id,
                     });
                 }
             }
+
+            var newDeclaration = new Declaration
+            {
+                Name = NewName(),
+                Description = NewDescription(),
+                SubCategoryId = R.Next(1, _subcategoryCount+1),
+                Type = (DeclarationTypes)R.Next(0, Enum.GetNames(typeof(DeclarationTypes)).Length),
+                UserId = R.Next(1, _userCount+1),
+                CityId = R.Next(1, _cityCount+1),
+                Price = R.Next(1, 501).ToString(),
+                CreatedDate = RandomDay(),
+                Images = images
+            };
+
+            Context.Declarations.Add(newDeclaration);
             Context.SaveChanges();
         }
 
+        //public static void AddDeclaration()
+        //{
+        //    var newDeclaration = new Declaration
+        //    {
+        //        Name = NewName(),
+        //        Description = NewDescription(),
+        //        SubCategoryId = R.Next(1, _subcategoryCount),
+        //        Type = (DeclarationTypes) R.Next(0, 2),
+        //        UserId = R.Next(1, _userCount),
+        //        CityId = R.Next(1, _cityCount),
+        //        Price = R.Next(1, 500).ToString(),
+        //        CreatedDate = RandomDay()
+        //    };
+
+        //    Context.Declarations.Add(newDeclaration);
+        //    Context.SaveChanges();
+
+        //    var imgMax = R.Next(1, 6);
+        //    for (var i = 0; i < imgMax; i++)
+        //    {
+        //        var url = UploadImage();
+
+        //        if (!string.IsNullOrEmpty(url))
+        //        {
+        //            Context.Images.Add(new Image
+        //            {
+        //                Name = url,
+        //                DeclarationId = newDeclaration.Id,
+        //            });
+        //        }
+        //    }
+
+        //    Context.SaveChanges();
+        //}
+
         public static DateTime RandomDay()
         {
-            DateTime start = new DateTime(2017, 1, 1);
-            int range = (DateTime.Today - start).Days;
+            var start = new DateTime(2017, 1, 1);
+            var range = (DateTime.Today - start).Days;
             return start.AddDays(R.Next(range));
         }
 
@@ -130,10 +176,8 @@ namespace DeclarationGenerator
                 "соответствующих условий активизации.", "модели развития.", "форм воздействия."
             };
 
-            var description = (a1[R.Next(a1.Length)]) + (a2[R.Next(a2.Length)]) + (a3[R.Next(a3.Length)]) +
-                              (a4[R.Next(a4.Length)]);
-
-            return description;
+            return a1[R.Next(a1.Length)] + a2[R.Next(a2.Length)] + a3[R.Next(a3.Length)] +
+                   a4[R.Next(a4.Length)];
         }
 
         public static string NewName()
@@ -145,31 +189,23 @@ namespace DeclarationGenerator
                 "Пара кроликов"
             };
 
-            var name = b1[R.Next(b1.Length)];
-
-            return name;
+            return b1[R.Next(b1.Length)];
         }
-
-        public static string GetRandomAlphaNumeric()
-        {
-            var chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-            return new string(chars.Select(c => chars[R.Next(chars.Length)]).Take(16).ToArray());
-        }
-
+        
         public static string UploadImage()
         {
-            var path = @"C:\test\" + R.Next(1, 6) + ".jpg";
-            var random = GetRandomAlphaNumeric();
-            var name = @"\Images\_IMG_" + random + "__testing.jpg";
-            var newPath = @"C:\Projects\Kufar3\Kufar3" + name;
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var path = @"TestImages\" + R.Next(1, 6) + ".jpg";
+            var random = Guid.NewGuid().ToString("n");
+            var name = @"/Images/_IMG_" + random + "__testing.jpg";
+            var newPath = @"C:/Projects/Kufar3/Kufar3" + name;
 
-            FileInfo fileInf = new FileInfo(path);
+            var fileInf = new FileInfo(path);
             if (fileInf.Exists)
             {
-                //fileInf.CopyTo(newPath, true);
-                // альтернатива с помощью класса File
-                 File.Copy(path, newPath, true);
+                File.Copy(path, newPath, true);
             }
+
             return name;
         }
     }
