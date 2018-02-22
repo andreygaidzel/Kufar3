@@ -1,19 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using System.Data.Entity.Migrations.Infrastructure;
-using System.Data.SqlTypes;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Kufar3.Models;
-using System.Web;
-using System.Security.Cryptography;
+using Common;
+using EntityFramework.Utilities;
 using Kufar3.Migrations;
-
+using Kufar3.Models;
 
 namespace DeclarationGenerator
 {
@@ -29,44 +21,67 @@ namespace DeclarationGenerator
         {
             Console.ForegroundColor = ConsoleColor.Green;
 
+            Configure();
+
             _subcategoryCount = Context.SubCategories.Count();
             _userCount = Context.Users.Count();
-            _cityCount = Context.Cities.Count();
-        }
-
-        private static void Main()
-        {
-            //Configure();
-            const int declarationCount = 70;
-
-            Console.WriteLine("<Download Declarations>");
-            for (var i = 1; i < declarationCount + 1; i++)
-            {
-                var prosent = (float) (i / declarationCount * 100);
-                AddDeclaration();
-                Console.Write($"\rAdd: {prosent}%");
-            }
-
-            Console.WriteLine("\n__Done");
-            Console.Read();
+            _cityCount = Context.Cities.Count(); 
         }
 
         public static void Configure()
         {
             if (Context.Database.Exists())
             {
-                Console.WriteLine("exist database");
-                Context.Database.Delete();
-                Console.WriteLine("Delete");
-                Context.Database.Create();
-                Console.WriteLine("Create");
-                //Database.SetInitializer(new MigrateDatabaseToLatestVersion<KufarContext, Configuration>());
+                try
+                {
+                    Context.Database.Delete();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+                Console.WriteLine("Database deleted.");
             }
+
+            DatabaseMigrator.Initialize();
+            Context.Users.Add(new User()); // TODO: пофиксить
+
+            Console.WriteLine("Database created.");
         }
 
-        public static void AddDeclaration()
+        private static void Main()
         {
-            List<Image> images = new List<Image>();
+            TimerHelper.StopWatch(Start);
+
+            Console.Read();
+        }
+
+        private static void Start()
+        {
+            const int declarationCount = 1000;
+
+            Console.WriteLine("<Download Declarations>");
+
+            var declarations = new List<Declaration>();
+
+            for (var i = 1; i < declarationCount + 1; i++)
+            {
+                var declaration = AddDeclaration();
+                declarations.Add(declaration);
+            }
+            
+            EFBatchOperation.For(Context, Context.Declarations).InsertAll(declarations);
+
+            //Context.Declarations.AddRange(declarations);
+            //Context.SaveChanges();
+
+            Console.WriteLine("\n__Done");
+        }
+
+        public static Declaration AddDeclaration()
+        {
+            var images = new List<Image>();
             var imgMax = R.Next(1, 6);
             for (var i = 0; i < imgMax; i++)
             {
@@ -85,54 +100,18 @@ namespace DeclarationGenerator
             {
                 Name = NewName(),
                 Description = NewDescription(),
-                SubCategoryId = R.Next(1, _subcategoryCount+1),
+                SubCategoryId = R.Next(1, _subcategoryCount + 1),
                 Type = (DeclarationTypes)R.Next(0, Enum.GetNames(typeof(DeclarationTypes)).Length),
-                UserId = R.Next(1, _userCount+1),
-                CityId = R.Next(1, _cityCount+1),
+                UserId = R.Next(1, _userCount + 1),
+                CityId = R.Next(1, _cityCount + 1),
                 Price = R.Next(1, 501).ToString(),
                 CreatedDate = RandomDay(),
                 Images = images
             };
 
-            Context.Declarations.Add(newDeclaration);
-            Context.SaveChanges();
+            return newDeclaration;
         }
-
-        //public static void AddDeclaration()
-        //{
-        //    var newDeclaration = new Declaration
-        //    {
-        //        Name = NewName(),
-        //        Description = NewDescription(),
-        //        SubCategoryId = R.Next(1, _subcategoryCount),
-        //        Type = (DeclarationTypes) R.Next(0, 2),
-        //        UserId = R.Next(1, _userCount),
-        //        CityId = R.Next(1, _cityCount),
-        //        Price = R.Next(1, 500).ToString(),
-        //        CreatedDate = RandomDay()
-        //    };
-
-        //    Context.Declarations.Add(newDeclaration);
-        //    Context.SaveChanges();
-
-        //    var imgMax = R.Next(1, 6);
-        //    for (var i = 0; i < imgMax; i++)
-        //    {
-        //        var url = UploadImage();
-
-        //        if (!string.IsNullOrEmpty(url))
-        //        {
-        //            Context.Images.Add(new Image
-        //            {
-        //                Name = url,
-        //                DeclarationId = newDeclaration.Id,
-        //            });
-        //        }
-        //    }
-
-        //    Context.SaveChanges();
-        //}
-
+        
         public static DateTime RandomDay()
         {
             var start = new DateTime(2017, 1, 1);
@@ -194,7 +173,7 @@ namespace DeclarationGenerator
         
         public static string UploadImage()
         {
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             var path = @"TestImages\" + R.Next(1, 6) + ".jpg";
             var random = Guid.NewGuid().ToString("n");
             var name = @"/Images/_IMG_" + random + "__testing.jpg";
