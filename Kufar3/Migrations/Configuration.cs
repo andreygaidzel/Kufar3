@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Kufar3.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<Kufar3.Models.KufarContext>
+    public sealed class Configuration : DbMigrationsConfiguration<Kufar3.Models.KufarContext>
     {
         public Configuration()
         {
