@@ -41,6 +41,7 @@ namespace Kufar3.Controllers
 
             var declarations = query.ToList();
             ViewBag.Declarations = declarations;
+            ViewBag.Template = "MyDeclarations"; // TODO: ПЕРЕДЕЛАТЬ
             
             return View();
         }
