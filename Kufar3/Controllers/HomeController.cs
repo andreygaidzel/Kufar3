@@ -27,8 +27,8 @@ namespace Kufar3.Controllers
         public ActionResult Index(int? idCategory, int? idSubCategory, int num = 1)
         {
             var title = "Все категории";
-            var query = DeclarationRepository.GetDeclarationsByDeclarationType(DeclarationTypes.Active);
-            int pageSize = 5;   // количество элементов на странице
+            var query = DeclarationRepository.GetDeclarationsByDeclarationType(DeclarationTypes.Active).Take(10);
+            int pageSize = 5;   // количество элементов на странице // TODO: засунуть в виевБаг
 
             if (idCategory != null)
             {
@@ -48,7 +48,7 @@ namespace Kufar3.Controllers
                 .Skip((num - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-
+            
             ViewBag.Num = num;
             ViewBag.Count = count;
             ViewBag.Title = title;
