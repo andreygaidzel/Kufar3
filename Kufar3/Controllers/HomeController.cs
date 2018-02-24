@@ -55,6 +55,10 @@ namespace Kufar3.Controllers
             ViewBag.Declarations = items;
             ViewBag.IdCategory = idCategory;
             ViewBag.IdSubCategory = idSubCategory;
+            
+            TempData["IdCategory"] = idCategory;
+            TempData["idSubCategory"] = idSubCategory;
+
             return View();
         }
 
