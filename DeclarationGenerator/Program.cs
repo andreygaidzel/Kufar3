@@ -71,10 +71,10 @@ namespace DeclarationGenerator
                 declarations.Add(declaration);
             }
             
-            EFBatchOperation.For(Context, Context.Declarations).InsertAll(declarations);
+            //EFBatchOperation.For(Context, Context.Declarations).InsertAll(declarations);
 
-            //Context.Declarations.AddRange(declarations);
-            //Context.SaveChanges();
+            Context.Declarations.AddRange(declarations);
+            Context.SaveChanges();
 
             Console.WriteLine("\n__Done");
         }
@@ -82,7 +82,7 @@ namespace DeclarationGenerator
         public static Declaration AddDeclaration()
         {
             var images = new List<Image>();
-            var imgMax = R.Next(1, 6);
+            var imgMax = R.Next(1, 7);
             for (var i = 0; i < imgMax; i++)
             {
                 var url = UploadImage();
