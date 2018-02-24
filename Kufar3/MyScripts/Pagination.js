@@ -14,14 +14,15 @@ $(function ()
             maxValue = pageCount;
         }
         
-        if (currentPage > 1) {
+        if (currentPage > 1)
+        {
             html = Url(currentPage - 1, "<<");
             element.append(html);
         }
         
         Append(1, 1, 1);
 
-        if (pageCount > 6)
+        if (currentPage > 4 && pageCount > 6) 
         {
             if (pageCount - currentPage > 2)
             {
@@ -60,8 +61,6 @@ $(function ()
             html = Url(currentPage + 1, ">>");
             element.append(html);
         }
-
-        //$(`.pagination a[name=${currentPage}]`).addClass("darc-cub");
     }
 });
 
@@ -73,31 +72,24 @@ function Append(pageNumber, text)
 
 function Url(pageNumber, text)
 {
-    var _idCategory = parseInt(idCategory);
-    var _idSubcategory = parseInt(idSubcategory);
     var url = `/Home/Index?num=${pageNumber}`;
 
-    if ((_idCategory !== 0) && (_idSubcategory === 0))
+    if ((idCategory !== 0) && (idSubcategory === 0))
     {
-        url = url + `&idCategory=${_idCategory}`;
+        url = url + `&idCategory=${idCategory}`;
     }
-    else if ((_idCategory === 0) && (_idSubcategory !== 0))
+    else if ((idCategory === 0) && (idSubcategory !== 0))
     {
-        url = url + `&idSubcategory=${_idSubcategory}`;
+        url = url + `&idSubcategory=${idSubcategory}`;
     }
-    else if ((_idCategory !== 0) && (_idSubcategory !== 0))
+    else if ((idCategory !== 0) && (idSubcategory !== 0))
     {
-        url = url + `&idSubcategory=${_idSubcategory}&idCategory=${_idCategory}`;
+        url = url + `&idSubcategory=${idSubcategory}&idCategory=${idCategory}`;
     }
 
-    if (currentPage === pageNumber)
-    {
-        var html = `<a href="${url}" class = "darc-cub"><li><b>${text}</b></li></a>`;
-    }
-    else
-    {
-        var html = `<a href="${url}"><li><b>${text}</b></li></a>`;
-    }
-    
+    var selectedClass = (currentPage === pageNumber) ? 'class="darc-cub"' : '';
+
+    var html = `<a href="${url}" ${selectedClass}><li><b>${text}</b></li></a>`;
+
     return html;
 }
