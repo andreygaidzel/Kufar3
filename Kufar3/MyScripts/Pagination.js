@@ -15,13 +15,13 @@ $(function ()
         }
         
         if (currentPage > 1) {
-            html = Url(currentPage - 1, "<<", "<<");
+            html = Url(currentPage - 1, "<<");
             element.append(html);
         }
         
         Append(1, 1, 1);
 
-        if (currentPage > 4 && pageCount > 6)
+        if (pageCount > 6)
         {
             if (pageCount - currentPage > 2)
             {
@@ -33,12 +33,12 @@ $(function ()
                 minValue = pageCount - 5;
                 maxValue = pageCount;
             }
-            Append(minValue - 1, "...", "...");
+            Append(minValue - 1, "...");
         }
 
         for (var i = minValue; i <= maxValue; i++)
         {
-            Append(i, i, i);
+            Append(i, i);
         }
         if (pageCount > 6)
         {
@@ -50,33 +50,28 @@ $(function ()
             }
             else
             {
-                Append(maxValue + 1, "...", "...");
-                Append(pageCount, pageCount, pageCount);
+                Append(maxValue + 1, "...");
+                Append(pageCount, pageCount);
             }
         }
 
         if (currentPage < pageCount)
         {
-            html = Url(currentPage + 1, ">>", ">>");
-        }
-        else
-        {
-            html = `<a></a>`;
+            html = Url(currentPage + 1, ">>");
+            element.append(html);
         }
 
-        element.append(html);
-
-        $(`.pagination a[name=${currentPage}]`).addClass("darc-cub");
+        //$(`.pagination a[name=${currentPage}]`).addClass("darc-cub");
     }
 });
 
-function Append(pageNumber, name, text)
+function Append(pageNumber, text)
 {
-    var html = Url(pageNumber, name, text);
+    var html = Url(pageNumber, text);
     element.append(html);
 }
 
-function Url(pageNumber, name, text)
+function Url(pageNumber, text)
 {
     var _idCategory = parseInt(idCategory);
     var _idSubcategory = parseInt(idSubcategory);
@@ -95,6 +90,14 @@ function Url(pageNumber, name, text)
         url = url + `&idSubcategory=${_idSubcategory}&idCategory=${_idCategory}`;
     }
 
-    var html = `<a href="${url}" name="${name}"><li><b>${text}</b></li></a>`;
+    if (currentPage === pageNumber)
+    {
+        var html = `<a href="${url}" class = "darc-cub"><li><b>${text}</b></li></a>`;
+    }
+    else
+    {
+        var html = `<a href="${url}"><li><b>${text}</b></li></a>`;
+    }
+    
     return html;
 }
