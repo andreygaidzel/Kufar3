@@ -1,10 +1,10 @@
 ﻿var element = $('.pagination ul');
 $(function ()
 {
-    var inPage = 5;
-    var pageCount = Math.ceil(countDeclaration / inPage);
+    var pageSize = 5;
+    var pageCount = Math.ceil(countDeclaration / pageSize);
 
-    if (inPage < countDeclaration)
+    if (pageSize < countDeclaration)
     {
         var html;
         var minValue = 2;
@@ -13,26 +13,20 @@ $(function ()
         {
             maxValue = pageCount;
         }
-
-        if (pageNumber > 1)
-        {
-            html = Url(pageNumber - 1, "<<", "<<");
+        
+        if (currentPage > 1) {
+            html = Url(currentPage - 1, "<<", "<<");
+            element.append(html);
         }
-        else
-        {
-            html = `<a></a>`;
-        }
-
-        element.append(html);
-
+        
         Append(1, 1, 1);
 
-        if (pageNumber > 4 && pageCount > 6)
+        if (currentPage > 4 && pageCount > 6)
         {
-            if (pageCount - pageNumber > 2)
+            if (pageCount - currentPage > 2)
             {
-                minValue = pageNumber - 2;
-                maxValue = Number(pageNumber) + 2;
+                minValue = currentPage - 2;
+                maxValue = currentPage + 2;
             }
             else
             {
@@ -48,7 +42,7 @@ $(function ()
         }
         if (pageCount > 6)
         {
-            if (pageCount - pageNumber < 3 && pageCount > 6)
+            if (pageCount - currentPage < 3 && pageCount > 6)
             {
 
                 html = `<a></a>`;
@@ -61,9 +55,9 @@ $(function ()
             }
         }
 
-        if (pageNumber < pageCount)
+        if (currentPage < pageCount)
         {
-            html = Url(Number(pageNumber) + 1, ">>", ">>");
+            html = Url(currentPage + 1, ">>", ">>");
         }
         else
         {
@@ -72,21 +66,21 @@ $(function ()
 
         element.append(html);
 
-        $(`.pagination a[name=${pageNumber}]`).addClass("darc-cub");
+        $(`.pagination a[name=${currentPage}]`).addClass("darc-cub");
     }
 });
 
-function Append(page, name, text)
+function Append(pageNumber, name, text)
 {
-    var html = Url(page, name, text);
+    var html = Url(pageNumber, name, text);
     element.append(html);
 }
 
-function Url(page, name, text)
+function Url(pageNumber, name, text)
 {
     var _idCategory = parseInt(idCategory);
     var _idSubcategory = parseInt(idSubcategory);
-    var url = `/Home/Index?num=${page}`;
+    var url = `/Home/Index?num=${pageNumber}`;
 
     if ((_idCategory !== 0) && (_idSubcategory === 0))
     {
@@ -100,6 +94,7 @@ function Url(page, name, text)
     {
         url = url + `&idSubcategory=${_idSubcategory}&idCategory=${_idCategory}`;
     }
+
     var html = `<a href="${url}" name="${name}"><li><b>${text}</b></li></a>`;
     return html;
 }
