@@ -12,11 +12,11 @@ using Microsoft.AspNet.Identity;
 namespace Kufar3.Controllers
 {
     [MyAuthorize]
-    public class UserController : BaseController
+    public class PersonalController : BaseController
     {
-        public UserController()
+        public PersonalController()
         {
-            ViewBag.Directory = DirectoryTypes.User;
+            ViewBag.Directory = DirectoryTypes.PersonalDeclarations;
         }
 
         public ActionResult MyDeclarations(DeclarationTypes declarationType = DeclarationTypes.Active)
@@ -38,10 +38,9 @@ namespace Kufar3.Controllers
                     query = query.Where(x => x.Type == DeclarationTypes.Rejected);
                     break;
             }
-
-            var declarations = query.ToList();
-            ViewBag.Declarations = declarations;
-            ViewBag.Template = "MyDeclarations"; // TODO: ПЕРЕДЕЛАТЬ
+            
+            ViewBag.Declarations = query.ToList();
+            ViewBag.Template = DirectoryTypes.PersonalDeclarations; 
             
             return View();
         }
@@ -85,6 +84,7 @@ namespace Kufar3.Controllers
         public ActionResult AccountEdit()
         {
             var model = UserRepository.GetById(UserId);
+            ViewBag.Template = DirectoryTypes.PersonalSettings;
 
             return View(model);
         }
@@ -92,9 +92,10 @@ namespace Kufar3.Controllers
         [HttpPost]
         public ActionResult AccountEdit(User model)
         {
-           UserRepository.Edit(model);
+            UserRepository.Edit(model);
+            ViewBag.Template = DirectoryTypes.PersonalSettings;
 
-            return RedirectToAction("AccountEdit", "User");
+            return View();
         }
     }
 }

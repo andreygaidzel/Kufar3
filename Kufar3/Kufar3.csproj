@@ -314,7 +314,7 @@
     <Compile Include="Controllers\DeclarationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ModeratorController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Filters\MyAuthorizeAttribute.cs" />
     <Compile Include="Filters\OverrideFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -358,11 +358,11 @@
     <Content Include="Views\Home\Declaration.cshtml" />
     <Content Include="Views\Moderator\DeclarationList.cshtml" />
     <Content Include="Views\Moderator\DeclarationModeration.cshtml" />
-    <Content Include="Views\Shared\_LayoutUser.cshtml" />
-    <Content Include="Views\User\MyDeclarations.cshtml" />
+    <Content Include="Views\Shared\_LayoutPersonal.cshtml" />
+    <Content Include="Views\Personal\MyDeclarations.cshtml" />
     <Content Include="Views\Home\GetCities.cshtml" />
-    <Content Include="Views\User\UserDeclaration.cshtml" />
-    <Content Include="Views\User\AccountEdit.cshtml" />
+    <Content Include="Views\Personal\UserDeclaration.cshtml" />
+    <Content Include="Views\Personal\AccountEdit.cshtml" />
     <Content Include="Views\Home\MenuLeft.cshtml" />
     <Content Include="Views\Home\LayoutHeader.cshtml" />
     <Content Include="Views\Declaration\DeclarationView.cshtml" />

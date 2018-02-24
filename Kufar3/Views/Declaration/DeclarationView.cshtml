@@ -6,11 +6,11 @@
     var userId = (int)ViewBag.UserId;
     var directory = (DirectoryTypes)ViewBag.Directory;
 }
-@if (Model.UserId == userId && directory == DirectoryTypes.User)
+@if (Model.UserId == userId && directory == DirectoryTypes.PersonalDeclarations)
 {
     <div class="user-menu">
-        <b>@Html.ActionLink("Удалить", "DeleteDeclaration", "User", new { declarationId = Model.Id }, null)</b>
-        <b>@Html.ActionLink("Изменить", "UserDeclaration", "User", new { declarationId = Model.Id }, null) </b>
+        <b>@Html.ActionLink("Удалить", "DeleteDeclaration", "Personal", new { declarationId = Model.Id }, null)</b>
+        <b>@Html.ActionLink("Изменить", "UserDeclaration", "Personal", new { declarationId = Model.Id }, null) </b>
     </div>
 }
 

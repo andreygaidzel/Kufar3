@@ -2,12 +2,12 @@
 
 @{
     ViewBag.Title = "AccountEdit";
-    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    Layout = "~/Views/Shared/_LayoutPersonal.cshtml";
 }
 
 <div class="container">
     <h2>Персональные данные</h2>
-    @using (Html.BeginForm("AccountEdit", "User", FormMethod.Post))
+    @using (Html.BeginForm("AccountEdit", "Personal", FormMethod.Post))
     {
         <div>
             @Html.ValidationSummary(false)

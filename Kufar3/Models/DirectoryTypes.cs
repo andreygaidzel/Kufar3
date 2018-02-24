@@ -3,7 +3,8 @@
     public enum DirectoryTypes
     {
         Home,
-        User,
+        PersonalDeclarations,
+        PersonalSettings,
         Moderator
     }
 }

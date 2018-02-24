@@ -5,19 +5,19 @@
     var userRole = (UserRoles) ViewBag.UserRole;
     var userId = (int)ViewBag.UserId;
     var directory = (DirectoryTypes)ViewBag.Directory;
-    var count = (int)ViewBag.Count;
-    var num = (int)ViewBag.Num;
+    var count = (int?)ViewBag.Count;
+    var num = (int?)ViewBag.Num;
 }
 
 <ul>
     @foreach (var declaration in declarations)
     {
         <li class="declarations">
-            @if (declaration.UserId == userId && directory == DirectoryTypes.User)
+            @if (declaration.UserId == userId && directory == DirectoryTypes.PersonalDeclarations)
             {
                 <div id="menu-desc">
-                    <b>@Html.ActionLink("Изменить", "UserDeclaration", "User", new { declarationId = declaration.Id }, null) </b>
-                    <b>@Html.ActionLink("Удалить", "DeleteDeclaration", "User", new {declarationId = declaration.Id}, null)</b>
+                    <b>@Html.ActionLink("Изменить", "UserDeclaration", "Personal", new { declarationId = declaration.Id }, null) </b>
+                    <b>@Html.ActionLink("Удалить", "DeleteDeclaration", "Personal", new {declarationId = declaration.Id}, null)</b>
 
                 </div>
             }
@@ -44,7 +44,7 @@
                 <div class="text">
                     @declaration.CreatedDate / @declaration.City.Region.Name / @declaration.City.Name<br/>
                     @declaration.SubCategory.Category.Name / @declaration.SubCategory.Name
-                    <br/><br />
+                    <br />
                     <div class="price">Цена: @declaration.Price p.</div>
                 </div>
 
