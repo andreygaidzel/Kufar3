@@ -6,11 +6,11 @@
 }
 
 @{
-    var declarations = (List<Declaration>) ViewBag.Declarations;
+    var count = (int) ViewBag.Count;
 }
 
 <div class="content-holder">
-    <p class="nameD"><b>Объявления</b></p>
+    <p class="nameD"><b>Объявления ожидающие модерацию (@count)</b></p>
 </div>
 
 @Html.Partial("~/Views/Declaration/DeclarationShow.cshtml")

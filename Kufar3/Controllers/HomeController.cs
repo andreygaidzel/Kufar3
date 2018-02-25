@@ -24,7 +24,7 @@ namespace Kufar3.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(int? idCategory, int? idSubCategory, int pageNumber = 1)
+        public ActionResult Index(int? idCategory, int? idSubCategory, int page = 1)
         {
             var title = "Все категории";
             var query = DeclarationRepository.GetDeclarationsByDeclarationType(DeclarationTypes.Active);
@@ -45,12 +45,12 @@ namespace Kufar3.Controllers
 
             var items = query
                 .OrderBy(x => x.CreatedDate)
-                .Skip((pageNumber - 1) * pageSize)
+                .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
 
             ViewBag.PageSize = pageSize;
-            ViewBag.CurrentPage = pageNumber;
+            ViewBag.CurrentPage = page;
             ViewBag.Count = count;
             ViewBag.Title = title;
             ViewBag.Declarations = items;

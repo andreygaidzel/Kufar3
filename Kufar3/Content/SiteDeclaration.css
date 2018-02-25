@@ -75,6 +75,11 @@
     background-color: rgb(254, 254, 254);
 }
 
+.horizontal-menu a:hover {
+    background-color: rgb(156, 194, 162);
+    padding: 5px;
+}
+
 .user-menu {
     height: 18px;
     width: 100%;
@@ -127,7 +132,7 @@
 .horizontal-menu a {
     text-decoration: none;
     color: rgb(5, 157, 52);
-    border-bottom: 3px solid rgb(15, 178, 23);
+    padding: 5px;
 }
 /********************************************moderator**************************************************/
 .moderator-click  {

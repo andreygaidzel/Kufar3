@@ -1,10 +1,11 @@
-﻿@using Kufar3.Models
+﻿@using System.Runtime.Remoting.Channels
+@using Kufar3.Models
 
 @{
     var declarations = (List<Declaration>) ViewBag.Declarations;
     var userRole = (UserRoles) ViewBag.UserRole;
-    var userId = (int)ViewBag.UserId;
-    var directory = (DirectoryTypes)ViewBag.Directory;
+    var userId = (int) ViewBag.UserId;
+    var directory = (DirectoryTypes) ViewBag.Directory;
 }
 
 <ul>
@@ -14,7 +15,7 @@
             @if (declaration.UserId == userId && directory == DirectoryTypes.PersonalDeclarations)
             {
                 <div id="menu-desc">
-                    <b>@Html.ActionLink("Изменить", "UserDeclaration", "Personal", new { declarationId = declaration.Id }, null) </b>
+                    <b>@Html.ActionLink("Изменить", "UserDeclaration", "Personal", new {declarationId = declaration.Id}, null) </b>
                     <b>@Html.ActionLink("Удалить", "DeleteDeclaration", "Personal", new {declarationId = declaration.Id}, null)</b>
 
                 </div>
@@ -30,7 +31,9 @@
             }
 
             <div class="img">
-                <a href="@url"><img src="@path" alt="No img"/></a>
+                <a href="@url">
+                    <img src="@path" alt="No img"/>
+                </a>
             </div>
             <div class="desc">
                 <p class="nameD">
@@ -38,11 +41,11 @@
                         <a href="@url">@declaration.Name</a>
                     </b>
                 </p>
-                <br />
+                <br/>
                 <div class="text">
                     @declaration.CreatedDate / @declaration.City.Region.Name / @declaration.City.Name<br/>
                     @declaration.SubCategory.Category.Name / @declaration.SubCategory.Name
-                    <br />
+                    <br/>
                     <div class="price">Цена: @declaration.Price p.</div>
                 </div>
 
@@ -54,6 +57,7 @@
 <div id="pagination"></div>
 
 <script>
+    var declarationType = '@ViewBag.DeclarationType';
     var pageSize = Number('@ViewBag.PageSize');
     var currentPage = Number('@ViewBag.CurrentPage');
     var countDeclaration = Number('@ViewBag.Count');
@@ -61,4 +65,25 @@
     var idSubcategory = Number('@TempData["idSubCategory"]');
 </script>
 
-<script src="~/MyScripts/Pagination.js"></script>
+@{
+    switch (directory)
+    {
+        case DirectoryTypes.Home:
+            <script>
+                new Pagination(Pagination.urlHome);
+            </script>
+            break;
+        case DirectoryTypes.PersonalDeclarations:
+            <script>
+                new Pagination(Pagination.urlPersonal);
+            </script>
+            break;
+        case DirectoryTypes.Moderator:
+            <script>
+                new Pagination(Pagination.urlModerator);
+            </script>
+            break;
+        case DirectoryTypes.PersonalSettings:
+            break;
+    }
+}

@@ -2,7 +2,7 @@
 @{
     var myDeclarations = string.Empty;
     var mySettings = string.Empty;
-    var template = (DirectoryTypes)ViewBag.Template;
+    var template = (DirectoryTypes)ViewBag.Directory;
 
     if (template == DirectoryTypes.PersonalDeclarations)
     {
@@ -23,6 +23,7 @@
     <link href="~/Content/scroll.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.2.1.min.js"></script>
     <link href="~/Content/SiteDeclaration.css" rel="stylesheet" />
+    <script src="~/MyScripts/Pagination.js"></script>
 </head>
 <body>
     @Html.Partial("~/Views/Home/LayoutHeader.cshtml")

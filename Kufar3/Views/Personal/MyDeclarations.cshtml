@@ -1,20 +1,38 @@
-﻿@using Kufar3.Models
+﻿@using System.Data
+@using System.Runtime.Remoting.Channels
+@using Kufar3.Models
 
 @{
-    ViewBag.Title = "MyDeclarations";
-    Layout = "~/Views/Shared/_layoutPersonal.cshtml";
+        ViewBag.Title = "MyDeclarations";
+        Layout = "~/Views/Shared/_layoutPersonal.cshtml";
 
-    var activCount = (int) ViewBag.ActivCount;
-    var moderCount = (int) ViewBag.ModerCount;
-    var rejCount = (int) ViewBag.RejCount;
-}
+        var activeCount = (int) ViewBag.ActiveCount;
+        var moderationCount = (int) ViewBag.ModerationCount;
+        var rejectedCount = (int) ViewBag.RejectedCount;
+        var declarationType = (DeclarationTypes)ViewBag.DeclarationType;
+        var typeActive = string.Empty;
+        var typeModeration = string.Empty;
+        var typeRejected = string.Empty;
+        switch (declarationType)
+        {
+            case DeclarationTypes.Active:
+                typeActive = "light";
+                break;
+            case DeclarationTypes.OnModeration:
+                typeModeration = "light";
+                break;
+            case DeclarationTypes.Rejected:
+                typeRejected = "light";
+                break;
+        }
+    }
 
 <h2>Мои объявления</h2>
 <div class="horizontal-menu">
     <ul>
-        <li><a href="@Url.Action("MyDeclarations", "Personal", new { declarationType = DeclarationTypes.Active })">Активные(@activCount)</a></li>
-        <li><a href="@Url.Action("MyDeclarations", "Personal", new { declarationType = DeclarationTypes.OnModeration })">На модерации(@moderCount)</a></li>
-        <li><a href="@Url.Action("MyDeclarations", "Personal", new { declarationType = DeclarationTypes.Rejected })">Отклоненные(@rejCount)</a></li>
+        <li><a href="@Url.Action("MyDeclarations", "Personal", new { declarationType = DeclarationTypes.Active })" class="@typeActive">Активные(@activeCount)</a></li>
+        <li><a href="@Url.Action("MyDeclarations", "Personal", new { declarationType = DeclarationTypes.OnModeration })" class="@typeModeration">На модерации(@moderationCount)</a></li>
+        <li><a href="@Url.Action("MyDeclarations", "Personal", new { declarationType = DeclarationTypes.Rejected })" class="@typeRejected">Отклоненные(@rejectedCount)</a></li>
     </ul>
 </div>
 

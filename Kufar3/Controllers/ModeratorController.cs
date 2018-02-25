@@ -19,10 +19,24 @@ namespace Kufar3.Controllers
              ViewBag.Directory = DirectoryTypes.Moderator;
         }
 
-        public ActionResult DeclarationList()
+        public ActionResult DeclarationList(int page = 1)
         {
             var declarations = DeclarationRepository.GetDeclarationsByDeclarationType(DeclarationTypes.OnModeration).ToList();
-            ViewBag.Declarations = declarations;
+            int pageSize = 5;   // количество элементов на странице 
+
+            var count = declarations.Count();
+
+            var items = declarations
+                .OrderBy(x => x.CreatedDate)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.PageSize = pageSize;
+            ViewBag.CurrentPage = page;
+            ViewBag.Count = count;
+            ViewBag.Declarations = items;
+
             return View();
         }
 

@@ -379,3 +379,8 @@ textarea { max-width: 280px; }
 }
 
 .img-light { border: 2px solid rgb(0, 255, 31); }
+
+.light {
+   background-color: rgb(205, 211, 205);
+   padding: 10px;
+}

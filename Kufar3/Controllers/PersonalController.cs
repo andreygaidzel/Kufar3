@@ -19,12 +19,13 @@ namespace Kufar3.Controllers
             ViewBag.Directory = DirectoryTypes.PersonalDeclarations;
         }
 
-        public ActionResult MyDeclarations(DeclarationTypes declarationType = DeclarationTypes.Active)
+        public ActionResult MyDeclarations(DeclarationTypes declarationType = DeclarationTypes.Active, int page = 1)
         {
             var query = DeclarationRepository.GetDeclarationsByUserId(UserId);
-            ViewBag.ActivCount = query.Count(x => x.Type == DeclarationTypes.Active);
-            ViewBag.ModerCount = query.Count(x => x.Type == DeclarationTypes.OnModeration);
-            ViewBag.RejCount = query.Count(x => x.Type == DeclarationTypes.Rejected);
+            int pageSize = 5;   // количество элементов на странице 
+            ViewBag.ActiveCount = query.Count(x => x.Type == DeclarationTypes.Active);
+            ViewBag.ModerationCount = query.Count(x => x.Type == DeclarationTypes.OnModeration);
+            ViewBag.RejectedCount = query.Count(x => x.Type == DeclarationTypes.Rejected);
 
             switch (declarationType)
             {
@@ -38,9 +39,20 @@ namespace Kufar3.Controllers
                     query = query.Where(x => x.Type == DeclarationTypes.Rejected);
                     break;
             }
-            
-            ViewBag.Declarations = query.ToList();
-            ViewBag.Template = DirectoryTypes.PersonalDeclarations; 
+
+            var count = query.Count();
+
+            var items = query
+                .OrderBy(x => x.CreatedDate)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.DeclarationType = declarationType;
+            ViewBag.PageSize = pageSize;
+            ViewBag.CurrentPage = page;
+            ViewBag.Count = count;
+            ViewBag.Declarations = items;
             
             return View();
         }

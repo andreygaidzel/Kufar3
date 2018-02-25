@@ -1,13 +1,21 @@
 ﻿class BasePagination {
-
-    constructor()
+    constructor(func)
     {
-        this.element = $('#pagination');
-        this.conteiner = $('<ul></ul>');
+        this.func = func;
+        this.container = $('<ul></ul>');
         this.pageCount = Math.ceil(countDeclaration / pageSize);
+
+        this._start();
     }
 
-    Pages(url)
+    _start()
+    {
+        this._generate();
+
+        $('#pagination').append(this.container);
+    }
+
+    _generate()
     {
         if (pageSize < countDeclaration)
         {
@@ -20,10 +28,10 @@
 
             if (currentPage > 1)
             {
-                this.Url(currentPage - 1, '<<');
+                this._append(currentPage - 1, '<<');
             }
 
-            this.Url(1, 1);
+            this._append(1, 1);
 
             if (currentPage > 4 && this.pageCount > 6)
             {
@@ -37,34 +45,50 @@
                     maxValue = this.pageCount;
                 }
 
-                this.Url(minValue - 1, '...');
+                this._append(minValue - 1, '...');
             }
 
             for (var i = minValue; i <= maxValue; i++)
             {
-                this.Url(i, i);
+                this._append(i, i);
             }
 
             if (this.pageCount > 6)
             {
                 if (!(this.pageCount - currentPage < 3 && this.pageCount > 6))
                 {
-                    this.Url(maxValue + 1, '...');
-                    this.Url(this.pageCount, this.pageCount);
+                    this._append(maxValue + 1, '...');
+                    this._append(this.pageCount, this.pageCount);
                 }
             }
 
             if (currentPage < this.pageCount)
             {
-                this.Url(currentPage + 1, '>>');
+                this._append(currentPage + 1, '>>');
             }
         }
-        this.element.append(this.conteiner);
     }
 
-    Url(pageNumber, text)
+    _append(pageNumber, text)
     {
-        var url = `/Home/Index?pageNumber=${pageNumber}`;
+        var url = this.func(pageNumber);
+
+        var selectedClass = (currentPage === pageNumber) ? 'class="darc-cub"' : '';
+        var html = `<li><a href="${url}" ${selectedClass}><b>${text}</b></a></li>`;
+
+        this.container.append(html);
+    }
+}
+
+class Pagination extends BasePagination {
+    constructor(func)
+    {
+        super(func);
+    }
+
+    static urlHome(pageNumber)
+    {
+        var url = `/Home/Index?page=${pageNumber}`;
 
         if ((idCategory !== 0) && (idSubcategory === 0))
         {
@@ -77,44 +101,16 @@
             url = url + `&idSubcategory=${idSubcategory}&idCategory=${idCategory}`;
         }
 
-        var selectedClass = (currentPage === pageNumber) ? 'class="darc-cub"' : '';
+        return url;
+    }
 
-        var html = `<li><a href="${url}" ${selectedClass}><b>${text}</b></a></li>`;
+    static urlPersonal(pageNumber)
+    {
+        return `/Personal/MyDeclarations?page=${pageNumber}&declarationType=${declarationType}`;
+    }
 
-        this.conteiner.append(html);
+    static urlModerator(pageNumber)
+    {
+        return `/Moderator/DeclarationList?page=${pageNumber}`;
     }
 }
-
-new BasePagination().Pages();
-
-
-class BaseTest {
-    constructor(callback)
-    {
-        this.bla(callback);
-    }
-
-    bla(callback)
-    {
-        callback();
-    }
-}
-
-class Test extends BaseTest {
-    constructor(callback)
-    {
-        super(callback);
-    }
-
-    static url1()
-    {
-        console.log('url1');
-    }
-
-    static url2()
-    {
-        console.log('url2');
-    }
-}
-
-new Test(Test.url2);
