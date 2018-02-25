@@ -1,8 +1,8 @@
-﻿var element = $('.pagination ul');
+﻿var element = $('#pagination');
+var conteiner = $('<ul></ul>');
 
 $(function ()
 {
-    var pageSize = 5; // TODO: исправить
     var pageCount = Math.ceil(countDeclaration / pageSize);
 
     if (pageSize < countDeclaration)
@@ -16,7 +16,7 @@ $(function ()
         
         if (currentPage > 1)
         {
-            Url(currentPage - 1, "<<");
+            Url(currentPage - 1, '<<');
         }
         
         Url(1, 1);
@@ -34,7 +34,7 @@ $(function ()
                 maxValue = pageCount;
             }
 
-            Url(minValue - 1, "...");
+            Url(minValue - 1, '...');
         }
 
         for (var i = minValue; i <= maxValue; i++)
@@ -46,21 +46,21 @@ $(function ()
         {
             if (!(pageCount - currentPage < 3 && pageCount > 6))
             {
-                Url(maxValue + 1, "...");
+                Url(maxValue + 1, '...');
                 Url(pageCount, pageCount);
             }
         }
 
         if (currentPage < pageCount)
         {
-            Url(currentPage + 1, ">>");
+            Url(currentPage + 1, '>>');
         }
     }
 });
 
 function Url(pageNumber, text)
 {
-    var url = `/Home/Index?num=${pageNumber}`;
+    var url = `/Home/Index?pageNumber=${pageNumber}`;
 
     if ((idCategory !== 0) && (idSubcategory === 0))
     {
@@ -77,13 +77,9 @@ function Url(pageNumber, text)
 
     var selectedClass = (currentPage === pageNumber) ? 'class="darc-cub"' : '';
 
-<<<<<<< HEAD
     var html = `<li><a href="${url}" ${selectedClass}><b>${text}</b></a></li>`;
 
-    return html;
-=======
-    var html = `<a href="${url}" ${selectedClass}><li><b>${text}</b></li></a>`;
-    
-    element.append(html);
->>>>>>> master
+    conteiner.append(html);
 }
+
+element.append(conteiner);

@@ -24,11 +24,11 @@ namespace Kufar3.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(int? idCategory, int? idSubCategory, int num = 1)
+        public ActionResult Index(int? idCategory, int? idSubCategory, int pageNumber = 1)
         {
             var title = "Все категории";
-            var query = DeclarationRepository.GetDeclarationsByDeclarationType(DeclarationTypes.Active).Take(10);
-            int pageSize = 5;   // количество элементов на странице // TODO: засунуть в виевБаг
+            var query = DeclarationRepository.GetDeclarationsByDeclarationType(DeclarationTypes.Active);
+            int pageSize = 5;   // количество элементов на странице 
 
             if (idCategory != null)
             {
@@ -45,11 +45,12 @@ namespace Kufar3.Controllers
 
             var items = query
                 .OrderBy(x => x.CreatedDate)
-                .Skip((num - 1) * pageSize)
+                .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-            
-            ViewBag.Num = num;
+
+            ViewBag.PageSize = pageSize;
+            ViewBag.CurrentPage = pageNumber;
             ViewBag.Count = count;
             ViewBag.Title = title;
             ViewBag.Declarations = items;

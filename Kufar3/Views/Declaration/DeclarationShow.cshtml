@@ -5,8 +5,6 @@
     var userRole = (UserRoles) ViewBag.UserRole;
     var userId = (int)ViewBag.UserId;
     var directory = (DirectoryTypes)ViewBag.Directory;
-    var count = (int?)ViewBag.Count;
-    var num = (int?)ViewBag.Num;
 }
 
 <ul>
@@ -53,13 +51,11 @@
     }
 </ul>
 
-<div class="pagination">
-    <ul>
-    </ul>
-</div>
+<div id="pagination"></div>
 
 <script>
-    var currentPage = Number('@ViewBag.Num');
+    var pageSize = Number('@ViewBag.PageSize');
+    var currentPage = Number('@ViewBag.CurrentPage');
     var countDeclaration = Number('@ViewBag.Count');
     var idCategory = Number('@TempData["idCategory"]');
     var idSubcategory = Number('@TempData["idSubCategory"]');
