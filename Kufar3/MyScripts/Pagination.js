@@ -89,7 +89,7 @@ function Url(pageNumber, text)
 
     var selectedClass = (currentPage === pageNumber) ? 'class="darc-cub"' : '';
 
-    var html = `<a href="${url}" ${selectedClass}><li><b>${text}</b></li></a>`;
+    var html = `<li><a href="${url}" ${selectedClass}><b>${text}</b></a></li>`;
 
     return html;
 }

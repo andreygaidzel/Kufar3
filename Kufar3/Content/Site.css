@@ -260,7 +260,7 @@ textarea { max-width: 280px; }
     font-size: 24px;
     color: green;
 }
-
+/*****************************************************************************************************/
 .pagination {
     width: 100%;
     height: 31px;
@@ -273,31 +273,31 @@ textarea { max-width: 280px; }
 
     .pagination ul {
         margin: 0; /* Обнуляем значение отступов */
-        margin-top: 1px;
-        padding: 4px; /* Значение полей */
+        margin-top: 5px;
+        /*padding: 4px;*/ /* Значение полей */
     }
 
     .pagination a {
         text-decoration: none;
+        padding: 1px;
+        padding-left: 8px;
+        padding-right: 8px;
+        color: #000000;
+        background-color: #ffffff;
+        margin: 2px;
+        border: 1px solid rgb(103, 102, 102);
     }
 
-.pagination li {
-    display: inline; /* Отображать как строчный элемент */
-    border: 1px solid #494747; /* Рамка вокруг текста */
-    padding: 2px; /* Поля вокруг текста */
-    margin: 1px;
-    color: #000000;
-    background-color: #ffffff;
-    padding-left: 8px;
-    padding-right: 8px;
-    font-size: 14pt;
-}
+    .pagination li {
+        display: inline; /* Отображать как строчный элемент */
+        font-size: 14pt;
+    }
 
-    .pagination li:hover {
+    .pagination a:hover {
         background-color: #d8d8d8; 
     }
 
-.darc-cub li {
+ul li .darc-cub {
     background-color: #cdbdbd;
 }
 /********************************************************/
