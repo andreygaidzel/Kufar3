@@ -1,12 +1,12 @@
 ﻿var element = $('.pagination ul');
+
 $(function ()
 {
-    var pageSize = 5;
+    var pageSize = 5; // TODO: исправить
     var pageCount = Math.ceil(countDeclaration / pageSize);
 
     if (pageSize < countDeclaration)
     {
-        var html;
         var minValue = 2;
         var maxValue = 6;
         if (pageCount < 6)
@@ -16,11 +16,10 @@ $(function ()
         
         if (currentPage > 1)
         {
-            html = Url(currentPage - 1, "<<");
-            element.append(html);
+            Url(currentPage - 1, "<<");
         }
         
-        Append(1, 1, 1);
+        Url(1, 1);
 
         if (currentPage > 4 && pageCount > 6) 
         {
@@ -34,41 +33,30 @@ $(function ()
                 minValue = pageCount - 5;
                 maxValue = pageCount;
             }
-            Append(minValue - 1, "...");
+
+            Url(minValue - 1, "...");
         }
 
         for (var i = minValue; i <= maxValue; i++)
         {
-            Append(i, i);
+            Url(i, i);
         }
+
         if (pageCount > 6)
         {
-            if (pageCount - currentPage < 3 && pageCount > 6)
+            if (!(pageCount - currentPage < 3 && pageCount > 6))
             {
-
-                html = `<a></a>`;
-                element.append(html);
-            }
-            else
-            {
-                Append(maxValue + 1, "...");
-                Append(pageCount, pageCount);
+                Url(maxValue + 1, "...");
+                Url(pageCount, pageCount);
             }
         }
 
         if (currentPage < pageCount)
         {
-            html = Url(currentPage + 1, ">>");
-            element.append(html);
+            Url(currentPage + 1, ">>");
         }
     }
 });
-
-function Append(pageNumber, text)
-{
-    var html = Url(pageNumber, text);
-    element.append(html);
-}
 
 function Url(pageNumber, text)
 {
@@ -89,7 +77,13 @@ function Url(pageNumber, text)
 
     var selectedClass = (currentPage === pageNumber) ? 'class="darc-cub"' : '';
 
+<<<<<<< HEAD
     var html = `<li><a href="${url}" ${selectedClass}><b>${text}</b></a></li>`;
 
     return html;
+=======
+    var html = `<a href="${url}" ${selectedClass}><li><b>${text}</b></li></a>`;
+    
+    element.append(html);
+>>>>>>> master
 }
