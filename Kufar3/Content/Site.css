@@ -1,39 +1,43 @@
 ﻿html { overflow-y: scroll; }
 
 body {
-    border: 1px solid greenyellow;
+    border: 1px solid #00ac64;
     height: 100%;
     width: 70%;
     margin-left: auto;
     margin-right: auto;
-    min-width: 710px;    
+    min-width: 840px;
 }
 
 .header {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 2%;
+    padding-right: 2%;
     height: auto;
-    border: 1px solid rgb(182, 255, 122);
-    background: #3cad01;
+    /*border: 1px solid rgb(182, 255, 122);*/
+    background: #00ac64;
     color: azure;
-    min-width: 920px;    
+    min-width: 800px;
+    float: left;
+    width: 96%;
 }
 
 .region {
     padding-top: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 2%;
+    padding-right: 2%;
     height: 30px;
-    border: 1px solid rgb(182, 255, 122);
     background: rgb(172, 187, 164);
     color: azure;
-    min-width: 920px;
+    min-width: 800px;
+    float: left;
+    width: 96%;
 }
 
 .logo {
     display: inline-block;
     height: 99%;
     width: 120px;
+    float: left;
 }
 
 .user {
@@ -56,7 +60,7 @@ body {
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    background: #f88b10;
+    background: #f3a62a;
     color: azure;
     /*display: inline-block;*/
     float: right;
@@ -82,7 +86,8 @@ textarea { max-width: 280px; }
 
 .container { 
     overflow: hidden;
-    min-width: 950px;
+    min-width: 830px;
+    width: 100%;
 }
 
 /*--------------------------------------------------------- Menu ----------------------------------------------------------------*/
@@ -384,3 +389,30 @@ textarea { max-width: 280px; }
    background-color: rgb(205, 211, 205);
    padding: 10px;
 }
+
+/**************************************search*********************************************/
+
+.search {
+    height: 34px;
+    width: 290px;
+    margin-left: 20px;
+    margin-top: 15px;
+    float: left;
+}
+
+    .search input {
+        height: 30px;
+        width: 250px;
+        float: left;
+        background-color: #00be6e;
+        font-size: 17pt;
+        border: none;
+    }
+
+    .search img {
+        height: 20px;
+        width: 21px;
+        padding: 6px;
+        float: left;
+        background-color: #00be6e;
+    }
