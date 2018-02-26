@@ -1,4 +1,13 @@
-﻿class BasePagination {
+﻿
+
+
+
+
+
+
+
+
+class BasePagination {
     constructor(func)
     {
         this.func = func;
@@ -100,7 +109,8 @@ class Pagination extends BasePagination {
         {
             url = url + `&idSubcategory=${idSubcategory}&idCategory=${idCategory}`;
         }
-
+        var sortValue = $('#Sort').val();
+        url += `&sortType=${sortValue}`;
         return url;
     }
 

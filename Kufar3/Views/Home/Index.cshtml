@@ -1,10 +1,43 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var title = ViewBag.Title;
+    var sortList = (SelectList) ViewBag.SortList;
 }
 
 <div class="content-holder">
-    <p class="nameD"><b>@title</b></p>
+    <br/>
+    Сортировать 
+    @Html.DropDownList("Value", sortList, new {id = "Sort"})
+    <p class="nameD">
+        <b>@title</b>
+    </p>
 </div>
 
 @Html.Partial("~/Views/Declaration/DeclarationShow.cshtml")
+
+<script>
+    $(function()
+    {
+        $('#Sort').change(function()
+        {
+            var sortType = $(this).val();
+            console.log('sort', sortType);
+            var currentUrl = window.location.href;
+            if (currentUrl.indexOf("?") !== -1)
+            {
+                if (currentUrl.indexOf("sortType=") !== -1)
+                {
+                    var params = currentUrl.split('sortType=');
+                    currentUrl = params[0] + 'sortType=' + sortType;
+                } else
+                {
+                    currentUrl += `&sortType=${sortType}`;
+                }
+            } else
+            {
+                currentUrl += `?sortType=${sortType}`;
+            }
+            window.location = currentUrl;
+        });
+    });
+</script>

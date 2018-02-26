@@ -104,7 +104,7 @@ namespace DeclarationGenerator
                 Type = (DeclarationTypes)R.Next(0, Enum.GetNames(typeof(DeclarationTypes)).Length),
                 UserId = R.Next(1, _userCount + 1),
                 CityId = R.Next(1, _cityCount + 1),
-                Price = R.Next(1, 501).ToString(),
+                Price = R.Next(1, 501),
                 CreatedDate = RandomDay(),
                 Images = images
             };
@@ -177,7 +177,7 @@ namespace DeclarationGenerator
             var path = @"TestImages\" + R.Next(1, 6) + ".jpg";
             var random = Guid.NewGuid().ToString("n");
             var name = @"/Images/_IMG_" + random + "__testing.jpg";
-            var newPath = @"C:/Projects/Kufar3/Kufar3" + name;
+            var newPath = @"C:/Projects/Kufar3-last/Kufar3" + name;
 
             var fileInf = new FileInfo(path);
             if (fileInf.Exists)

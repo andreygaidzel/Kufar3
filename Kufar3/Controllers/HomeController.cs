@@ -24,11 +24,12 @@ namespace Kufar3.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(int? idCategory, int? idSubCategory, int page = 1)
+        public ActionResult Index(int? idCategory, int? idSubCategory, int page = 1,
+            SortTypes sortType = SortTypes.ByDate)
         {
             var title = "Все категории";
             var query = DeclarationRepository.GetDeclarationsByDeclarationType(DeclarationTypes.Active);
-            int pageSize = 5;   // количество элементов на странице 
+            int pageSize = 5; // количество элементов на странице 
 
             if (idCategory != null)
             {
@@ -43,12 +44,33 @@ namespace Kufar3.Controllers
 
             var count = query.Count();
 
+            switch (sortType)
+            {
+                case SortTypes.ByDate:
+                    query = query.OrderBy(x => x.CreatedDate);
+                    break;
+                case SortTypes.PriceAsc:
+                    query = query.OrderBy(x => x.Price);
+                    break;
+                case SortTypes.PriceDesc:
+                    query = query.OrderByDescending(x => x.Price);
+                    break;
+            }
+
             var items = query
-                .OrderBy(x => x.CreatedDate)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
 
+            var sortItems = new List<SelectListItem>
+            {
+                new SelectListItem {Value = SortTypes.ByDate.ToString(), Text = "По дате добавления"},
+                new SelectListItem {Value = SortTypes.PriceAsc.ToString(), Text = "Сначала дешевые"},
+                new SelectListItem {Value = SortTypes.PriceDesc.ToString(), Text = "Сначала дорогие"}
+            };
+            var sortList = new SelectList(sortItems, "Value", "Text", sortType);
+
+            ViewBag.SortList = sortList;
             ViewBag.PageSize = pageSize;
             ViewBag.CurrentPage = page;
             ViewBag.Count = count;
@@ -56,7 +78,7 @@ namespace Kufar3.Controllers
             ViewBag.Declarations = items;
             ViewBag.IdCategory = idCategory;
             ViewBag.IdSubCategory = idSubCategory;
-            
+
             TempData["IdCategory"] = idCategory;
             TempData["idSubCategory"] = idSubCategory;
 
@@ -66,7 +88,7 @@ namespace Kufar3.Controllers
         [HttpGet]
         public ActionResult Declarations(int? idCategory, int? idSubCategory)
         {
-            return RedirectToAction("Index", new { idCategory , idSubCategory });
+            return RedirectToAction("Index", new {idCategory, idSubCategory});
         }
 
         public ActionResult Declaration(int? declarationId)
