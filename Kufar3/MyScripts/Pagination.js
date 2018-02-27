@@ -1,13 +1,4 @@
-﻿
-
-
-
-
-
-
-
-
-class BasePagination {
+﻿class BasePagination {
     constructor(func)
     {
         this.func = func;

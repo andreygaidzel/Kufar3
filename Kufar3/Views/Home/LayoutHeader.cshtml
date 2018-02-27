@@ -10,13 +10,12 @@
 <div class="header">
     <div class="logo">
         <h2>
-            @Html.ActionLink("KUFAR", "Index", "Home", null, new { @class = "kuf" })
+            @Html.ActionLink("kufar", "Index", "Home", null, new {@class = "kuf"})
         </h2>
     </div>
-    <div class="search">
-        <img src="~/ContentImages/search.png" />
-        <input/>
-    </div>
+
+    @Html.Partial("~/Views/Home/SearchPage.cshtml")
+
     <div class="user">
         @if (userRole == UserRoles.Admin || userRole == UserRoles.Moderator)
         {
@@ -28,7 +27,6 @@
             url2 = "Declaration";
             @Html.ActionLink(userName, "MyDeclarations", "Personal")
         }
-
         @(isAuthenticated
               ? Html.ActionLink("Выход", "Logout", "Account")
               : Html.ActionLink("Вход", "Login", "Account"))

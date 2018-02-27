@@ -1,0 +1,83 @@
+﻿<div class="search">
+    <img src="~/ContentImages/search.png"/>
+    <input/>
+</div>
+<div class="search-menu">
+    <button class="search-x">X</button>
+    <div id="category-name">
+        <ul></ul>
+    </div>
+</div>
+
+
+<script>
+    $(function()
+    {
+        $('.search-x').click(function()
+        {
+            $(".search input").val("");
+            removeClass();
+        });
+
+        $('.search input').on('input',
+            function()
+            {
+                addClass();
+                sendWord($('.search input').val());
+
+                if ($(".search input").val().length === 0 && $('.search').hasClass('show-search'))
+                {
+                    removeClass();
+                }
+            });
+
+        function removeClass()
+        {
+            $('.search').removeClass('show-search');
+            $('.search-menu').removeClass('show-search-menu');
+            $('.content').show();
+        }
+
+        function addClass()
+        {
+            $('.search').addClass('show-search');
+            $('.search-menu').addClass('show-search-menu');
+            $('.content').hide();
+        }
+
+        function sendWord(searchWord)
+        {
+            @*$.ajax({
+                type: 'POST',
+                url: '@Url.Action("SearchPage", "Home")',
+                data: { searchWord: searchWord },
+                success: function(data)
+                {
+                    console.log("vernulll", data);
+                    //insertDataLink(data);
+                }
+            });*@
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("Test", "Home")',
+                data: { searchWord: searchWord },
+                success: function(data)
+                {
+                    console.log("data", data);
+                    $('#category-name').html(data);
+                }
+            });
+        }
+
+        function insertDataLink(categories)
+        {
+            var container = $('<ul></ul>');
+            for (var category of categories)
+            {
+                console.log(category.Name);
+                container.append(`<li><a>${category.Name}(${category.Count})</a></li>`);
+            }
+            $('#category-name ul').replaceWith(container);
+        }
+    });
+</script>

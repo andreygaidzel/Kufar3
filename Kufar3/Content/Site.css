@@ -1,7 +1,7 @@
 ﻿html { overflow-y: scroll; }
 
 body {
-    border: 1px solid #00ac64;
+    /*border: 1px solid #00ac64;*/
     height: 100%;
     width: 70%;
     margin-left: auto;
@@ -35,9 +35,18 @@ body {
 
 .logo {
     display: inline-block;
-    height: 99%;
-    width: 120px;
+    height: auto;
+    width: auto;
     float: left;
+}
+
+.kuf {
+    font-family: Geneva, Arial, Helvetica, sans-serif;
+    color: white;
+    text-decoration: none;
+    font-size: 20pt;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
 .user {
@@ -88,6 +97,7 @@ textarea { max-width: 280px; }
     overflow: hidden;
     min-width: 830px;
     width: 100%;
+    background-color: rgb(240, 240, 240);
 }
 
 /*--------------------------------------------------------- Menu ----------------------------------------------------------------*/
@@ -185,7 +195,6 @@ textarea { max-width: 280px; }
     /*border: 1px solid black;*/
     float: right;
     min-width: 185px;
-    background-color: rgb(240, 240, 240)
 }
 
 .content-holder { padding-left: 20px; }
@@ -230,7 +239,7 @@ textarea { max-width: 280px; }
 .desc {
     /*background-color: rgb(242, 242, 242);*/
     /*border: 1px solid black;*/
-    width: 70%;
+    width: 67%;
     height: 150px;
     float: left;
     margin: 8px;
@@ -389,30 +398,3 @@ textarea { max-width: 280px; }
    background-color: rgb(205, 211, 205);
    padding: 10px;
 }
-
-/**************************************search*********************************************/
-
-.search {
-    height: 34px;
-    width: 290px;
-    margin-left: 20px;
-    margin-top: 15px;
-    float: left;
-}
-
-    .search input {
-        height: 30px;
-        width: 250px;
-        float: left;
-        background-color: #00be6e;
-        font-size: 17pt;
-        border: none;
-    }
-
-    .search img {
-        height: 20px;
-        width: 21px;
-        padding: 6px;
-        float: left;
-        background-color: #00be6e;
-    }

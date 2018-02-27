@@ -104,7 +104,37 @@ namespace Kufar3.Controllers
 
         public ActionResult GetCities(int id)
         {
-            return PartialView(RegionRepository.GetCitiesByRegionId(id).ToList());
+            return PartialView(RegionRepository.GetCitiesByRegionId(id));
+        }
+
+        public JsonResult SearchPage(string searchWord)
+        {
+            var categoryCount = new List<CategoryCount> { };
+            var searchDeclarations = DeclarationRepository.SearchDeclarations(searchWord);
+            var categoryList = CategoryRepository.GetAllCategories();
+
+            foreach(var category in categoryList)
+            {
+                var count = searchDeclarations.Count(x => x.SubCategory.Category.Name == category.Name);
+                categoryCount.Add(new CategoryCount() {Count = count, Name = category.Name});
+            }
+
+            var tt = categoryCount;
+
+            return Json(categoryCount);
+        }
+
+        public PartialViewResult Test()
+        {
+
+            return PartialView();
+        }
+
+
+        public class CategoryCount
+        {
+            public int Count { get; set; }
+            public string Name { get; set; }
         }
     }
 }

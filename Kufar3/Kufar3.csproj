@@ -368,6 +368,8 @@
     <Content Include="Views\Home\LayoutHeader.cshtml" />
     <Content Include="Views\Declaration\DeclarationView.cshtml" />
     <Content Include="Views\Declaration\DeclarationShow.cshtml" />
+    <Content Include="Views\Home\SearchPage.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

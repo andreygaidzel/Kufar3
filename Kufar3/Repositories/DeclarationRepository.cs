@@ -60,5 +60,10 @@ namespace Kufar3.Repositories
             declaration.Type = declarationType;
             Context.SaveChanges();
         }
+
+        public List<Declaration> SearchDeclarations(string searchWord)
+        {
+            return Context.Declarations.Where(x => x.Name.Contains(searchWord) || x.Description.Contains(searchWord)).ToList();
+        }
     }
 }

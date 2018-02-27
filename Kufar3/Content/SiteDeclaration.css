@@ -36,11 +36,6 @@
     background-repeat: no-repeat;
 }
 
-.kuf {
-    color: azure;
-    text-decoration: none;
-}
-
 /********************************************admin****************************************************/
 
 .container-admin {
@@ -140,4 +135,102 @@
     border: 4px solid rgb(15, 178, 23);
     text-decoration: none;
     margin: 10px;
+}
+
+/**************************************search*********************************************/
+
+.search {
+    height: 34px;
+    width: 290px;
+    margin-top: 15px;
+    float: left;
+    z-index: 7;
+    position: absolute;
+    margin-left: 170px;
+    background-color: #00be6e;
+}
+
+    .search input {
+        height: 30px;
+        width: 250px;
+        float: left;
+        background-color: #00be6e;
+        font-size: 17pt;
+        border: none;
+    }
+
+.search img {
+    height: 20px;
+    width: 21px;
+    padding: 6px;
+    float: left;
+}
+
+/*.categories {
+    position: relative;
+}*/
+
+.search-menu {
+    z-index: 2;
+    position: absolute;
+    width: 70%;
+    min-width: 840px;
+    height: 100%;
+    margin-left: -19px;
+    /*left: 100%;*/
+    top: -9999em;
+    opacity: 0;
+    background-color: rgb(251, 251, 251);
+    border: 1px solid gainsboro;
+    /*transition: 0.5s opacity;*/
+}
+
+.show-search {
+    border: 1px solid blue;
+    background-color: rgb(251, 251, 251);
+}
+
+    .show-search input {
+        background-color: rgb(251, 251, 251);
+    }
+
+.header .show-search-menu {
+        opacity: 1;
+        top: 0;
+    }
+
+.content-invis {
+    position: absolute;
+    top: -9999em;
+    opacity: 0;
+}
+
+.search-x {
+    z-index: 1;
+    position: absolute;
+    color: darkmagenta;
+    font-size: 28px;
+    /*font-weight: 900;*/
+    margin-left: 500px;
+    margin-top: 20px;
+}
+
+#category-name {
+    margin-left: 200px;
+    margin-top: 100px;
+}
+
+    #category-name a {
+        text-decoration: none;
+        color: green;
+        font-size: 24px;
+        padding: 4px;
+        margin-top: 2px;
+    }
+
+#category-name a:hover {
+    background-color: lightsteelblue;
+}
+.category-link {
+    width: 200px;
 }
