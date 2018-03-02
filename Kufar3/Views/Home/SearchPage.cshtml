@@ -1,83 +1,130 @@
 ﻿<div class="search">
-    <img src="~/ContentImages/search.png"/>
+    <div class="search-img"></div>
     <input/>
 </div>
-<div class="search-menu">
-    <button class="search-x">X</button>
-    <div id="category-name">
-        <ul></ul>
+
+<div class="modal modal_open">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-search">
+                <div class="search-img"></div>
+                <input/>
+            </div>
+            <div class="search-x"></div>
+
+            <div class="search-values">
+                <ul>
+
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
+
+
+@*<div class="search-menu">
+    <div class="search-x"></div>
+    <div id="search-values">
+        <ul id="test">
+
+        </ul>
+    </div>
+    
+</div>*@
 
 
 <script>
     $(function()
     {
+        var searchInputBig = $(".modal-search input");
+        var searchInput = $(".search input");
+        var windowWithDeclaration = $('.search-values');
+
         $('.search-x').click(function()
         {
-            $(".search input").val("");
-            removeClass();
+            searchInput.val("");
+            hideSearch();
         });
 
-        $('.search input').on('input',
+        searchInput.on('input',
             function()
             {
-                addClass();
-                sendWord($('.search input').val());
-
-                if ($(".search input").val().length === 0 && $('.search').hasClass('show-search'))
-                {
-                    removeClass();
-                }
+                showSearch();
+                searchInputBig.focus();
+                searchInputBig.val(searchInput.val());
+                sendWord(searchInput.val());
             });
 
-        function removeClass()
+        searchInputBig.on('input',
+            function () {
+                sendWord(searchInputBig.val());
+            });
+
+        function hideSearch()
         {
-            $('.search').removeClass('show-search');
-            $('.search-menu').removeClass('show-search-menu');
-            $('.content').show();
+            $('body').removeClass('search-visible');
         }
 
-        function addClass()
+        function showSearch()
         {
-            $('.search').addClass('show-search');
-            $('.search-menu').addClass('show-search-menu');
-            $('.content').hide();
+            $('body').addClass('search-visible');
         }
 
         function sendWord(searchWord)
         {
-            @*$.ajax({
-                type: 'POST',
-                url: '@Url.Action("SearchPage", "Home")',
-                data: { searchWord: searchWord },
-                success: function(data)
-                {
-                    console.log("vernulll", data);
-                    //insertDataLink(data);
-                }
-            });*@
-            $.ajax({
-                type: 'GET',
-                url: '@Url.Action("Test", "Home")',
-                data: { searchWord: searchWord },
-                success: function(data)
-                {
-                    console.log("data", data);
-                    $('#category-name').html(data);
-                }
-            });
+            $('.search-values ul').load("/Home/SearchValue", { searchWord: searchWord });
+            
         }
 
-        function insertDataLink(categories)
-        {
-            var container = $('<ul></ul>');
-            for (var category of categories)
-            {
-                console.log(category.Name);
-                container.append(`<li><a>${category.Name}(${category.Count})</a></li>`);
+        $('.search-values').scroll(function() {
+            if (windowWithDeclaration.scrollTop() + windowWithDeclaration.innerHeight() === windowWithDeclaration[0].scrollHeight) {
+                var page = Number($('.pageSearch').last().val());
+                var pageSize = Number($('#searchPageSize').val());
+                var itemCount = Number($('#countSearchItems').val());
+                var pageCount = Math.ceil(itemCount / pageSize);
+                console.log($('.pageSearch').last().val());
+
+                if (pageCount > page)
+                {
+                    page++;
+
+                    //alert("bottom!");
+                    $.ajax({
+                        url: '/Home/SearchValue',
+                        type: 'POST',
+                        data: { searchWord: searchInputBig.val(), pageSearch: page},
+                        success: function (data)
+                        {
+                            var html = data.Html;
+                            var SearchPageSize = data.SearchPageSize;
+
+                            $('.search-values ul').append(data);;
+                        },
+                        error: function (xhr, error, status) {
+                            console.log(error, status);
+                        }
+                    });
+                }
             }
-            $('#category-name ul').replaceWith(container);
-        }
+        });
     });
+
+
+    //$('#search-declaration').click(function()
+    //{
+    //    $(".search input").val("");
+    //    hideSearch();
+    //});
+
+    //$('#search-values').load("/Home/SearchValue", { searchWord: $('.search input').val(), sizePageSearch: count});
+
+    //var delayTimer;
+    //function doSearch(searchWord) {
+    //    clearTimeout(delayTimer);
+    //    delayTimer = setTimeout(function() {
+    //        $('#search-values').load("/Home/SearchValue", { searchWord: searchWord });
+    //    }, 1000);
+    //}
+
+
 </script>

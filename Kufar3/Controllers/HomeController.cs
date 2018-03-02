@@ -107,34 +107,48 @@ namespace Kufar3.Controllers
             return PartialView(RegionRepository.GetCitiesByRegionId(id));
         }
 
-        public JsonResult SearchPage(string searchWord)
+        //public JsonResult SearchPage(string searchWord)
+        //{
+        //    var categoryCount = new List<CategoryCount> { };
+        //    var searchDeclarations = DeclarationRepository.SearchDeclarations(searchWord);
+        //    var categoryList = CategoryRepository.GetAllCategories();
+
+        //    foreach(var category in categoryList)
+        //    {
+        //        var count = searchDeclarations.Count(x => x.SubCategory.Category.Name == category.Name);
+        //        categoryCount.Add(new CategoryCount() {Count = count, Name = category.Name});
+        //    }
+
+        //    var tt = categoryCount;
+
+        //    return Json(categoryCount);
+        //}
+
+        public JsonResult Test(string searchWord, int pageSearch = 1)
         {
-            var categoryCount = new List<CategoryCount> { };
-            var searchDeclarations = DeclarationRepository.SearchDeclarations(searchWord);
-            var categoryList = CategoryRepository.GetAllCategories();
+            var html = "";
 
-            foreach(var category in categoryList)
-            {
-                var count = searchDeclarations.Count(x => x.SubCategory.Category.Name == category.Name);
-                categoryCount.Add(new CategoryCount() {Count = count, Name = category.Name});
-            }
-
-            var tt = categoryCount;
-
-            return Json(categoryCount);
+            return Json(new {Data = html, SearchPageSize = 12});
         }
 
-        public PartialViewResult Test()
+        public PartialViewResult SearchValue(string searchWord, int pageSearch = 1)
         {
+            var searchPageSize = 10;
 
-            return PartialView();
-        }
+            var searchDeclarations = DeclarationRepository.SearchDeclarations(searchWord)
+                .OrderByDescending(x => x.CreatedDate);
 
+            var countSearchItems = searchDeclarations.Count();
 
-        public class CategoryCount
-        {
-            public int Count { get; set; }
-            public string Name { get; set; }
+            var items = searchDeclarations
+                .Skip((pageSearch - 1) * searchPageSize)
+                .Take(searchPageSize)
+                .ToList();
+
+            ViewBag.SearchPageSize = searchPageSize;
+            ViewBag.PageSearch = pageSearch;
+            ViewBag.CountSearchItems = countSearchItems;
+            return PartialView(items);
         }
     }
 }

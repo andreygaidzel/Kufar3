@@ -1,30 +1,31 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
-    <link href="~/Content/scroll.css" rel="stylesheet"/>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/scroll.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.2.1.min.js"></script>
-    <link href="~/Content/SiteDeclaration.css" rel="stylesheet"/>
+    <link href="~/Content/SiteDeclaration.css" rel="stylesheet" />
     <script src="~/MyScripts/Pagination.js"></script>
+    <script src="~/MyScripts/UploadImages.js"></script>
 </head>
-<body>
-@Html.Partial("~/Views/Home/LayoutHeader.cshtml")
 
-<div class="region">
-    <b>Область:</b>
-</div>
-<div class="container">
-    <div class="menu">
-        @Html.Action("MenuLeft", "Home")
+<body @*class="search-visible"*@>
+    @Html.Partial("~/Views/Home/LayoutHeader.cshtml")
+    <div class="region">
+        <b>Область:</b>
     </div>
-    <div class="content">
-        @RenderBody()
+    <div class="container">
+        <div class="menu">
+            @Html.Action("MenuLeft", "Home")
+        </div>
+        <div class="content">
+            @RenderBody()
+        </div>
     </div>
-</div>
-<script src="~/MyScripts/UploadImages.js"></script>
+    
 </body>
 </html>
 

@@ -13,9 +13,9 @@ namespace Kufar3.Repositories
             return Context.Cities.Where(x => x.RegionId == id).ToList();
         }
 
-        public IQueryable<Region> GetAllRegions()
+        public List<Region> GetAllRegions()
         {
-            return Context.Regions;
+            return Context.Regions.ToList();
         }
     }
 }
