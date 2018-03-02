@@ -190,6 +190,8 @@
     min-height: 100%;
     position: relative;
     z-index: 4;
+    height: 100%;
+    overflow: hidden;
 }
 
 .modal {
@@ -222,6 +224,21 @@ body.search-visible .modal_open {
     height: auto;
 }
 /**************************/
+.search-block {
+    height: 73px;
+    width: 100%;
+    position: relative;
+}
+
+.search-radio {
+    color: grey;
+    height: 22px;
+    width: 200px;
+    float: right;
+    z-index: 7;
+    position: relative;
+    margin-right: 14%;
+}
 
 .modal-search {
     height: 34px;
@@ -247,9 +264,10 @@ body.search-visible .modal_open {
 
 .search-x {
     z-index: 1;
-    position: absolute;
-    margin-left: 92%;
+    position: relative;
+    float: right;
     margin-top: 22px;
+    margin-right: 6%;
     width: 24px;
     height: 24px;
     cursor: pointer;
@@ -262,10 +280,10 @@ body.search-visible .modal_open {
     position: relative;
     margin-left: 5%;
     /*border: 2px solid red;*/
-    width: 90%;
+    width: 95%;
     height: 90%;
     overflow-y: scroll;
-    max-height: 550px;
+    /*max-height: 550px;*/
 }
 
 

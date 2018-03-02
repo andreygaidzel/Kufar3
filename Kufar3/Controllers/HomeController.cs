@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
+using System.Web.UI;
+using Kufar3.Helpers;
 using Kufar3.Models;
 using Microsoft.SqlServer.Server;
 
@@ -107,48 +112,22 @@ namespace Kufar3.Controllers
             return PartialView(RegionRepository.GetCitiesByRegionId(id));
         }
 
-        //public JsonResult SearchPage(string searchWord)
-        //{
-        //    var categoryCount = new List<CategoryCount> { };
-        //    var searchDeclarations = DeclarationRepository.SearchDeclarations(searchWord);
-        //    var categoryList = CategoryRepository.GetAllCategories();
-
-        //    foreach(var category in categoryList)
-        //    {
-        //        var count = searchDeclarations.Count(x => x.SubCategory.Category.Name == category.Name);
-        //        categoryCount.Add(new CategoryCount() {Count = count, Name = category.Name});
-        //    }
-
-        //    var tt = categoryCount;
-
-        //    return Json(categoryCount);
-        //}
-
-        public JsonResult Test(string searchWord, int pageSearch = 1)
+        public JsonResult SearchValue(string searchWord, int pageSearch = 1)
         {
-            var html = "";
-
-            return Json(new {Data = html, SearchPageSize = 12});
-        }
-
-        public PartialViewResult SearchValue(string searchWord, int pageSearch = 1)
-        {
-            var searchPageSize = 10;
+             var searchPageSize = 10;
 
             var searchDeclarations = DeclarationRepository.SearchDeclarations(searchWord)
                 .OrderByDescending(x => x.CreatedDate);
 
-            var countSearchItems = searchDeclarations.Count();
+             var countSearchItems = searchDeclarations.Count();
 
             var items = searchDeclarations
                 .Skip((pageSearch - 1) * searchPageSize)
                 .Take(searchPageSize)
                 .ToList();
+            var html = this.RenderRazorViewToString("SearchValue", items);
 
-            ViewBag.SearchPageSize = searchPageSize;
-            ViewBag.PageSearch = pageSearch;
-            ViewBag.CountSearchItems = countSearchItems;
-            return PartialView(items);
+            return Json(new { Data = html, SearchPageSize = searchPageSize, PageSearch = pageSearch, CountSearchItems = countSearchItems });
         }
     }
 }

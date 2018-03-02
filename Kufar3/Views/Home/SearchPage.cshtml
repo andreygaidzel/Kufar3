@@ -6,31 +6,26 @@
 <div class="modal modal_open">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-search">
-                <div class="search-img"></div>
-                <input/>
+            <div class="search-block">
+                <div class="modal-search">
+                    <div class="search-img"></div>
+                    <input />
+                </div>
+                <div class="search-x"></div>
+                <div class="search-radio">
+                    По дате:
+                    <input type="radio" name="search" checked="checked" value="data"/>
+                    По цене:
+                    <input type="radio" name="search" value="price"/>
+                </div>
             </div>
-            <div class="search-x"></div>
-
             <div class="search-values">
                 <ul>
-
                 </ul>
             </div>
         </div>
     </div>
 </div>
-
-
-@*<div class="search-menu">
-    <div class="search-x"></div>
-    <div id="search-values">
-        <ul id="test">
-
-        </ul>
-    </div>
-    
-</div>*@
 
 
 <script>
@@ -39,6 +34,10 @@
         var searchInputBig = $(".modal-search input");
         var searchInput = $(".search input");
         var windowWithDeclaration = $('.search-values');
+        var pageSearch;
+        var countSearchItems;
+        var searchPageSize;
+        var delayTimer;
 
         $('.search-x').click(function()
         {
@@ -52,13 +51,30 @@
                 showSearch();
                 searchInputBig.focus();
                 searchInputBig.val(searchInput.val());
-                sendWord(searchInput.val());
+                replaceSearchItem(searchInput.val());
             });
 
         searchInputBig.on('input',
             function () {
-                sendWord(searchInputBig.val());
+                replaceSearchItem(searchInputBig.val());
             });
+
+        $('.search-values').scroll(function()
+        {
+            //console.log(windowWithDeclaration.scrollTop());
+            //console.log(windowWithDeclaration.innerHeight());
+            //console.log(windowWithDeclaration[0].scrollHeight);
+            if (windowWithDeclaration.scrollTop() + windowWithDeclaration.innerHeight() >= windowWithDeclaration[0].scrollHeight)
+            {
+                var pageCount = Math.ceil(countSearchItems / searchPageSize);
+
+                if (pageCount > pageSearch)
+                {
+                    pageSearch++;
+                    addSearchItem(searchInputBig.val(), pageSearch);
+                }
+            }
+        });
 
         function hideSearch()
         {
@@ -70,61 +86,57 @@
             $('body').addClass('search-visible');
         }
 
-        function sendWord(searchWord)
-        {
-            $('.search-values ul').load("/Home/SearchValue", { searchWord: searchWord });
-            
+        //function replaceSearchItem(searchWord)
+        //{
+        //    $('.search-values ul li').remove();
+        //    sendWord(searchWord, 1);
+        //}
+        
+        function replaceSearchItem(searchWord) {
+            clearTimeout(delayTimer);
+            delayTimer = setTimeout(function() {
+                $('.search-values ul li').remove();
+                sendWord(searchWord, 1);
+            }, 500);
         }
 
-        $('.search-values').scroll(function() {
-            if (windowWithDeclaration.scrollTop() + windowWithDeclaration.innerHeight() === windowWithDeclaration[0].scrollHeight) {
-                var page = Number($('.pageSearch').last().val());
-                var pageSize = Number($('#searchPageSize').val());
-                var itemCount = Number($('#countSearchItems').val());
-                var pageCount = Math.ceil(itemCount / pageSize);
-                console.log($('.pageSearch').last().val());
+        function addSearchItem(searchWord, pageSearch)
+        {
+            sendWord(searchWord, pageSearch);
+        }
 
-                if (pageCount > page)
+        function sendWord(searchWord, pageSearchLocal)
+        {
+            $.ajax({
+                url: '/Home/SearchValue',
+                type: 'POST',
+                data: { searchWord: searchWord, pageSearch: pageSearchLocal},
+                success: function (data)
                 {
-                    page++;
-
-                    //alert("bottom!");
-                    $.ajax({
-                        url: '/Home/SearchValue',
-                        type: 'POST',
-                        data: { searchWord: searchInputBig.val(), pageSearch: page},
-                        success: function (data)
-                        {
-                            var html = data.Html;
-                            var SearchPageSize = data.SearchPageSize;
-
-                            $('.search-values ul').append(data);;
-                        },
-                        error: function (xhr, error, status) {
-                            console.log(error, status);
-                        }
-                    });
+                    $('.search-values ul').append(data.Data);;
+                    pageSearch = data.PageSearch;
+                    countSearchItems = data.CountSearchItems;
+                    searchPageSize = data.SearchPageSize;
+                },
+                error: function (xhr, error, status) {
+                    console.log(error, status);
                 }
+            });
+        }
+
+        $('input[type=radio][name=search]').on('change', function() {
+            switch($(this).val()) {
+            case 'data':
+                alert("data");
+                break;
+            case 'price':
+                alert("price");
+                break;
             }
         });
     });
 
-
-    //$('#search-declaration').click(function()
-    //{
-    //    $(".search input").val("");
-    //    hideSearch();
-    //});
-
-    //$('#search-values').load("/Home/SearchValue", { searchWord: $('.search input').val(), sizePageSearch: count});
-
-    //var delayTimer;
-    //function doSearch(searchWord) {
-    //    clearTimeout(delayTimer);
-    //    delayTimer = setTimeout(function() {
-    //        $('#search-values').load("/Home/SearchValue", { searchWord: searchWord });
-    //    }, 1000);
-    //}
+   
 
 
 </script>

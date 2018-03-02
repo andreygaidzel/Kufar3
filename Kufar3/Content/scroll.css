@@ -1,5 +1,5 @@
 ﻿::-webkit-scrollbar, ::-webkit-scrollbar {
-    width: 5px;
+    width: 8px;
     background: transparent;
 }
 
@@ -10,7 +10,7 @@
 ::-webkit-scrollbar-thumb:vertical, ::-webkit-scrollbar-thumb:vertical {
     -webkit-box-shadow: inset 3px 0 #fff;
     box-shadow: inset 3px 0 #fff;
-    background: #ff0000
+    background: #b5adad
 }
 
 ::-webkit-scrollbar-thumb:vertical:hover, ::-webkit-scrollbar-thumb:vertical:hover {

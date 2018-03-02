@@ -1,45 +1,29 @@
 ﻿@model List<Kufar3.Models.Declaration>
-
-
-
-<input type="hidden" class="pageSearch" value="@ViewBag.PageSearch" />
-<input type="hidden" id="searchPageSize" value="@ViewBag.SearchPageSize" />
-<input type="hidden" id="countSearchItems" value="@ViewBag.CountSearchItems" />
-
-
-
-
-@foreach (var declaration in Model)
-{
-    var path = declaration.Images.FirstOrDefault()?.Name;
-    var url = Url.Action("Declaration", "Home", new { declarationId = declaration.Id });
-    <li>
-        <a href="@url">
-            <div id="search-declaration">
-                <div id="search-image">
-                    <img src="@path" />
-                </div>
-                <div id="search-description">
-                    <p id="name-declaration">
-                        <b>
-                            <b>@declaration.Name</b>
-                        </b>
-                    </p>
-                    <div id="price-search">
-                        <b>Цена: @declaration.Price p.</b>
+    @foreach (var declaration in Model)
+    {
+        var path = declaration.Images.FirstOrDefault()?.Name;
+        var url = Url.Action("Declaration", "Home", new { declarationId = declaration.Id });
+        <li>
+            <a href="@url">
+                <div id="search-declaration">
+                    <div id="search-image">
+                        <img src="@path" />
                     </div>
-                    <div id="text-declaration">
-                        @declaration.CreatedDate / @declaration.City.Region.Name / @declaration.City.Name<br />
-                        @declaration.SubCategory.Category.Name / @declaration.SubCategory.Name
+                    <div id="search-description">
+                        <p id="name-declaration">
+                            <b>
+                                <b>@declaration.Name</b>
+                            </b>
+                        </p>
+                        <div id="price-search">
+                            <b>Цена: @declaration.Price p.</b>
+                        </div>
+                        <div id="text-declaration">
+                            @declaration.CreatedDate / @declaration.City.Region.Name / @declaration.City.Name<br />
+                            @declaration.SubCategory.Category.Name / @declaration.SubCategory.Name
+                        </div>
                     </div>
                 </div>
-            </div>
-        </a>
-    </li>
-}
-
-
-
-<script>
-    var test1 = '@ViewBag.SearchPageSize';
-</script>
+            </a>
+        </li>
+    }
