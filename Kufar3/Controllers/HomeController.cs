@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -112,22 +113,29 @@ namespace Kufar3.Controllers
             return PartialView(RegionRepository.GetCitiesByRegionId(id));
         }
 
-        public JsonResult SearchValue(string searchWord, int pageSearch = 1)
+        public JsonResult SearchValue(string searchWord, int curentItemsCount = 0)
         {
-             var searchPageSize = 10;
+            Thread.Sleep(5000);
+
+            throw new Exception();
+
+            var searchSize = 10;
 
             var searchDeclarations = DeclarationRepository.SearchDeclarations(searchWord)
                 .OrderByDescending(x => x.CreatedDate);
 
-             var countSearchItems = searchDeclarations.Count();
+            var totalItemsCount = searchDeclarations.Count();
 
             var items = searchDeclarations
-                .Skip((pageSearch - 1) * searchPageSize)
-                .Take(searchPageSize)
+                .Skip(curentItemsCount)
+                .Take(searchSize)
                 .ToList();
+
+            curentItemsCount += items.Count;
+
             var html = this.RenderRazorViewToString("SearchValue", items);
 
-            return Json(new { Data = html, SearchPageSize = searchPageSize, PageSearch = pageSearch, CountSearchItems = countSearchItems });
+            return Json(new { Data = html, CurentItemsCount = curentItemsCount, TotalItemsCount = totalItemsCount });
         }
     }
 }

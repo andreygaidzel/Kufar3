@@ -9,7 +9,7 @@
             <div class="search-block">
                 <div class="modal-search">
                     <div class="search-img"></div>
-                    <input />
+                    <input/>
                 </div>
                 <div class="search-x"></div>
                 <div class="search-radio">
@@ -23,55 +23,69 @@
                 <ul>
                 </ul>
             </div>
+            <div class="counter">
+                <b>0/0</b>
+            </div>
         </div>
     </div>
 </div>
 
 
 <script>
+    var searchDelay = (function()
+    {
+        var delayTimer;
+        return function(func, delay)
+        {
+            clearTimeout(delayTimer);
+            delayTimer = setTimeout(func, delay);
+        }
+    })();
+
     $(function()
     {
-        var searchInputBig = $(".modal-search input");
+        var searchInputModal = $(".modal-search input");
         var searchInput = $(".search input");
-        var windowWithDeclaration = $('.search-values');
-        var pageSearch;
-        var countSearchItems;
-        var searchPageSize;
-        var delayTimer;
+        var declarationsContainer = $('.search-values');
+        var curentItemsCount;
+        var totalItemsCount;
+        var lock = false;
 
         $('.search-x').click(function()
         {
             searchInput.val("");
             hideSearch();
+            clearModal();
         });
 
-        searchInput.on('input',
-            function()
-            {
-                showSearch();
-                searchInputBig.focus();
-                searchInputBig.val(searchInput.val());
-                replaceSearchItem(searchInput.val());
-            });
-
-        searchInputBig.on('input',
-            function () {
-                replaceSearchItem(searchInputBig.val());
-            });
-
-        $('.search-values').scroll(function()
+        searchInput.on('input', function()
         {
-            //console.log(windowWithDeclaration.scrollTop());
-            //console.log(windowWithDeclaration.innerHeight());
-            //console.log(windowWithDeclaration[0].scrollHeight);
-            if (windowWithDeclaration.scrollTop() + windowWithDeclaration.innerHeight() >= windowWithDeclaration[0].scrollHeight)
-            {
-                var pageCount = Math.ceil(countSearchItems / searchPageSize);
+            showSearch();
+            searchInputModal.focus();
+            searchInputModal.val(searchInput.val());
+        });
 
-                if (pageCount > pageSearch)
+        searchInputModal.on('keyup paste', function()
+        {
+            clearModal();
+            var word = searchInputModal.val();
+            curentItemsCount = 0;
+            searchDelay(sendWord(word), 500);
+        });
+
+        declarationsContainer.scroll(function()
+        {
+            var scrollTop = $(this).scrollTop();
+            var innerHeight = Math.round($(this).innerHeight());
+            var scrollHeight = $(this)[0].scrollHeight;
+            if (scrollTop + innerHeight >= scrollHeight)
+            {
+                if (innerHeight === scrollHeight)
+                    return;
+                
+                if (totalItemsCount > curentItemsCount)
                 {
-                    pageSearch++;
-                    addSearchItem(searchInputBig.val(), pageSearch);
+                    sendWord(searchInputModal.val());
                 }
             }
         });
@@ -86,57 +100,63 @@
             $('body').addClass('search-visible');
         }
 
-        //function replaceSearchItem(searchWord)
-        //{
-        //    $('.search-values ul li').remove();
-        //    sendWord(searchWord, 1);
-        //}
-        
-        function replaceSearchItem(searchWord) {
-            clearTimeout(delayTimer);
-            delayTimer = setTimeout(function() {
-                $('.search-values ul li').remove();
-                sendWord(searchWord, 1);
-            }, 500);
-        }
-
-        function addSearchItem(searchWord, pageSearch)
+        function clearModal()
         {
-            sendWord(searchWord, pageSearch);
+            curentItemsCount = 0;
+            totalItemsCount = 0;
+            declarationsContainer.find('ul li').remove();
         }
 
-        function sendWord(searchWord, pageSearchLocal)
+        function sendWord(searchWord)
         {
-            $.ajax({
-                url: '/Home/SearchValue',
-                type: 'POST',
-                data: { searchWord: searchWord, pageSearch: pageSearchLocal},
-                success: function (data)
-                {
-                    $('.search-values ul').append(data.Data);;
-                    pageSearch = data.PageSearch;
-                    countSearchItems = data.CountSearchItems;
-                    searchPageSize = data.SearchPageSize;
-                },
-                error: function (xhr, error, status) {
-                    console.log(error, status);
-                }
-            });
+            if (!lock)
+            {
+                $.ajax({
+                    url: '@Url.Action("SearchValue", "Home")',
+                    type: 'POST',
+                    data: { searchWord: searchWord, curentItemsCount: curentItemsCount },
+                    beforeSend: function()
+                    {
+                        lock = true;
+                    },
+                    success: function(data)
+                    {
+                        declarationsContainer.find('ul').append(data.Data);
+                        curentItemsCount = data.CurentItemsCount;
+                        totalItemsCount = data.TotalItemsCount;
+
+                        if (totalItemsCount === 0)
+                        {
+                            curentItemsCount = 0;
+                        }
+
+                        $('.counter b').replaceWith(`<b>${curentItemsCount}/${totalItemsCount}</b>`);;
+                    },
+                    error: function(xhr, error, status)
+                    {
+                        console.log(error, status);
+                    },
+                    complete: function()
+                    {
+                        lock = false;
+                    }
+                });
+            }
         }
 
-        $('input[type=radio][name=search]').on('change', function() {
-            switch($(this).val()) {
-            case 'data':
-                alert("data");
-                break;
-            case 'price':
-                alert("price");
-                break;
+        $('input[type=radio][name=search]').on('change', function()
+        {
+            switch ($(this).val())
+            {
+                case 'data':
+                    alert("data");
+                    break;
+                case 'price':
+                    alert("price");
+                    break;
             }
         });
     });
-
-   
 
 
 </script>

@@ -225,7 +225,7 @@ body.search-visible .modal_open {
 }
 /**************************/
 .search-block {
-    height: 73px;
+    height: 74px;
     width: 100%;
     position: relative;
 }
@@ -281,16 +281,27 @@ body.search-visible .modal_open {
     margin-left: 5%;
     /*border: 2px solid red;*/
     width: 95%;
-    height: 90%;
+    height: calc(100% - 97px);
     overflow-y: scroll;
     /*max-height: 550px;*/
 }
-
 
     .search-values a {
         text-decoration: none;
         color: black;
     }
+
+.counter {
+    position: relative;
+    margin: 2px;
+    margin-right: 1%;
+    /*border: 1px solid red;*/
+    width: auto;
+    height: 16px;
+    color: black;
+    float: right;
+    /*max-height: 550px;*/
+}
 
 #search-declaration {
     width: 95%;
