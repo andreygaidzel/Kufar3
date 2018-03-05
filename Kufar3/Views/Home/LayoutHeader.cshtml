@@ -27,11 +27,68 @@
             url2 = "Declaration";
             @Html.ActionLink(userName, "MyDeclarations", "Personal")
         }
-        @(isAuthenticated
-              ? Html.ActionLink("Выход", "Logout", "Account")
-              : Html.ActionLink("Вход", "Login", "Account"))
+
+        @if (isAuthenticated)
+        {
+            @Html.ActionLink("Выход", "Logout", "Account")
+        }
+        else
+        {
+            <a id="login">Вход</a>
+        }
+
+    </div>
+    <div class="login-modal">
+        <div class="login-dialog">
+            <div class="login-non-click">
+                <div id="login-value">
+                    <b>Вход</b>
+                </div>
+                <div id="registration-value">
+                    <b>Регистрация</b>
+                </div>
+
+                <div class="login-content">
+                    @Html.Partial("~/Views/Account/Login.cshtml")
+                    @Html.Partial("~/Views/Account/Register.cshtml")
+                </div>
+            </div>
+        </div>
     </div>
     <div class="plus">
         @Html.ActionLink("+", url1, url2)
     </div>
 </div>
+
+<script>
+    $('#login').click(function()
+        {
+            $('.login-modal').show();
+        }
+    );
+
+    $('.login-modal').click(function()
+        {
+            $('.login-modal').hide();
+        }
+    );
+
+    $('.login-non-click').click(function(event)
+    {
+        event.stopPropagation();
+    });
+
+    $('#registration-value').click(function()
+    {
+        $('.login-window').hide();
+        $('.registr-window').show();
+        $('.login-dialog').addClass('registr-now');
+    });
+
+    $('#login-value').click(function()
+    {
+        $('.registr-window').hide();
+        $('.login-window').show();
+        $('.login-dialog').removeClass('registr-now');
+    });
+</script>

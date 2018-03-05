@@ -4,44 +4,33 @@
     Layout = null;
 }
 
-<!DOCTYPE html>
+<div class="registr-window">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        <div>
+            @Html.ValidationSummary(false)
+            <p>
+                <label>Электронный адрес</label><br />
+                @Html.EditorFor(model => model.Email)
+            </p>
+            <p>
+                <label>Имя</label><br />
+                @Html.EditorFor(model => model.Name)
+            </p>
+            <p>
+                <label>Номер телефона</label><br />
+                @Html.EditorFor(model => model.MobileNumber)
+            </p>
+            <p>
+                <label>Пароль</label><br />
+                @Html.EditorFor(x => x.Password)
+            </p>
+            <p>
+                <label>Подтвердить пароль</label><br />
+                @Html.EditorFor(x => x.ConfirmPassword)
+            </p>
+            <p><button type="submit">Зарегистрировать</button></p>
+        </div>
+    }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
-</head>
-<body>
-<h2>Регистрация</h2>
-
-@using (Html.BeginForm("Register", "Account", FormMethod.Post))
-{
-    <div>
-        @Html.ValidationSummary(false)
-        <p>
-            <label>Электронный адрес</label><br />
-            @Html.EditorFor(model => model.Email)
-        </p>
-        <p>
-            <label>Имя</label><br />
-            @Html.EditorFor(model => model.Name)
-        </p>
-        <p>
-            <label>Номер телефона</label><br />
-            @Html.EditorFor(model => model.MobileNumber)
-        </p>
-        <p>
-            <label>Пароль</label><br />
-            @Html.EditorFor(x => x.Password)
-        </p>
-        <p>
-            <label>Подтвердить пароль</label><br />
-            @Html.EditorFor(x => x.ConfirmPassword)
-        </p>
-        <p><button type="submit">Зарегистрировать</button></p>
-    </div>
-}
-
-@Html.ActionLink("Вход", "Login")
-</body>
-</html>
+</div>

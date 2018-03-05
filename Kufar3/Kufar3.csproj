@@ -288,6 +288,7 @@
     <Content Include="Images\null.jpg" />
     <Content Include="MyScripts\JQueryTest.js" />
     <Content Include="MyScripts\Pagination.js" />
+    <Content Include="MyScripts\Spinner.js" />
     <Content Include="MyScripts\StrTest1.js" />
     <Content Include="MyScripts\UploadImages.js" />
     <Content Include="MyScripts\UserImg.js" />

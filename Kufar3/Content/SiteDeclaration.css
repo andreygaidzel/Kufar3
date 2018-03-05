@@ -216,8 +216,7 @@ body.search-visible .modal {
     position: fixed;
     box-sizing: border-box;
     background-color: rgba(0,0,0,.55);
-}
-body.search-visible .modal_open {
+
     overflow: visible;
     visibility: visible;
     opacity: 1;
@@ -278,12 +277,9 @@ body.search-visible .modal_open {
 
 .search-values {
     position: relative;
-    margin-left: 5%;
-    /*border: 2px solid red;*/
-    width: 95%;
+    width: 100%;
     height: calc(100% - 97px);
     overflow-y: scroll;
-    /*max-height: 550px;*/
 }
 
     .search-values a {
@@ -295,18 +291,15 @@ body.search-visible .modal_open {
     position: relative;
     margin: 2px;
     margin-right: 1%;
-    /*border: 1px solid red;*/
     width: auto;
     height: 16px;
     color: black;
     float: right;
-    /*max-height: 550px;*/
 }
 
 #search-declaration {
     width: 95%;
     height: 80px;
-    /*border: 1px solid grey;*/
     cursor: pointer;
     margin-top: 8px;
 }
@@ -333,7 +326,6 @@ body.search-visible .modal_open {
     font-size: 10pt;
     text-decoration: none;
     padding: 0;
-    /*border: 1px solid grey;*/
 }
 
 #name-declaration {
@@ -352,15 +344,126 @@ body.search-visible .modal_open {
     float: left;
     font-size: 10pt;
     color: black;
-    /*border: 1px solid grey;*/
 }
 
 #price-search {
-    /*border: 1px solid grey;*/
     width: 100px;
     height: auto;
     margin: 0;
     float: right;
     font-size: 12pt;
     color: black;
+}
+/******************************************************************/
+
+.show-spinner:before {
+    content: '';
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url(/ContentImages/spiner.svg);
+    position: fixed;
+    width: 70px;
+    height: 70px;
+}
+
+/***************************************************login***************************************************/
+
+.login-modal {
+    background: rgba(255,255,255,.75);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    -o-transition: opacity .3s ease;
+    transition: opacity .3s ease;
+
+    position: fixed;
+    box-sizing: border-box;
+    background-color: rgba(0,0,0,.55);
+    overflow: visible;
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+
+    display: none;
+}
+
+.header .login-visible {
+        position: fixed;
+        box-sizing: border-box;
+        background-color: rgba(0,0,0,.55);
+        overflow: visible;
+        visibility: visible;
+        opacity: 1;
+        height: auto;
+    }
+
+#login {
+    cursor: pointer;
+}
+
+.registr-window {
+    display: none;
+}
+
+.login-dialog {
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    height: 380px;
+    width: 250px;
+    position: relative;
+    text-align: -webkit-center;
+
+}
+
+#login-value {
+    background: #00ac64;
+    position: relative;
+    cursor: pointer;
+    float: left;
+    height: 40px;
+    width: 50%;
+    padding-top: 17px;
+    font-size: 14pt;
+    border-top-left-radius: 10px;
+}
+
+#registration-value {
+    border-top-right-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    float: left;
+    height: 40px;
+    width: 50%;
+    background: rgb(143, 134, 134);
+    padding-top: 17px;
+    font-size: 14pt;
+}
+
+.registr-now #login-value {
+    background: rgb(143, 134, 134);
+}
+
+.registr-now #registration-value {
+    background: #00ac64;
+}
+
+.login-content {
+    float: left;
+    height: auto;
+    width: 100%;
+    background: #00ac64;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.login-window {
+    height: 150px;
+}
+
+.registr-window {
+    height: 310px;
 }

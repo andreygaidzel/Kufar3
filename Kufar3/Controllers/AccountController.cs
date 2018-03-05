@@ -79,7 +79,7 @@ namespace Authorize.Controllers
                 UserRepository.Add(user);
 
                 AuthenticationManager.SignOut();
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Index", "Home");
             }
             return View(model);
         }
