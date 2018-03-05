@@ -113,17 +113,20 @@ namespace Kufar3.Controllers
             return PartialView(RegionRepository.GetCitiesByRegionId(id));
         }
 
-        public JsonResult SearchValue(string searchWord, int curentItemsCount = 0)
+        public JsonResult SearchValue(string searchWord, int curentItemsCount = 0, SortTypes sortType = SortTypes.ByDate)
         {
-            Thread.Sleep(5000);
-
-            throw new Exception();
-
             var searchSize = 10;
+            var searchDeclarations = DeclarationRepository.SearchDeclarations(searchWord);
 
-            var searchDeclarations = DeclarationRepository.SearchDeclarations(searchWord)
-                .OrderByDescending(x => x.CreatedDate);
-
+            if (sortType == SortTypes.ByDate)
+            {
+                searchDeclarations = searchDeclarations.OrderByDescending(x => x.CreatedDate).ToList();
+            }
+            else if (sortType == SortTypes.PriceAsc)
+            {
+                searchDeclarations = searchDeclarations.OrderBy(x => x.Price).ToList();
+            }
+            
             var totalItemsCount = searchDeclarations.Count();
 
             var items = searchDeclarations
@@ -135,7 +138,7 @@ namespace Kufar3.Controllers
 
             var html = this.RenderRazorViewToString("SearchValue", items);
 
-            return Json(new { Data = html, CurentItemsCount = curentItemsCount, TotalItemsCount = totalItemsCount });
+            return Json(new {Data = html, CurentItemsCount = curentItemsCount, TotalItemsCount = totalItemsCount, SortType = sortType.ToString()});
         }
     }
 }

@@ -1,9 +1,10 @@
-﻿<div class="search">
+﻿@using Kufar3.Models
+<div class="search">
     <div class="search-img"></div>
     <input/>
 </div>
 
-<div class="modal modal_open">
+<div class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="search-block">
@@ -32,6 +33,7 @@
 
 
 <script>
+    var xhr;
     var searchDelay = (function()
     {
         var delayTimer;
@@ -49,7 +51,9 @@
         var declarationsContainer = $('.search-values');
         var curentItemsCount;
         var totalItemsCount;
+        var sortType;
         var lock = false;
+        var xhr;
 
         $('.search-x').click(function()
         {
@@ -68,9 +72,12 @@
         searchInputModal.on('keyup paste', function()
         {
             clearModal();
-            var word = searchInputModal.val();
+
             curentItemsCount = 0;
-            searchDelay(sendWord(word), 500);
+
+            abort();
+            
+            searchDelay(sendWord(), 500);
         });
 
         declarationsContainer.scroll(function()
@@ -82,10 +89,10 @@
             {
                 if (innerHeight === scrollHeight)
                     return;
-                
+
                 if (totalItemsCount > curentItemsCount)
                 {
-                    sendWord(searchInputModal.val());
+                    sendWord();
                 }
             }
         });
@@ -107,23 +114,30 @@
             declarationsContainer.find('ul li').remove();
         }
 
-        function sendWord(searchWord)
+        function sendWord()
+        {
+            send(searchInputModal.val());
+        }
+
+        function send(searchWord)
         {
             if (!lock)
             {
-                $.ajax({
+                xhr = $.ajax({
                     url: '@Url.Action("SearchValue", "Home")',
                     type: 'POST',
-                    data: { searchWord: searchWord, curentItemsCount: curentItemsCount },
+                    data: { searchWord: searchWord, curentItemsCount: curentItemsCount, sortType: sortType },
                     beforeSend: function()
                     {
                         lock = true;
+                        Spinner.toggle(declarationsContainer);
                     },
                     success: function(data)
                     {
                         declarationsContainer.find('ul').append(data.Data);
                         curentItemsCount = data.CurentItemsCount;
                         totalItemsCount = data.TotalItemsCount;
+                        sortType = data.SortType;
 
                         if (totalItemsCount === 0)
                         {
@@ -139,21 +153,33 @@
                     complete: function()
                     {
                         lock = false;
+                        Spinner.toggle(declarationsContainer);
                     }
                 });
             }
         }
 
-        $('input[type=radio][name=search]').on('change', function()
+        function abort()
         {
+            if (xhr && xhr.readyState !== 4)
+            {
+                xhr.abort();
+            }
+        }
+
+        $('.search-radio input[type=radio][name=search]').on('change', function()
+        {
+            clearModal();
             switch ($(this).val())
             {
-                case 'data':
-                    alert("data");
-                    break;
-                case 'price':
-                    alert("price");
-                    break;
+            case 'data':
+                sortType = '@SortTypes.ByDate';
+                sendWord();
+                break;
+            case 'price':
+                sortType = '@SortTypes.PriceAsc';
+                sendWord();
+                break;
             }
         });
     });
