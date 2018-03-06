@@ -53,15 +53,16 @@ namespace Kufar3.Controllers
             ViewBag.CurrentPage = page;
             ViewBag.Count = count;
             ViewBag.Declarations = items;
-            
+
             return View();
         }
-        
+
         [HttpGet]
         public ActionResult UserDeclaration(long? declarationId)
         {
             var declaration = DeclarationRepository.GetById(declarationId);
             ViewBag.Declaration = declaration;
+            
 
             var countEmptyImages = 6 - declaration.Images.Count;
             for (var i = 0; i < countEmptyImages; i++)
@@ -96,7 +97,7 @@ namespace Kufar3.Controllers
         public ActionResult AccountEdit()
         {
             var model = UserRepository.GetById(UserId);
-            ViewBag.Template = DirectoryTypes.PersonalSettings;
+            ViewBag.Directory = DirectoryTypes.PersonalSettings;
 
             return View(model);
         }
@@ -105,7 +106,7 @@ namespace Kufar3.Controllers
         public ActionResult AccountEdit(User model)
         {
             UserRepository.Edit(model);
-            ViewBag.Template = DirectoryTypes.PersonalSettings;
+            ViewBag.Directory = DirectoryTypes.PersonalSettings;
 
             return View();
         }

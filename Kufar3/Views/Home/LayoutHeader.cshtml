@@ -1,10 +1,13 @@
-﻿@using Kufar3.Models
+﻿@using System.Web.Mvc.Html
+@using Kufar3.Models
+@using Kufar3.ModelsView
 @{
     var isAuthenticated = (bool) ViewBag.IsAuthenticated;
     var userName = (string) ViewBag.UserName;
     var userRole = (UserRoles) ViewBag.UserRole;
     var url1 = "Login";
     var url2 = "Account";
+
 }
 
 <div class="header">
@@ -17,20 +20,26 @@
     @Html.Partial("~/Views/Home/SearchPage.cshtml")
 
     <div class="user">
-        @if (userRole == UserRoles.Admin || userRole == UserRoles.Moderator)
-        {
-            @Html.ActionLink("Adminka", "Index", "Admin")
-        }
         @if (isAuthenticated)
         {
+            @*@Html.ActionLink("Выход", "Logout", "Account")*@
             url1 = "AddDeclaration";
             url2 = "Declaration";
-            @Html.ActionLink(userName, "MyDeclarations", "Personal")
-        }
-
-        @if (isAuthenticated)
-        {
-            @Html.ActionLink("Выход", "Logout", "Account")
+            <a class="user-name">@userName</a>
+            <div class="icon-menu">
+                <ul class="main-menu">
+                    @if (userRole == UserRoles.Admin || userRole == UserRoles.Moderator)
+                    {
+                        <li>@Html.ActionLink("Adminka", "Index", "Admin", null, new { @id = "admin-menu" })</li>
+                    }
+                    <li>@Html.ActionLink("Мои объявления", "MyDeclarations", "Personal", null, new {@id = "my-declarations" })</li>
+                <li>
+                    <a href id="messages">Мои сообщения</a>
+                </li>
+                <li>@Html.ActionLink("Настройки", "AccountEdit", "Personal", null, new { @id = "settings" })</li>
+                <li>@Html.ActionLink("Выход", "Logout", "Account", null, new { @id = "exit" })</li>
+                </ul>
+            </div>
         }
         else
         {
@@ -38,6 +47,11 @@
         }
 
     </div>
+    @*@if (isAuthenticated)
+        {
+            
+        }*@
+
     <div class="login-modal">
         <div class="login-dialog">
             <div class="login-non-click">
@@ -49,8 +63,8 @@
                 </div>
 
                 <div class="login-content">
-                    @Html.Partial("~/Views/Account/Login.cshtml")
-                    @Html.Partial("~/Views/Account/Register.cshtml")
+                    @Html.Partial("~/Views/Account/Login.cshtml", new LoginModel())
+                    @Html.Partial("~/Views/Account/Register.cshtml", new RegisterModel())
                 </div>
             </div>
         </div>
@@ -61,6 +75,11 @@
 </div>
 
 <script>
+    $(document).on('click', function()
+    {
+        console.log("BLA")
+    })
+
     $('#login').click(function()
         {
             $('.login-modal').show();
@@ -91,4 +110,26 @@
         $('.login-window').show();
         $('.login-dialog').removeClass('registr-now');
     });
+
+    /*************************************************************/
+    $('.user-name').click(function()
+    {
+        $('.icon-menu').show();
+        console.log('show');
+        setTimeout(() => $(document).on('click', handler));
+    });
+
+    function handler(event)
+    {
+        console.log("2");
+        if (!$(event.target).closest('.icon-menu').length)
+        {
+            if ($('.icon-menu').is(":visible"))
+            {
+                $('.icon-menu').hide();
+                $(document).off('click', handler);
+            }
+        }
+    };
+
 </script>

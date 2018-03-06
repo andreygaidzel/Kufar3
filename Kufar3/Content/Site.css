@@ -49,17 +49,15 @@ body {
     letter-spacing: 1px;
 }
 
-.user {
+#login {
     float: right;
-    margin-top: 10px;
-    color: azure;
-    text-decoration: none;
-}
-
-.user a {
+    margin-top: 18px;
     color: azure;
     border: 2px solid rgb(249, 251, 248);
     text-decoration: none;
+    padding: 6px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 :focus { outline: none; }

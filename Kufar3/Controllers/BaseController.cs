@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Web;
@@ -24,8 +25,9 @@ namespace Kufar3.Controllers
         private IPrincipal Principal => System.Web.HttpContext.Current.User;
         public int UserId => Principal.Identity.GetUserId<int>();
         public bool IsAuthenticated => Principal.Identity.IsAuthenticated;
-        public string UserName => Principal.Identity.Name;
+        public string UserEmail => Principal.Identity.Name;
         public UserRoles UserRole => Principal.Identity.GetClaimRole();
+        public string UserName;
 
         public BaseController()
         {
@@ -34,6 +36,11 @@ namespace Kufar3.Controllers
             CategoryRepository = new CategoryRepository();
             RegionRepository = new RegionRepository();
             ImageRepository = new ImageRepository();
+            if (UserEmail != String.Empty)
+            {
+                UserName = UserRepository.GetByEmail(UserEmail).Name;
+            }
+            
             ViewBags();
         }
 

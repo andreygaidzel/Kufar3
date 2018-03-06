@@ -21,7 +21,8 @@ namespace Kufar3.Repositories
 
         public User GetByEmail(string email)
         {
-            return Context.Users.FirstOrDefault(x => x.Email == email);
+            var res = Context.Users.FirstOrDefault(x => x.Email == email);
+            return res;
         }
 
         public User GetBy(string email, string password)

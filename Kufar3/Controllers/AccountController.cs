@@ -20,7 +20,7 @@ namespace Authorize.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {

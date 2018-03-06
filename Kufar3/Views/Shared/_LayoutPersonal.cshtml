@@ -1,4 +1,5 @@
 ﻿@using Kufar3.Models
+
 @{
     var myDeclarations = string.Empty;
     var mySettings = string.Empty;
@@ -13,37 +14,35 @@
         mySettings = "menu-light";
     }
 }
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/scroll.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
+    <link href="~/Content/scroll.css" rel="stylesheet"/>
     <script src="~/Scripts/jquery-3.2.1.min.js"></script>
-    <link href="~/Content/SiteDeclaration.css" rel="stylesheet" />
+    <link href="~/Content/SiteDeclaration.css" rel="stylesheet"/>
     <script src="~/MyScripts/Pagination.js"></script>
 </head>
 <body>
-    @Html.Partial("~/Views/Home/LayoutHeader.cshtml")
-    <div class="container">
-        <div class="side">
-            <ul class="main-menu">
-                <li>@Html.ActionLink("Мои объявления", "MyDeclarations", "Personal", null, new { @class = myDeclarations })</li>
-                <li>
-                    <a>Мои сообщения</a>
-                </li>
-                <li>@Html.ActionLink("Настройки", "AccountEdit", "Personal", null, new { @class = mySettings })</li>
-                <li>@Html.ActionLink("Выход", "Logout", "Account")</li>
-            </ul>
-        </div>
-        <div class="content">
-            <div class="content-holder">
-                @RenderBody()
-            </div>
+@Html.Partial("~/Views/Home/LayoutHeader.cshtml")
+<div class="container">
+    <div class="side">
+        <ul class="main-menu">
+            <li>@Html.ActionLink("Мои объявления", "MyDeclarations", "Personal", null, new { @class = myDeclarations })</li>
+            <li><a>Мои сообщения</a></li>
+            <li>@Html.ActionLink("Настройки", "AccountEdit", "Personal", null, new { @class = mySettings })</li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="content-holder">
+            @RenderBody()
         </div>
     </div>
-    <script src="~/MyScripts/UserImg.js"></script>
+</div>
+<script src="~/MyScripts/UserImg.js"></script>
 </body>
 </html>
