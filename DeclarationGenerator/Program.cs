@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using Common;
@@ -45,7 +47,10 @@ namespace DeclarationGenerator
             }
 
             DatabaseMigrator.Initialize();
-            Context.Users.Add(new User()); // TODO: пофиксить
+
+            var model = new User(); // TODO: пофиксить
+            Context.Users.Add(model); // TODO: пофиксить
+            Context.Entry(model).State = EntityState.Detached; // TODO: пофиксить
 
             Console.WriteLine("Database created.");
         }
@@ -59,7 +64,7 @@ namespace DeclarationGenerator
 
         private static void Start()
         {
-            const int declarationCount = 1000;
+            const int declarationCount = 400;
 
             Console.WriteLine("<Download Declarations>");
 
@@ -74,7 +79,25 @@ namespace DeclarationGenerator
             //EFBatchOperation.For(Context, Context.Declarations).InsertAll(declarations);
 
             Context.Declarations.AddRange(declarations);
-            Context.SaveChanges();
+            try
+            {
+                Context.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+
 
             Console.WriteLine("\n__Done");
         }

@@ -15,19 +15,19 @@
 
             <p>
                 <label>Электронный адрес</label><br />
-                @Html.EditorFor(x => x.Email)
+                @Html.TextBoxFor(x => x.Email, null, new { id = "EmailChange", type = "Email" })
             </p>
             <p>
                 <label>Имя</label><br />
-                @Html.EditorFor(model => model.Name)
+                @Html.TextBoxFor(model => model.Name, null, new { id = "NameChange"})
             </p>
             <p>
                 <label>Номер телефона</label><br />
-                @Html.EditorFor(model => model.MobileNumber)
+                @Html.TextBoxFor(model => model.MobileNumber, null, new { id = "NumberChange"})
             </p>
             <p>
                 <label>Пароль</label><br />
-                @Html.EditorFor(x => x.Password)
+                @Html.TextBoxFor(x => x.Password, null, new { id = "PassChange", type = "password" })
             </p>
             <p>
                 <button type="submit">Изменить</button>

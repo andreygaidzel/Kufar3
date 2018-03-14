@@ -1,20 +1,28 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var title = ViewBag.Title;
-    var sortList = (SelectList) ViewBag.SortList;
+    var sortList = (SelectList)ViewBag.SortList;
+    var regionsList = (SelectList)ViewBag.Regions;
+    var citiesList = (SelectList)ViewBag.Cities;
 }
-
+<div class="content">
 <div class="content-holder">
-    <br/>
-    Сортировать 
-    @Html.DropDownList("Value", sortList, new {id = "Sort"})
     <p class="nameD">
         <b>@title</b>
     </p>
 </div>
 
-@Html.Partial("~/Views/Declaration/DeclarationShow.cshtml")
+<div class="region">
+    Сортировать
+    @Html.DropDownList("Value", sortList, new { id = "Sort" })
+    &nbsp;Область:
+    @Html.DropDownList("Regions", regionsList, new { id = "RegionId" })
+    &nbsp;Город:
+    @Html.DropDownList("City", citiesList, new { id = "CityId" })
+</div>
 
+@Html.Partial("~/Views/Declaration/DeclarationShow.cshtml")
+</div>
 <script>
     $(function()
     {
@@ -38,6 +46,34 @@
                 currentUrl += `?sortType=${sortType}`;
             }
             window.location = currentUrl;
+        });
+    });
+
+    $(function()
+    {
+        $('#RegionId').change(function()
+        {
+            var region = $(this).val();
+            console.log(region);
+
+            // получаем выбранный id
+            var id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetCities", "Home")/' + id,
+                success: function(data)
+                {
+                    // заменяем содержимое присланным частичным представлением
+                    $('#CityId').replaceWith(data);
+                }
+            });
+        });
+
+        $('#CityId').change(function()
+        {
+            var cityId = $(this).val();
+            console.log("ddd");
+            console.log(cityId);
         });
     });
 </script>

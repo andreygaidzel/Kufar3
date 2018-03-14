@@ -112,10 +112,10 @@ var imagesService = {
     }
 }
 
-$("#all-images img").click(function() // клик на диф фотки
+$("#all-images").click(function() // клик на диф фотки
 {
     var num = $('#all-images img').index(this);
-
+    console.log("f");
     if (dataImages[num].path === null)
     {
         $('#files').trigger('click');

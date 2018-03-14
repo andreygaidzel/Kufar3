@@ -17,5 +17,10 @@ namespace Kufar3.Repositories
         {
             return Context.Regions.ToList();
         }
+
+        public long GetRegionIdByCityyId(long? id)
+        {
+            return Context.Cities.First(x => x.Id == id).RegionId;
+        }
     }
 }

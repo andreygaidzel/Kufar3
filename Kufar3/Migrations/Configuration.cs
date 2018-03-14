@@ -23,7 +23,7 @@ namespace Kufar3.Migrations
                     Email = "admin@gmail.com",
                     Name = "Иван",
                     MobileNumber = "+375255212343",
-                    Password = "123",
+                    Password = "123456",
                     Role = UserRoles.Admin
                 });
 
@@ -32,7 +32,7 @@ namespace Kufar3.Migrations
                     Email = "moderator@gmail.com",
                     Name = "Роман",
                     MobileNumber = "+375255212883",
-                    Password = "12345",
+                    Password = "123456",
                     Role = UserRoles.Moderator
                 });
 

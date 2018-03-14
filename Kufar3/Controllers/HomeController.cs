@@ -37,6 +37,8 @@ namespace Kufar3.Controllers
             var query = DeclarationRepository.GetDeclarationsByDeclarationType(DeclarationTypes.Active);
             int pageSize = 5; // количество элементов на странице 
 
+            InitDropDownItems();
+
             if (idCategory != null)
             {
                 query = query.Where(x => x.SubCategory.CategoryId == idCategory);
@@ -91,15 +93,16 @@ namespace Kufar3.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Declarations(int? idCategory, int? idSubCategory)
-        {
-            return RedirectToAction("Index", new {idCategory, idSubCategory});
-        }
+        //[HttpGet]
+        //public ActionResult Declarations(int? idCategory, int? idSubCategory)
+        //{
+        //    return RedirectToAction("Index", new {idCategory, idSubCategory});
+        //}
 
         public ActionResult Declaration(int? declarationId)
         {
             var declaration = DeclarationRepository.GetById(declarationId);
+            ViewBag.Directory = DirectoryTypes.Declaration;
             return View(declaration);
         }
 

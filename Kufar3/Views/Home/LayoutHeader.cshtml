@@ -47,10 +47,6 @@
         }
 
     </div>
-    @*@if (isAuthenticated)
-        {
-            
-        }*@
 
     <div class="login-modal">
         <div class="login-dialog">
@@ -75,10 +71,6 @@
 </div>
 
 <script>
-    $(document).on('click', function()
-    {
-        console.log("BLA")
-    })
 
     $('#login').click(function()
         {
@@ -115,13 +107,11 @@
     $('.user-name').click(function()
     {
         $('.icon-menu').show();
-        console.log('show');
         setTimeout(() => $(document).on('click', handler));
     });
 
     function handler(event)
     {
-        console.log("2");
         if (!$(event.target).closest('.icon-menu').length)
         {
             if ($('.icon-menu').is(":visible"))

@@ -18,38 +18,45 @@ namespace Kufar3.Controllers
         public ActionResult AddDeclaration()
         {
             InitDropDownItems();
+            ViewBag.Directory = DirectoryTypes.Home;
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult AddDeclaration(DeclarationModel declaration)
+        public ActionResult AddDeclaration( DeclarationModel declaration)
         {
-            var newDeclaration = new Declaration
+            ViewBag.Directory = DirectoryTypes.Home;
+            InitDropDownItems(CategoryRepository.GetCategoryIdBySubCategoryId(declaration.SubCategoryId), RegionRepository.GetRegionIdByCityyId(declaration.CityId));
+            if (ModelState.IsValid)
             {
-                Name = declaration.Name,
-                Description = declaration.Description,
-                SubCategoryId = declaration.SubCategoryId,
-                Type = DeclarationTypes.OnModeration,
-                UserId = UserId,
-                CityId = declaration.CityId,
-            };
-
-            DeclarationRepository.Add(newDeclaration);
-
-            foreach (var img in declaration.Images)
-            {
-                if (!string.IsNullOrEmpty(img))
+                var newDeclaration = new Declaration
                 {
-                    ImageRepository.Add(new Image
+                    Name = declaration.NameD,
+                    Description = declaration.Description,
+                    SubCategoryId = declaration.SubCategoryId,
+                    Type = DeclarationTypes.OnModeration,
+                    UserId = UserId,
+                    CityId = declaration.CityId,
+                };
+
+                DeclarationRepository.Add(newDeclaration);
+
+                foreach (var img in declaration.Images)
+                {
+                    if (!string.IsNullOrEmpty(img))
                     {
-                        Name = img,
-                        DeclarationId = newDeclaration.Id,
-                    });
+                        ImageRepository.Add(new Image
+                        {
+                            Name = img,
+                            DeclarationId = newDeclaration.Id,
+                        });
+                    }
                 }
+                return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction("AddDeclaration");
+            return View(declaration);
         }
 
         [HttpPost]
@@ -77,6 +84,7 @@ namespace Kufar3.Controllers
                     }
                 }
             }
+
             return Json(imag);
         }
 

@@ -16,33 +16,35 @@
 
 <div class="all-elements">
     <div class="foto">
-        <button id="left-button"><</button>
-        <button id="right-button">></button>
-        <img src="@Model.Images.First().Name" alt="No img" />
+        <img src="../../ContentImages/chevron-sign-left.svg" id="left-button">
+        <img src="../../ContentImages/right-arrowhead-in-a-circle.svg" id="right-button">
+        <img src="@Model.Images.First().Name" alt="No img" id="declaration-img" />
     </div>
     <div class="contacts">
+        <b class="price-decl">Цена: @Model.Price р.</b><br /><br />
         <b>@Model.Name</b><br /><br />
-        <b>Область:&nbsp;</b>@region <br />
-        <b>Город:&nbsp;</b>@Model.City.Name <br /><br />
-        <b>Имя продавца:&nbsp;</b>@Model.User.Name <br />
-        <b>Телефон:&nbsp;</b>@Model.User.MobileNumber<br />
+        
+        Контактное лицо:&nbsp;@Model.User.Name <br />
+        Телефон:&nbsp;@Model.User.MobileNumber<br />
         <br />
+        Область:&nbsp;@region <br />
+        Город:&nbsp;@Model.City.Name <br /><br />
+    </div>
+    <div class="all-foto">
+        @foreach (var image in Model.Images)
+        {
+            var path = image.Name;
+            <img src="@path" alt="No img" />
+        }
     </div>
 </div>
-
-<div class="all-foto">
-    @foreach (var image in Model.Images)
-    {
-        var path = image.Name;
-        <img src="@path" alt="No img" />
-    }
-</div>
+   
 <div id="description">
     <br />
     <b>Категория:&nbsp;</b>@category <br />
     <b>Подкатегория:&nbsp;</b>@Model.SubCategory.Name
     <br /><br />
-    <b>Цена:&nbsp;</b><b>Договорная</b><br />
+    <b>Цена:&nbsp;</b><b class="price-decl">@Model.Price р.</b><br />
     <br />
     <b>Описание:&nbsp;</b>@Model.Description <br />
 </div>
@@ -77,7 +79,7 @@
 
         function button() {
             var elem = $(array[i]).attr('src');
-            $('.foto img').attr('src', elem);
+            $('#declaration-img').attr('src', elem);
             $(`.all-foto img`).removeClass('img-light');
             $(`.all-foto img:eq(${i})`).addClass('img-light');
         };

@@ -1,17 +1,15 @@
 ﻿@using Kufar3.Models
-<div class="search">
-    <div class="search-img"></div>
-    <input/>
-</div>
+
+    <input class="search"/>
+
 
 <div class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="search-block">
-                <div class="modal-search">
-                    <div class="search-img"></div>
-                    <input/>
-                </div>
+
+                    <input class="modal-search"/>
+
                 <div class="search-x"></div>
                 <div class="search-radio">
                     По дате:
@@ -46,8 +44,8 @@
 
     $(function()
     {
-        var searchInputModal = $(".modal-search input");
-        var searchInput = $(".search input");
+        var searchInputModal = $(".modal-search");
+        var searchInput = $(".search");
         var declarationsContainer = $('.search-values');
         var curentItemsCount;
         var totalItemsCount;

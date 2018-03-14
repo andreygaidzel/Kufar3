@@ -5,6 +5,7 @@
         Home,
         PersonalDeclarations,
         PersonalSettings,
-        Moderator
+        Moderator,
+        Declaration
     }
 }

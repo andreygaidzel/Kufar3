@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
@@ -37,10 +38,15 @@ namespace Kufar3.Models
 
     public class User : EntityBase
     {
+        [Required]
         public string Email { get; set; }
+        [Required]
         public string Password { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string MobileNumber { get; set; }
+        [Required]
         public UserRoles Role { get; set; }
         public virtual List<Declaration> Declarations { get; set; }
     }
@@ -79,9 +85,12 @@ namespace Kufar3.Models
 
     public class Declaration : EntityBase
     {
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Description { get; set; }
         public DeclarationTypes Type { get; set; }
+        [Required]
         public int Price { get; set; }
 
         [ForeignKey(nameof(SubCategory))]
@@ -100,6 +109,7 @@ namespace Kufar3.Models
 
     public class Image : EntityBase
     {
+        [Required]
         public string Name { get; set; }
 
         [ForeignKey(nameof(Declaration))]

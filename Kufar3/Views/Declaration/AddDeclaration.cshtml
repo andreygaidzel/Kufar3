@@ -8,75 +8,81 @@
     var regions = (SelectList) ViewBag.Regions;
     var cities = (SelectList) ViewBag.Cities;
 }
+<div class="content">
+    <h2>Выберите изображения</h2>
 
-<h2>Выберите изображения</h2>
+    <div id="all-images">
+        @for (var i = 1; i < 7; i++)
+        {
+            <div class="image" id="img-@i">
+                <button>X</button>
+                <img/>
+            </div>
+        }
+    </div>
 
-<div id="all-images">
-    @for (var i = 1; i < 7; i++)
+    <input hidden class="file-input-hidden" type="file" id="files" name="files" multiple/>
+
+    @using (Html.BeginForm("AddDeclaration", "Declaration", FormMethod.Post))
     {
-        <div class="image" id="img-@i">
-            <button>X</button>
-            <img/>
-        </div>
+        @Html.HiddenFor(x => x.Images[0], new {id = "formId0"})
+        @Html.HiddenFor(x => x.Images[1], new {id = "formId1"})
+        @Html.HiddenFor(x => x.Images[2], new {id = "formId2"})
+        @Html.HiddenFor(x => x.Images[3], new {id = "formId3"})
+        @Html.HiddenFor(x => x.Images[4], new {id = "formId4"})
+        @Html.HiddenFor(x => x.Images[5], new {id = "formId5"})
+        <br/>
+        <table>
+            <tr>
+                <td>
+                    <p>Раздел:</p>
+                </td>
+                <td>@Html.DropDownList("Category", categories, new {id = "Category"})</td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Подраздел:</p>
+                </td>
+                <td>@Html.DropDownListFor(x => x.SubCategoryId, subCategories, new {id = "SubCategoryId"})</td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Область:</p>
+                </td>
+                <td>@Html.DropDownList("Region", regions, new {id = "Region"})</td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Город:</p>
+                </td>
+                <td>@Html.DropDownListFor(x => x.CityId, cities, new {id = "CityId"})</td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Название:</p>
+                </td>
+                <td>
+                    @Html.TextBoxFor(x => x.NameD)
+                    @Html.ValidationMessageFor(x => x.NameD)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Описание:</p>
+                </td>
+                <td>@Html.TextAreaFor(x => x.Description, new {style = "height: 80px; width: 350px; font-size:12px; "})
+                    @Html.ValidationMessageFor(x => x.Description)
+                </td>
+            </tr>
+            <tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Отправить"/>
+                </td>
+            </tr>
+        </table>
     }
 </div>
-
-<input hidden class="file-input-hidden" type="file" id="files" name="files" multiple/>
-
-@using (Html.BeginForm("AddDeclaration", "Declaration", FormMethod.Post))
-{
-    @Html.HiddenFor(x => x.Images[0], new {id = "formId0"})
-    @Html.HiddenFor(x => x.Images[1], new {id = "formId1"})
-    @Html.HiddenFor(x => x.Images[2], new {id = "formId2"})
-    @Html.HiddenFor(x => x.Images[3], new {id = "formId3"})
-    @Html.HiddenFor(x => x.Images[4], new {id = "formId4"})
-    @Html.HiddenFor(x => x.Images[5], new {id = "formId5"})
-
-    <table>
-        <tr>
-            <td>
-                <p>Раздел:</p>
-            </td>
-            <td>@Html.DropDownList("Category", categories, new {id = "Category"})</td>
-        </tr>
-        <tr>
-            <td>
-                <p>Подраздел:</p>
-            </td>
-            <td>@Html.DropDownListFor(x => x.SubCategoryId, subCategories, new {id = "SubCategoryId"})</td>
-        </tr>
-        <tr>
-            <td>
-                <p>Область:</p>
-            </td>
-            <td>@Html.DropDownList("Region", regions, new {id = "Region"})</td>
-        </tr>
-        <tr>
-            <td>
-                <p>Город:</p>
-            </td>
-            <td>@Html.DropDownListFor(x => x.CityId, cities, new {id = "CityId"})</td>
-        </tr>
-        <tr>
-            <td>
-                <p>Название:</p>
-            </td>
-            <td>@Html.TextBoxFor(x => x.Name)</td>
-        </tr>
-        <tr>
-            <td>
-                <p>Описание:</p>
-            </td>
-            <td>@Html.TextAreaFor(x => x.Description, new {style = "height: 80px; width: 350px; font-size:12px; "})</td>
-        </tr>
-        <tr>
-        <tr>
-            <td>
-                <input type="submit" value="Отправить"/>
-            </td>
-        </tr>
-    </table>
-}
 
 <script type="text/javascript">
     $(function()

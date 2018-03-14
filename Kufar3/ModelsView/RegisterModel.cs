@@ -9,18 +9,26 @@ namespace Kufar3.ModelsView
 {
     public class RegisterModel
     {
-        [Required]
         [EmailAddress]
+        [Required(ErrorMessage = "Заполните поле")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [StringLength(15, MinimumLength = 3, ErrorMessage = "Имя должно быть от 3 до 15 символов")]
+        [Required(ErrorMessage = "Заполните поле")]
+        [Display(Name = "Имя")]
         public string Name { get; set; }
 
-        [Required]
+        [RegularExpression(@"[0-9._%+-]", ErrorMessage = "Некорректный номер")]
+        [StringLength(15, MinimumLength = 6, ErrorMessage = "Поле должно быть от 6 до 15 символов")]
+        [Required(ErrorMessage = "Заполните поле")]
+        [Display(Name = "Номер")]
         public string MobileNumber { get; set; }
 
-        [Required]
         [DataType(DataType.Password)]
+        [StringLength(12, MinimumLength = 6, ErrorMessage = "Пароль должен быть от 6 до 12 символов")]
+        [Required(ErrorMessage = "Заполните поле")]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]

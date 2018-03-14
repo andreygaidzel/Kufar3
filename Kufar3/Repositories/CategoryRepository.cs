@@ -27,5 +27,10 @@ namespace Kufar3.Repositories
         {
             return Context.Categories;
         }
+
+        public long GetCategoryIdBySubCategoryId(long? id)
+        {
+            return Context.SubCategories.First(x => x.Id == id).CategoryId;
+        }
     }
 }

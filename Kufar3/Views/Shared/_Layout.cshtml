@@ -1,52 +1,33 @@
-﻿<!DOCTYPE html>
+﻿@using Kufar3.Models
+@{
+    var directoryType = (DirectoryTypes) ViewBag.Directory;
+}
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/scroll.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
+    <link href="~/Content/scroll.css" rel="stylesheet"/>
     <script src="~/Scripts/jquery-3.2.1.min.js"></script>
-    <link href="~/Content/SiteDeclaration.css" rel="stylesheet" />
+    <link href="~/Content/SiteDeclaration.css" rel="stylesheet"/>
     <script src="~/MyScripts/Pagination.js"></script>
     <script src="~/MyScripts/UploadImages.js"></script>
     <script src="~/MyScripts/Spinner.js"></script>
 </head>
 
-<body @*class="search-visible"*@>
-    @Html.Partial("~/Views/Home/LayoutHeader.cshtml")
-    <div class="region">
-        <b>Область:</b>
-    </div>
-    <div class="container">
+<body>
+@Html.Partial("~/Views/Home/LayoutHeader.cshtml")
+<div class="container">
+
+    @if (directoryType != DirectoryTypes.Declaration)
+    {
         <div class="menu">
             @Html.Action("MenuLeft", "Home")
         </div>
-        <div class="content">
-            @RenderBody()
-        </div>
-    </div>
-    
+    }
+    @RenderBody()
+</div>
 </body>
 </html>
-
-<script type="text/javascript">
-    $(function()
-    {
-        $('#Region').change(function()
-        {
-            // получаем выбранный id
-            var id = $(this).val();
-            $.ajax({
-                type: 'GET',
-                url: '@Url.Action("GetCities", "Home")/' + id,
-                success: function(data)
-                {
-                    console.log("vernulllCity", data);
-                    // заменяем содержимое присланным частичным представлением
-                    $('#CityId').replaceWith(data);
-                }
-            });
-        });
-    });
-</script>
