@@ -26,23 +26,26 @@
     <script src="~/Scripts/jquery-3.2.1.min.js"></script>
     <link href="~/Content/SiteDeclaration.css" rel="stylesheet"/>
     <script src="~/MyScripts/Pagination.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/script-custom-validator.js"></script>
 </head>
 <body>
-@Html.Partial("~/Views/Home/LayoutHeader.cshtml")
-<div class="container">
-    <div class="side">
-        <ul class="main-menu">
-            <li>@Html.ActionLink("Мои объявления", "MyDeclarations", "Personal", null, new { @class = myDeclarations })</li>
-            <li><a>Мои сообщения</a></li>
-            <li>@Html.ActionLink("Настройки", "AccountEdit", "Personal", null, new { @class = mySettings })</li>
-        </ul>
-    </div>
-    <div class="content">
-        <div class="content-holder">
-            @RenderBody()
+    @Html.Partial("~/Views/Home/LayoutHeader.cshtml")
+    <div class="container">
+        <div class="side">
+            <ul class="main-menu">
+                <li>@Html.ActionLink("Мои объявления", "MyDeclarations", "Personal", null, new { @class = myDeclarations })</li>
+                <li><a>Мои сообщения</a></li>
+                <li>@Html.ActionLink("Настройки", "AccountEdit", "Personal", null, new { @class = mySettings })</li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="content-holder">
+                @RenderBody()
+            </div>
         </div>
     </div>
-</div>
-<script src="~/MyScripts/UserImg.js"></script>
+    <script src="~/MyScripts/UserImg.js"></script>
 </body>
 </html>

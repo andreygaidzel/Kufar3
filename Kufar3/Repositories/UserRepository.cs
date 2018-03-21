@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Web;
+using Kufar3.Controllers;
 using Kufar3.Helpers;
 using Kufar3.Models;
 
@@ -61,14 +64,14 @@ namespace Kufar3.Repositories
             Context.SaveChanges();
         }
 
-        public void Edit(User model)
+        public void Edit(User model, HttpPostedFileBase file)
         {
             var user = Context.Users.First(x => x.Id == model.Id);
-
             user.Email = model.Email;
             user.Name = model.Name;
             user.MobileNumber = model.MobileNumber;
             user.Password = model.Password;
+            user.Icon = FilesHelper.ConvertImageinByte(file);
 
             Context.SaveChanges();
         }
@@ -78,6 +81,13 @@ namespace Kufar3.Repositories
             var user = Context.Users.First(x => x.Id == id);
             user.Role = role.StringToEnumRole();
             Context.SaveChanges();
+        }
+
+        public string GetAvatar(long id)
+        {
+            var avatar = Context.Users.First(x => x.Id == id).Icon;
+
+            return FilesHelper.ConvertByteToImage(avatar);
         }
     }
 }

@@ -98,15 +98,21 @@ namespace Kufar3.Controllers
         {
             var model = UserRepository.GetById(UserId);
             ViewBag.Directory = DirectoryTypes.PersonalSettings;
+            ViewBag.Avatar = UserRepository.GetAvatar(UserId);
 
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult AccountEdit(User model)
+        public ActionResult AccountEdit(User model, HttpPostedFileBase file)
         {
-            UserRepository.Edit(model);
+            if (file != null)
+            {
+                UserRepository.Edit(model, file);
+            }
+            
             ViewBag.Directory = DirectoryTypes.PersonalSettings;
+            ViewBag.Avatar = UserRepository.GetAvatar(UserId);
 
             return View();
         }

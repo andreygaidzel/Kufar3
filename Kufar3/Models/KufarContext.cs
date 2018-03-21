@@ -46,6 +46,7 @@ namespace Kufar3.Models
         public string Name { get; set; }
         [Required]
         public string MobileNumber { get; set; }
+        public byte[] Icon { get; set; }
         [Required]
         public UserRoles Role { get; set; }
         public virtual List<Declaration> Declarations { get; set; }

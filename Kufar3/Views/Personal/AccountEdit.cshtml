@@ -5,34 +5,44 @@
     Layout = "~/Views/Shared/_LayoutPersonal.cshtml";
 }
 
-<div class="container">
+<div class="contain">
     <h2>Персональные данные</h2>
-    @using (Html.BeginForm("AccountEdit", "Personal", FormMethod.Post))
+    @using (Html.BeginForm("AccountEdit", "Personal", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div>
             @Html.ValidationSummary(false)
             @Html.HiddenFor(x => x.Id)
 
+            <input type="file" id="files" name="file" />
             <p>
                 <label>Электронный адрес</label><br />
                 @Html.TextBoxFor(x => x.Email, null, new { id = "EmailChange", type = "Email" })
             </p>
             <p>
                 <label>Имя</label><br />
-                @Html.TextBoxFor(model => model.Name, null, new { id = "NameChange"})
+                @Html.TextBoxFor(model => model.Name, null, new { id = "NameChange" })
             </p>
             <p>
                 <label>Номер телефона</label><br />
-                @Html.TextBoxFor(model => model.MobileNumber, null, new { id = "NumberChange"})
+                @Html.TextBoxFor(model => model.MobileNumber, null, new { id = "NumberChange" })
             </p>
             <p>
                 <label>Пароль</label><br />
                 @Html.TextBoxFor(x => x.Password, null, new { id = "PassChange", type = "password" })
             </p>
             <p>
-                <button type="submit">Изменить</button>
+                <button id="click-edit" type="submit">Изменить</button>
             </p>
         </div>
     }
 </div>
+<div id="user-avatar"></div>
 
+<script>
+    //$('#user-avatar').click(function()
+    //{
+        var avatar = '@ViewBag.Avatar';
+    $('#user-avatar').css("background-image", `url(${avatar})`);
+    $('#user-avatar').css("background-size", `auto 200px`);
+    //});
+</script>

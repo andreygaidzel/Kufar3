@@ -1,23 +1,51 @@
-﻿@model Kufar3.ModelsView.LoginModel
+﻿@using System.Web.Optimization
+@model Kufar3.ModelsView.LoginModel
 
 @{
     Layout = null;
 }
 
 <div class="login-window">
-    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @id = "registerFormId", @class = "form-horizontal", role = "form" }))
     {
-        <div>
-            @Html.ValidationSummary()
-            <p>
-                <label>Email</label><br />
-                @Html.TextBoxFor(x => x.Email, null,  new {id = "EmailLog", type = "Email"})
-            </p>
-            <p>
-                <label>Пароль</label><br />
-                @Html.TextBoxFor(x => x.Password, null, new {id = "PassLog", type = "password"})
-            </p>
-            <p><button type="submit">Войти</button></p>
+        HtmlHelper.UnobtrusiveJavaScriptEnabled = false;
+
+        @Html.ValidationSummary()
+        @*<div>*@ @*<p>
+                    <label>Email</label><br />
+                    @Html.TextBoxFor(x => x.Email, null, new { id = "EmailLog", type = "Email" })
+                </p>
+                <p>
+                    <label>Пароль</label><br />
+                    @Html.TextBoxFor(x => x.Password, null, new { id = "PassLog", type = "password" })
+                </p>
+                <p><button type="submit">Войти</button></p>
+            </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", id = "EmailLog", type = "Email", name="Email" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger  " })
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "PassLog", type = "password" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger " })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" />
+            </div>
         </div>
     }
 </div>
+<script src="~/Scripts/script-custom-validator.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
